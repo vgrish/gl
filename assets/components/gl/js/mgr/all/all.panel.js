@@ -15,16 +15,6 @@ gl.panel.All = function(config) {
             border: true,
             hideMode: 'offsets',
             items: [{
-                title: _('gl_cities'),
-                layout: 'anchor',
-                items: [{
-                    html: _('gl_cities_intro'),
-                    cls: 'panel-desc'
-                }, {
-                   // xtype: 'gl-grid-all',
-                    cls: 'main-wrapper'
-                }]
-            }, {
                 title: _('gl_regions'),
                 layout: 'anchor',
                 items: [{
@@ -32,6 +22,16 @@ gl.panel.All = function(config) {
                     cls: 'panel-desc'
                 }, {
                     //xtype: 'gl-grid-all-log',
+                    cls: 'main-wrapper'
+                }]
+            }, {
+                title: _('gl_cities'),
+                layout: 'anchor',
+                items: [{
+                    html: _('gl_cities_intro'),
+                    cls: 'panel-desc'
+                }, {
+                    // xtype: 'gl-grid-all',
                     cls: 'main-wrapper'
                 }]
             }]
