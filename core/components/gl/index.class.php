@@ -27,16 +27,6 @@ abstract class glMainController extends modExtraManagerController {
 		$config['connector_url'] = $this->gl->config['connectorUrl'];
 
 		$this->addHtml("<script type='text/javascript'>gl.config={$this->modx->toJSON($config)}</script>");
-		
-		
-//		$this->addCss($this->gl->config['cssUrl'] . 'mgr/main.css');
-//		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/gl.js');
-//		$this->addHtml('
-//		<script type="text/javascript">
-//			gl.config = ' . $this->modx->toJSON($this->gl->config) . ';
-//			gl.config.connector_url = "' . $this->gl->config['connectorUrl'] . '";
-//		</script>
-//		');
 
 		parent::initialize();
 	}
