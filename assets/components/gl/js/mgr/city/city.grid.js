@@ -58,7 +58,7 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
     },
 
     getTopBarComponent: function(config) {
-        var component = ['menu', 'update', 'left', 'active', 'search'];
+        var component = ['menu', 'update', 'left', 'region', 'active', 'search'];
         if (!!config.compact) {
             component = ['menu', 'create', 'left', 'spacer'];
         }
@@ -93,12 +93,21 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
                 handler: this._updateRow,
                 scope: this
             },
-           /* create: {
-                text: '<i class="fa fa-plus"></i>',
-                handler: this.create,
-                scope: this
-            },*/
             left: '->',
+
+            region: {
+                xtype: 'gl-combo-region',
+                width: 210,
+                custm: true,
+                clear: true,
+                addall: true,
+                listeners: {
+                    select: {
+                        fn: this._filterByCombo,
+                        scope: this
+                    }
+                }
+            },
             active: {
                 xtype: 'gl-combo-active',
                 width: 210,

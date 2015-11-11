@@ -41,10 +41,16 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
 			$c->where(array('active' => $active));
 		}
 
+		$regionId = $this->getProperty('region_id');
+		if ($regionId != '') {
+			$c->where(array('region_id' => $regionId));
+		}
+
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				'host:LIKE' => "%{$query}%",
+				'name_ru:LIKE' => "%{$query}%",
+				'OR:name_en:LIKE' => "%{$query}%",
 			));
 		}
 

@@ -44,7 +44,8 @@ class modglRegionGetListProcessor extends modObjectGetListProcessor
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				'host:LIKE' => "%{$query}%",
+				'name_ru:LIKE' => "%{$query}%",
+				'OR:name_en:LIKE' => "%{$query}%",
 			));
 		}
 

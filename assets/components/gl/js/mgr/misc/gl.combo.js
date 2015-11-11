@@ -241,26 +241,26 @@ Ext.reg('gl-combo-active', gl.combo.Active);
 
 
 
-gl.combo.Package = function(config) {
+
+gl.combo.Region = function(config) {
     config = config || {};
 
     if (config.custm) {
-        config.triggerConfig = [{
+        config.triggerConfig =  [{
             tag: 'div',
             cls: 'x-field-search-btns',
-            style: String.format('width: {0}px;', config.clear ? 62 : 31),
+            style: String.format('width: {0}px;', config.clear?62:31),
             cn: [{
                 tag: 'div',
-                cls: 'x-form-trigger x-field-gl-package-go'
+                cls: 'x-form-trigger x-field-gl-region-go'
             }]
         }];
         if (config.clear) {
             config.triggerConfig[0].cn.push({
                 tag: 'div',
-                cls: 'x-form-trigger x-field-gl-package-clear'
+                cls: 'x-form-trigger x-field-gl-region-clear'
             });
         }
-
         config.initTrigger = function() {
             var ts = this.trigger.select('.x-form-trigger', true);
             this.wrap.setStyle('overflow', 'hidden');
@@ -291,29 +291,21 @@ gl.combo.Package = function(config) {
         };
     }
     Ext.applyIf(config, {
-        name: config.name || 'package',
-        hiddenName: config.name || 'package',
-        displayField: 'name',
-        valueField: 'name',
+        name: config.name || 'region_id',
+        hiddenName: 'region_id',
+        displayField: 'name_ru',
+        allowBlank: false,
+        valueField: 'id',
         editable: true,
-        fields: ['id', 'name'],
-        pageSize: 10,
+        fields: ['id', 'name_ru'],
+        pageSize: 20,
         emptyText: _('gl_combo_select'),
         hideMode: 'offsets',
-        allowBlank: true,
         url: gl.config.connector_url,
         baseParams: {
-            action: 'mgr/misc/package/getlist',
-            key: config.key || 0,
+            action: 'mgr/region/getlist',
             combo: true
         },
-        tpl: new Ext.XTemplate(
-            '<tpl for="."><div class="x-combo-list-item">',
-            '<small>({id})</small> <b>{name}</b></span>',
-            '</div></tpl>', {
-                compiled: true
-            }),
-        cls: 'input-combo-gl-package',
         clearValue: function() {
             if (this.hiddenField) {
                 this.hiddenField.value = '';
@@ -337,8 +329,8 @@ gl.combo.Package = function(config) {
             this.clearValue();
         }
     });
-    gl.combo.Package.superclass.constructor.call(this, config);
+    gl.combo.Region.superclass.constructor.call(this, config);
 
 };
-Ext.extend(gl.combo.Package, MODx.combo.ComboBox);
-Ext.reg('gl-combo-package', gl.combo.Package);
+Ext.extend(gl.combo.Region, MODx.combo.ComboBox);
+Ext.reg('gl-combo-region', gl.combo.Region);
