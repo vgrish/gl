@@ -16,6 +16,8 @@ class gl
 
 	/** @var Tools $Tools */
 	public $Tools;
+	/** @var SxGeo $SxGeo */
+	public $SxGeo;
 
 	/**
 	 * @param modX $modx
@@ -28,6 +30,7 @@ class gl
 		$corePath = $this->modx->getOption('gl_core_path', $config, $this->modx->getOption('core_path') . 'components/gl/');
 		$assetsUrl = $this->modx->getOption('gl_assets_url', $config, $this->modx->getOption('assets_url') . 'components/gl/');
 		$connectorUrl = $assetsUrl . 'connector.php';
+		$assetsPath = MODX_ASSETS_PATH;
 
 		$this->config = array_merge(array(
 			'assetsUrl' => $assetsUrl,
@@ -45,6 +48,7 @@ class gl
 			'snippetsPath' => $corePath . 'elements/snippets/',
 			'processorsPath' => $corePath . 'processors/',
 			'handlersPath' => $corePath . 'handlers/',
+			'sypexgeoPath' => $assetsPath . 'components/gl/vendor/sypexgeo/',
 
 			'prepareResponse' => true,
 			'jsonResponse' => true,
@@ -102,6 +106,22 @@ class gl
 		return !empty($this->Tools) AND $this->Tools instanceof glSystemToolsInterface;
 	}
 
+	public function loadSxGeo()
+	{
+		if (!is_object($this->SxGeo) OR !($this->SxGeo instanceof SxGeo)) {
+			$sypexgeoClass = $this->modx->loadClass('sypexgeo.SxGeo', $this->config['handlersPath'], true, true);
+			if ($derivedClass = $this->modx->getOption('gl_sypexgeo_handler_class', null, '', true)) {
+				if ($derivedClass = $this->modx->loadClass('sypexgeo.' . $derivedClass, $this->config['handlersPath'], true, true)) {
+					$sypexgeoClass = $derivedClass;
+				}
+			}
+			if ($sypexgeoClass) {
+				$this->SxGeo = new $sypexgeoClass($this->config['sypexgeoPath']. 'data/SxGeoCity.dat');
+			}
+		}
+		return !empty($this->SxGeo) AND $this->SxGeo instanceof SxGeo;
+	}
+
 	/**
 	 * Initializes component into different contexts.
 	 *
@@ -116,6 +136,9 @@ class gl
 
 		if (!$this->Tools) {
 			$this->loadTools();
+		}
+		if (!$this->SxGeo) {
+			$this->loadSxGeo();
 		}
 
 		if (!empty($this->initialized[$ctx])) {

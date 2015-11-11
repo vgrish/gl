@@ -33,6 +33,13 @@ class glAllManagerController extends glMainController {
 		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/misc/gl.utils.js');
 		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/misc/gl.combo.js');
 
+		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/country/country.grid.js');
+		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/country/country.window.js');
+
+		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/region/region.grid.js');
+
+		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/city/city.grid.js');
+
 		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/all/all.panel.js');
 
 		$script = 'Ext.onReady(function() {

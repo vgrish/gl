@@ -2,17 +2,120 @@
 <model package="gl" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="gl"
 	   version="1.1">
 
-	<object class="glItem" table="gl_items" extends="xPDOSimpleObject">
-		<field key="name" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
-		<field key="description" dbtype="text" phptype="text" null="true" default=""/>
-		<field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
+	<object class="glCountry" table="gl_countries" extends="xPDOSimpleObject">
+		<field key="iso" dbtype="char" precision="2" phptype="string" null="false" default=""/>
+		<field key="continent" dbtype="char" precision="2" phptype="string" null="false" default=""/>
+		<field key="name_ru" dbtype="varchar" precision="128" phptype="varchar" null="false" default=""/>
+		<field key="name_en" dbtype="varchar" precision="128" phptype="varchar" null="false" default=""/>
+		<field key="lat" dbtype="decimal" precision="6,2" phptype="float" null="false" default="0" />
+		<field key="lon" dbtype="decimal" precision="6,2" phptype="float" null="false" default="0" />
+		<field key="timezone" dbtype="varchar" precision="30" phptype="varchar" null="false" default=""/>
+		<field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
 
-		<index alias="name" name="name" primary="false" unique="false" type="BTREE">
-			<column key="name" length="" collation="A" null="false"/>
+		<index alias="iso" name="iso" primary="false" unique="false" type="BTREE">
+			<column key="iso" length="" collation="A" null="false"/>
+		</index>
+		<index alias="continent" name="continent" primary="false" unique="false" type="BTREE">
+			<column key="continent" length="" collation="A" null="false"/>
+		</index>
+		<index alias="timezone" name="timezone" primary="false" unique="false" type="BTREE">
+			<column key="timezone" length="" collation="A" null="false"/>
 		</index>
 		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
 			<column key="active" length="" collation="A" null="false"/>
 		</index>
+
 	</object>
+
+
+	<object class="glRegion" table="gl_regions" extends="xPDOSimpleObject">
+		<field key="iso" dbtype="char" precision="7" phptype="string" null="false" default=""/>
+		<field key="country" dbtype="char" precision="2" phptype="string" null="false" default=""/>
+		<field key="name_ru" dbtype="varchar" precision="128" phptype="varchar" null="false" default=""/>
+		<field key="name_en" dbtype="varchar" precision="128" phptype="varchar" null="false" default=""/>
+		<field key="timezone" dbtype="varchar" precision="30" phptype="varchar" null="false" default=""/>
+		<field key="okato" dbtype="char" precision="4" phptype="string" null="false" default=""/>
+		<field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
+
+		<index alias="iso" name="iso" primary="false" unique="false" type="BTREE">
+			<column key="iso" length="" collation="A" null="false"/>
+		</index>
+		<index alias="country" name="country" primary="false" unique="false" type="BTREE">
+			<column key="country" length="" collation="A" null="false"/>
+		</index>
+		<index alias="timezone" name="timezone" primary="false" unique="false" type="BTREE">
+			<column key="timezone" length="" collation="A" null="false"/>
+		</index>
+		<index alias="okato" name="okato" primary="false" unique="false" type="BTREE">
+			<column key="okato" length="" collation="A" null="false"/>
+		</index>
+		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
+			<column key="active" length="" collation="A" null="false"/>
+		</index>
+
+	</object>
+
+
+	<object class="glCity" table="gl_cities" extends="xPDOSimpleObject">
+		<field key="region_id" dbtype="mediumint" precision="8" phptype="integer" null="false" default="0"/>
+		<field key="name_ru" dbtype="varchar" precision="128" phptype="varchar" null="false" default=""/>
+		<field key="name_en" dbtype="varchar" precision="128" phptype="varchar" null="false" default=""/>
+		<field key="lat" dbtype="decimal" precision="10,5" phptype="float" null="false" default="0" />
+		<field key="lon" dbtype="decimal" precision="10,5" phptype="float" null="false" default="0" />
+		<field key="okato" dbtype="char" precision="20" phptype="string" null="false" default=""/>
+		<field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
+
+		<index alias="region_id" name="region_id" primary="false" unique="false" type="BTREE">
+			<column key="region_id" length="" collation="A" null="false"/>
+		</index>
+		<index alias="okato" name="okato" primary="false" unique="false" type="BTREE">
+			<column key="okato" length="" collation="A" null="false"/>
+		</index>
+		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
+			<column key="active" length="" collation="A" null="false"/>
+		</index>
+
+	</object>
+
+
+<!--
+DROP TABLE IF EXISTS `sxgeo_cities`;
+CREATE TABLE IF NOT EXISTS `sxgeo_cities` (
+  `id` mediumint(8) unsigned NOT NULL,
+  `region_id` mediumint(8) unsigned NOT NULL,
+  `name_ru` varchar(128) NOT NULL,
+  `name_en` varchar(128) NOT NULL,
+  `lat` decimal(10,5) NOT NULL,
+  `lon` decimal(10,5) NOT NULL,
+  `okato` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Информация о городах для SxGeo 2.2';
+
+DROP TABLE IF EXISTS `sxgeo_regions`;
+CREATE TABLE IF NOT EXISTS `sxgeo_regions` (
+  `id` mediumint(8) unsigned NOT NULL,
+  `iso` varchar(7) NOT NULL,
+  `country` char(2) NOT NULL,
+  `name_ru` varchar(128) NOT NULL,
+  `name_en` varchar(128) NOT NULL,
+  `timezone` varchar(30) NOT NULL,
+  `okato` char(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Информация о регионах для SxGeo 2.2';
+
+DROP TABLE IF EXISTS `sxgeo_country`;
+CREATE TABLE IF NOT EXISTS `sxgeo_country` (
+  `id` tinyint(3) unsigned NOT NULL,
+  `iso` char(2) NOT NULL,
+  `continent` char(2) NOT NULL,
+  `name_ru` varchar(128) NOT NULL,
+  `name_en` varchar(128) NOT NULL,
+  `lat` decimal(6,2) NOT NULL,
+  `lon` decimal(6,2) NOT NULL,
+  `timezone` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Информация о странах для SxGeo 2.2';
+
+	-->
 
 </model>

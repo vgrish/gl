@@ -2,15 +2,15 @@
 
 $plugins = array();
 
-$tmp = array(/*
+$tmp = array(
 	'gl' => array(
 		'file' => 'gl',
 		'description' => '',
 		'events' => array(
-			'OnManagerPageInit' => array()
+			'OnWebPageInit' => array(),
 		)
 	)
-	*/
+
 );
 
 foreach ($tmp as $k => $v) {

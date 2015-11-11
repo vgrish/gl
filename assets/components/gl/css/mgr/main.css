@@ -117,3 +117,22 @@ span.gl-grid-color {
 	display: block;
 	margin: -5px 0px -5px 0px;
 }
+
+
+/* search field */
+.x-field-search-clear,
+.x-field-search-go {border-left: 1px solid #e4e4e4 !important;}
+.x-field-search-clear:hover,
+.x-field-search-go:hover {border-left-color: transparent !important;}
+.x-field-search-clear:before {content: '\f00d' !important;}
+.x-field-search-go {right: 31px !important; border-radius: 0 !important;}
+.x-field-search-go:before {content: '\f002' !important;}
+
+/* gl-active field */
+.x-field-gl-active-clear,
+.x-field-gl-active-go {border-left: 1px solid #e4e4e4 !important;}
+.x-field-gl-active-clear:hover,
+.x-field-gl-active-go:hover {border-left-color: transparent !important;}
+.x-field-gl-active-clear:before {content: '\f00d' !important;}
+.x-field-gl-active-go {right: 31px !important; border-radius: 0 !important;}
+.x-field-gl-active-go:before {content: '\f204' !important;}
