@@ -7,7 +7,7 @@ class modglRegionGetListProcessor extends modObjectGetListProcessor
 {
 	public $objectType = 'glRegion';
 	public $classKey = 'glRegion';
-	public $defaultSortField = 'id';
+	public $defaultSortField = 'name_ru';
 	public $defaultSortDirection = 'ASC';
 	public $languageTopics = array('default', 'gl');
 	public $permission = '';

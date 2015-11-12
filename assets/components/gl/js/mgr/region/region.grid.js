@@ -58,7 +58,7 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
     },
 
     getTopBarComponent: function(config) {
-        var component = ['menu', 'update', 'left', 'active', 'search'];
+        var component = ['menu', 'download', 'left', 'active', 'search'];
         if (!!config.compact) {
             component = ['menu', 'create', 'left', 'spacer'];
         }
@@ -88,9 +88,9 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
                     scope: this
                 }]
             },
-            update: {
-                text: '<i class="fa fa-refresh"></i>',
-                handler: this._updateRow,
+            download: {
+                text: '<i class="fa fa-cloud-download"></i>',
+                handler: this._download,
                 scope: this
             },
            /* create: {
@@ -357,13 +357,13 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
         this.getBottomToolbar().changePage(1);
     },
 
-    _updateRow: function(response) {
+    _download: function(response) {
         Ext.Msg.confirm(
-            _('gl_action_update_all') || _('warning'),
-            _('gl_confirm_update_all'),
+            _('gl_action_download') || _('warning'),
+            _('gl_confirm_download'),
             function(e) {
                 if (e == 'yes') {
-                    this.setAction('updaterow', 'false', 0);
+                    this.setAction('download', 'false', 0);
                 } else {
                     this.fireEvent('cancel');
                 }

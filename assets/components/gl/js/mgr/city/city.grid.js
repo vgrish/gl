@@ -19,7 +19,7 @@ gl.grid.City = function(config) {
         },
         save_action: 'mgr/city/updatefromgrid',
         autosave: true,
-        save_callback: this._updateRow,
+        save_callback: this._download,
         fields: this.getFields(config),
         columns: this.getColumns(config),
         tbar: this.getTopBar(config),
@@ -58,7 +58,7 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
     },
 
     getTopBarComponent: function(config) {
-        var component = ['menu', 'update', 'left', 'region', 'active', 'search'];
+        var component = ['menu', 'download', 'left', 'region', 'active', 'search'];
         if (!!config.compact) {
             component = ['menu', 'create', 'left', 'spacer'];
         }
@@ -88,9 +88,9 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
                     scope: this
                 }]
             },
-            update: {
-                text: '<i class="fa fa-refresh"></i>',
-                handler: this._updateRow,
+            download: {
+                text: '<i class="fa fa-cloud-download"></i>',
+                handler: this._download,
                 scope: this
             },
             left: '->',
@@ -179,12 +179,12 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
                     return gl.utils.renderReplace(record['json']['name_ru'], record['json']['name_ru'])
                 }
             },
-            region_id: {
+            region: {
                 width: 25,
                 sortable: true,
-                //renderer: function (value, metaData, record) {
-                //    return gl.utils.renderReplace(record['json']['name_ru'], record['json']['name_ru'])
-                //}
+                renderer: function (value, metaData, record) {
+                    return gl.utils.renderReplace(record['json']['region_id'], record['json']['region_name_ru'])
+                }
             },
             actions: {
                 width: 20,
@@ -364,13 +364,13 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
         this.getBottomToolbar().changePage(1);
     },
 
-    _updateRow: function(response) {
+    _download: function(response) {
         Ext.Msg.confirm(
-            _('gl_action_update_all') || _('warning'),
-            _('gl_confirm_update_all'),
+            _('gl_action_download') || _('warning'),
+            _('gl_confirm_download'),
             function(e) {
                 if (e == 'yes') {
-                    this.setAction('updaterow', 'false', 0);
+                    this.setAction('download', 'false', 0);
                 } else {
                     this.fireEvent('cancel');
                 }

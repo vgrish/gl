@@ -3,7 +3,7 @@
 /**
  * Update Clients an glRegion
  */
-class modglRegionsUpdateRowProcessor extends modProcessor
+class modglRegionsDownloadProcessor extends modProcessor
 {
 	public $classKey = 'glRegion';
 
@@ -83,4 +83,4 @@ class modglRegionsUpdateRowProcessor extends modProcessor
 
 }
 
-return 'modglRegionsUpdateRowProcessor';
+return 'modglRegionsDownloadProcessor';

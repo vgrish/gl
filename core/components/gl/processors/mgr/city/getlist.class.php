@@ -7,7 +7,7 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
 {
 	public $objectType = 'glCity';
 	public $classKey = 'glCity';
-	public $defaultSortField = 'id';
+	public $defaultSortField = 'name_ru';
 	public $defaultSortDirection = 'ASC';
 	public $languageTopics = array('default', 'gl');
 	public $permission = '';
@@ -35,6 +35,13 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
 		} else {
 
 		}
+
+		$c->leftJoin('glRegion', 'glRegion', 'glRegion.id = glCity.region_id');
+
+		$c->select($this->modx->getSelectColumns('glCity', 'glCity'));
+		$c->select(array(
+			'region_name_ru' => 'glRegion.name_ru',
+		));
 
 		$active = $this->getProperty('active');
 		if ($active != '') {

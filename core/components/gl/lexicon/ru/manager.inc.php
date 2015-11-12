@@ -21,6 +21,8 @@ $_lang['gl_header_action'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_iso'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_continent'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_timezone'] = '<i class="fa fa-info"></i>';
+$_lang['gl_header_region'] = '<i class="fa fa-info"></i>';
+$_lang['gl_header_country'] = '<i class="fa fa-info"></i>';
 
 
 /* tooltip */
@@ -44,6 +46,9 @@ $_lang['gl_tooltip_action'] = 'Действие';
 $_lang['gl_tooltip_iso'] = 'ISO';
 $_lang['gl_tooltip_continent'] = 'Континент';
 $_lang['gl_tooltip_timezone'] = 'Часовой пояс';
+$_lang['gl_tooltip_region'] = 'Регион';
+$_lang['gl_tooltip_country'] = 'Страна';
+
 
 
 /* fields */
@@ -72,6 +77,9 @@ $_lang['gl_identifier'] = 'Идентификатор';
 $_lang['gl_iso'] = 'ISO';
 $_lang['gl_continent'] = 'Континент';
 $_lang['gl_timezone'] = 'Часовой пояс';
+$_lang['gl_region'] = 'Регион';
+$_lang['gl_country'] = 'Страна';
+
 
 
 /* action */
@@ -85,7 +93,7 @@ $_lang['gl_action_see'] = 'Просмотреть';
 $_lang['gl_action_edit'] = 'Редактировать';
 $_lang['gl_action_change_type'] = 'Изменить тип';
 $_lang['gl_action_load'] = 'Загрузить';
-$_lang['gl_action_update_all'] = 'Обновить все';
+$_lang['gl_action_download'] = 'Загрузить';
 
 
 /* tab */
@@ -98,7 +106,7 @@ $_lang['gl_tab_add'] = 'Дополнительно';
 /* confirm */
 $_lang['gl_confirm_remove'] = 'Вы уверены, что хотите удалить это?';
 $_lang['gl_confirm_send'] = 'Вы уверены, что хотите отправить?';
-$_lang['gl_confirm_update_all'] = 'Вы уверены, что хотите обновить все?';
+$_lang['gl_confirm_download'] = 'Вы уверены, что хотите выполнить загрузку? Текущие данные будут обновлены.';
 
 
 /* combo */
