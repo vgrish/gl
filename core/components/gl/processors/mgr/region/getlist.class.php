@@ -49,6 +49,9 @@ class modglRegionGetListProcessor extends modObjectGetListProcessor
 			));
 		}
 
+		$c->sortby('active', 'DESC');
+		$c->sortby('name_ru', 'ASC');
+
 		return $c;
 	}
 
