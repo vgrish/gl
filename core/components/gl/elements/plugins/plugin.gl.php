@@ -7,20 +7,25 @@ switch ($modx->event->name) {
 		$corePath = $modx->getOption('gl_core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/gl/');
 		/** @var gl $gl */
 		$gl = $modx->getService('gl', 'gl', $corePath . 'model/gl/', array('core_path' => $corePath));
-		if (!$gl->SxGeo) {
-			$gl->loadSxGeo();
+		if (!empty($gl->opts['check'])) {
+			return '';
 		}
-
-
-		$ip = $_SERVER['REMOTE_ADDR'];
-
-		print_r($ip);
-		print_r($gl->SxGeo->getCityFull($ip)); // Вся информация о городе
-		print_r($gl->SxGeo->get($ip));
-
+		$gl->initialize($this->modx->context->key);
+		$gl->opts['location'] = $gl->getCityFull();
+		$gl->opts['check'] = true;
 
 		break;
 
+	case 'OnHandleRequest':
+		if ($this->modx->context->key == 'mgr') {
+			return '';
+		}
+		$corePath = $modx->getOption('gl_core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/gl/');
+		/** @var gl $gl */
+		$gl = $modx->getService('gl', 'gl', $corePath . 'model/gl/', array('core_path' => $corePath));
+		$modx->setPlaceholders($gl->opts, 'gl.');
+
+		break;
 }
 
 

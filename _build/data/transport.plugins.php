@@ -8,6 +8,7 @@ $tmp = array(
 		'description' => '',
 		'events' => array(
 			'OnWebPageInit' => array(),
+			'OnHandleRequest' => array(),
 		)
 	)
 

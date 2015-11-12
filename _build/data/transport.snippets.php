@@ -3,8 +3,8 @@
 $snippets = array();
 
 $tmp = array(
-	'gl' => array(
-		'file' => 'gl',
+	'gl.location' => array(
+		'file' => 'location',
 		'description' => '',
 	),
 );

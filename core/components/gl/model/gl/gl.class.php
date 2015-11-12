@@ -13,6 +13,8 @@ class gl
 	public $config = array();
 	/** @var array $initialized */
 	public $initialized = array();
+	/** @var array $opts */
+	public $opts = array();
 
 	/** @var Tools $Tools */
 	public $Tools;
@@ -58,6 +60,11 @@ class gl
 		$this->modx->addPackage('gl', $this->config['modelPath']);
 		$this->modx->lexicon->load('gl:default');
 		$this->namespace = $this->getOption('namespace', $config, 'gl');
+
+		$this->opts = &$_SESSION[$this->namespace]['opts'];
+		if (empty($this->opts) OR !is_array($this->opts)) {
+			$this->opts = array();
+		}
 	}
 
 	/**
@@ -116,10 +123,42 @@ class gl
 				}
 			}
 			if ($sypexgeoClass) {
-				$this->SxGeo = new $sypexgeoClass($this->config['sypexgeoPath']. 'data/SxGeoCity.dat');
+				$this->SxGeo = new $sypexgeoClass($this->config['sypexgeoPath'] . 'data/SxGeoCity.dat');
 			}
 		}
 		return !empty($this->SxGeo) AND $this->SxGeo instanceof SxGeo;
+	}
+
+	/**
+	 * from https://github.com/bezumkin/pdoTools/blob/f947b2abd9511919de56cbb85682e5d0ef52ebf4/core/components/pdotools/model/pdotools/pdotools.class.php#L282
+	 *
+	 * Transform array to placeholders
+	 *
+	 * @param array $array
+	 * @param string $plPrefix
+	 * @param string $prefix
+	 * @param string $suffix
+	 * @param bool $uncacheable
+	 * @return array
+	 */
+	public function makePlaceholders(array $array = array(), $plPrefix = '', $prefix = '[[+', $suffix = ']]', $uncacheable = true)
+	{
+		$result = array('pl' => array(), 'vl' => array());
+		$uncached_prefix = str_replace('[[', '[[!', $prefix);
+		foreach ($array as $k => $v) {
+			if (is_array($v)) {
+				$result = array_merge_recursive($result, $this->makePlaceholders($v, $plPrefix . $k . '.', $prefix, $suffix, $uncacheable));
+			} else {
+				$pl = $plPrefix . $k;
+				$result['pl'][$pl] = $prefix . $pl . $suffix;
+				$result['vl'][$pl] = $v;
+				if ($uncacheable) {
+					$result['pl']['!' . $pl] = $uncached_prefix . $pl . $suffix;
+					$result['vl']['!' . $pl] = $v;
+				}
+			}
+		}
+		return $result;
 	}
 
 	/**
@@ -134,44 +173,77 @@ class gl
 		$this->config = array_merge($this->config, $scriptProperties);
 		$this->config['ctx'] = $ctx;
 
+		if (!empty($this->initialized[$ctx])) {
+			return true;
+		}
+
 		if (!$this->Tools) {
 			$this->loadTools();
 		}
 		if (!$this->SxGeo) {
 			$this->loadSxGeo();
 		}
-
-		if (!empty($this->initialized[$ctx])) {
-			return true;
-		}
-
-		switch ($ctx) {
-			case 'mgr':
-				break;
-			default:
-				if (!defined('MODX_API_MODE') OR !MODX_API_MODE) {
-					$config = $this->modx->toJSON(array(
-						'assetsUrl' => $this->config['assetsUrl'],
-						'actionUrl' => $this->config['actionUrl'],
-					));
-					$this->modx->regClientStartupScript(preg_replace('#(\n|\t)#', '', '
-							<script type="text/javascript">
-							locationConfig=' . $config . '
-							</script>
-						'), true);
-					$this->modx->regClientScript(preg_replace('#(\n|\t)#', '', '
-							<script type="text/javascript">
-							if (typeof jQuery == "undefined") {
-								document.write("<script src=\"' . $this->config['assetsUrl'] . 'vendor/jquery/jquery.min.js\" type=\"text/javascript\"><\/script>");
-							}
-							</script>
-						'), true);
-					$this->initialized[$ctx] = true;
-				}
-				break;
-		}
+		$this->initialized[$ctx] = true;
 
 		return true;
+	}
+
+	/**
+	 * Independent registration of css and js
+	 *
+	 * @param string $objectName Name of object to initialize in javascript
+	 */
+	public function loadCustomJsCss($objectName = 'gl')
+	{
+		$config = $this->modx->toJSON(array(
+			'assetsUrl' => $this->config['assetsUrl'],
+			'actionUrl' => $this->config['actionUrl'],
+		));
+
+		$this->modx->regClientStartupScript(preg_replace('#(\n|\t)#', '', '
+				<script type="text/javascript">
+					glConfig=' . $config . '
+				</script>
+		'), true);
+
+		if (!isset($this->modx->loadedjscripts[$objectName])) {
+
+			$pls = $this->makePlaceholders($this->config);
+			foreach ($this->config as $k => $v) {
+				if (is_string($v)) {
+					$this->config[$k] = str_replace($pls['pl'], $pls['vl'], $v);
+				}
+			}
+
+			if ($this->config['jqueryJs']) {
+				$this->modx->regClientScript(preg_replace('#(\n|\t)#', '', '
+				<script type="text/javascript">
+					if (typeof jQuery == "undefined") {
+						document.write("<script src=\"' . $this->config['jqueryJs'] . '\" type=\"text/javascript\"><\/script>");
+					}
+				</script>
+				'), true);
+			}
+
+			if ($this->config['colorboxJsCss']) {
+				if ($this->config['colorboxCss']) {
+					$this->modx->regClientCSS($this->config['colorboxCss']);
+				}
+				if ($this->config['colorboxJs']) {
+					$this->modx->regClientScript($this->config['colorboxJs']);
+				}
+			}
+
+			if ($this->config['frontendCss']) {
+				$this->modx->regClientCSS($this->config['frontendCss']);
+			}
+			if ($this->config['frontendJs']) {
+				$this->modx->regClientScript($this->config['frontendJs']);
+			}
+
+		}
+
+		return $this->modx->loadedjscripts[$objectName] = 1;
 	}
 
 
@@ -194,6 +266,60 @@ class gl
 			$message = $this->modx->lexicon->process($key, $placeholders);
 		}
 		return $message;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCountry()
+	{
+		return $this->SxGeo->getCountry($this->getUserIp());
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getCountryId()
+	{
+		return $this->SxGeo->getCountryId($this->getUserIp());
+	}
+
+	/**
+	 * @return array|bool false if city is not detected
+	 */
+	public function getCity()
+	{
+		return $this->SxGeo->getCity($this->getUserIp());
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCityFull()
+	{
+		return $this->SxGeo->getCityFull($this->getUserIp());
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getUserIp()
+	{
+		$ip = '127.0.0.1';
+
+		switch (true) {
+			case (isset($_SERVER['HTTP_CLIENT_IP']) AND $_SERVER['HTTP_CLIENT_IP'] != ''):
+				$ip = $_SERVER['HTTP_CLIENT_IP'];
+				break;
+			case (isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND $_SERVER['HTTP_X_FORWARDED_FOR'] != ''):
+				$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+				break;
+			case (isset($_SERVER['REMOTE_ADDR']) AND $_SERVER['REMOTE_ADDR'] != ''):
+				$ip = $_SERVER['REMOTE_ADDR'];
+				break;
+		}
+
+		return $ip;
 	}
 
 	/**
