@@ -248,60 +248,6 @@ class gl
 	}
 
 	/**
-	 * @return array
-	 */
-	public function getCountry()
-	{
-		return $this->SxGeo->getCountry($this->getUserIp());
-	}
-
-	/**
-	 * @return integer
-	 */
-	public function getCountryId()
-	{
-		return $this->SxGeo->getCountryId($this->getUserIp());
-	}
-
-	/**
-	 * @return array|bool false if city is not detected
-	 */
-	public function getCity()
-	{
-		return $this->SxGeo->getCity($this->getUserIp());
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getCityFull()
-	{
-		return $this->SxGeo->getCityFull($this->getUserIp());
-	}
-
-	/**
-	 * @return string
-	 */
-	public static function getUserIp()
-	{
-		$ip = '127.0.0.1';
-
-		switch (true) {
-			case (isset($_SERVER['HTTP_CLIENT_IP']) AND $_SERVER['HTTP_CLIENT_IP'] != ''):
-				$ip = $_SERVER['HTTP_CLIENT_IP'];
-				break;
-			case (isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND $_SERVER['HTTP_X_FORWARDED_FOR'] != ''):
-				$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-				break;
-			case (isset($_SERVER['REMOTE_ADDR']) AND $_SERVER['REMOTE_ADDR'] != ''):
-				$ip = $_SERVER['REMOTE_ADDR'];
-				break;
-		}
-
-		return $ip;
-	}
-
-	/**
 	 * @param string $classKey
 	 * @return bool|string
 	 */
@@ -390,6 +336,234 @@ class gl
 			));
 			$data->save();
 		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getUserIp()
+	{
+		$ip = '127.0.0.1';
+
+		switch (true) {
+			case (isset($_SERVER['HTTP_CLIENT_IP']) AND $_SERVER['HTTP_CLIENT_IP'] != ''):
+				$ip = $_SERVER['HTTP_CLIENT_IP'];
+				break;
+			case (isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND $_SERVER['HTTP_X_FORWARDED_FOR'] != ''):
+				$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+				break;
+			case (isset($_SERVER['REMOTE_ADDR']) AND $_SERVER['REMOTE_ADDR'] != ''):
+				$ip = $_SERVER['REMOTE_ADDR'];
+				break;
+		}
+
+		return $ip;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCountry()
+	{
+		return $this->SxGeo->getCountry($this->getUserIp());
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getCountryId()
+	{
+		return $this->SxGeo->getCountryId($this->getUserIp());
+	}
+
+	/**
+	 * @return array|bool false if city is not detected
+	 */
+	public function getCity()
+	{
+		return $this->SxGeo->getCity($this->getUserIp());
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCityFull()
+	{
+		return $this->SxGeo->getCityFull($this->getUserIp());
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getDefaultData()
+	{
+		/* array cache $options */
+		$options = array(
+			'cache_key' => 'gl/default/data',
+			'cacheTime' => 0,
+		);
+		if (!$data = $this->getCache($options)) {
+			$data = array();
+			$q = $this->modx->newQuery('glCity', array('default' => 1));
+			$q->select('id,lat,lon,name_ru,name_en');
+			if ($q->prepare() && $q->stmt->execute()) {
+				$data['city'] = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+				$data['city'] = end($data['city']);
+			}
+			$q = $this->modx->newQuery('glRegion', array('default' => 1));
+			$q->select('id,name_ru,name_en,iso');
+			if ($q->prepare() && $q->stmt->execute()) {
+				$data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+				$data['region'] = end($data['region']);
+			}
+			$q = $this->modx->newQuery('glCountry', array('default' => 1));
+			$q->select('id,iso,lat,lon,name_ru,name_en');
+			if ($q->prepare() && $q->stmt->execute()) {
+				$data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+				$data['country'] = end($data['country']);
+			}
+			$q = $this->modx->newQuery('glData', array('default' => 1));
+			$q->select('class,phone,email,address,properties');
+			if ($q->prepare() && $q->stmt->execute()) {
+				$data['data'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+				$data['data'] = end($data['data']);
+			}
+			$this->setCache($data, $options);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getRealData()
+	{
+		if (!$data = $this->getCityFull()) {
+			$data = array();
+		}
+		$data = array_merge($this->getDefaultData(), $data);
+
+		return $data;
+	}
+
+	/**
+	 * @param $subject
+	 * @param string $prefix
+	 * @param string $separator
+	 * @param bool $restore
+	 * @return array
+	 */
+	public function setPlaceholders($subject, $prefix= 'gl', $separator= '.', $restore= false) {
+		$keys = array();
+		$restored = array();
+		if (is_array($subject)) {
+			foreach ($subject as $key => $value) {
+				$rv = $this->modx->toPlaceholder($key, $value, $prefix, $separator, $restore);
+				if (isset($rv['keys'])) {
+					foreach ($rv['keys'] as $rvKey) $keys[] = $rvKey;
+				}
+				if ($restore === true && isset($rv['restore'])) {
+					$restored = array_merge($restored, $rv['restore']);
+				}
+			}
+		}
+		$return = array('keys' => $keys);
+		if ($restore === true) $return['restore'] = $restored;
+		return $return;
+	}
+
+
+
+
+	/**
+	 * Sets data to cache
+	 *
+	 * @param mixed $data
+	 * @param mixed $options
+	 *
+	 * @return string $cacheKey
+	 */
+	public function setCache($data = array(), $options = array())
+	{
+		$cacheKey = $this->getCacheKey($options);
+		$cacheOptions = $this->getCacheOptions($options);
+		if (!empty($cacheKey) && !empty($cacheOptions) && $this->modx->getCacheManager()) {
+			$this->modx->cacheManager->set(
+				$cacheKey,
+				$data,
+				$cacheOptions[xPDO::OPT_CACHE_EXPIRES],
+				$cacheOptions
+			);
+		}
+		return $cacheKey;
+	}
+
+	/**
+	 * Returns data from cache
+	 *
+	 * @param mixed $options
+	 *
+	 * @return mixed
+	 */
+	public function getCache($options = array())
+	{
+		$cacheKey = $this->getCacheKey($options);
+		$cacheOptions = $this->getCacheOptions($options);
+		$cached = '';
+		if (!empty($cacheOptions) && !empty($cacheKey) && $this->modx->getCacheManager()) {
+			$cached = $this->modx->cacheManager->get($cacheKey, $cacheOptions);
+		}
+		return $cached;
+	}
+
+	/**
+	 * Returns array with options for cache
+	 *
+	 * @param $options
+	 *
+	 * @return array
+	 */
+	protected function getCacheOptions($options = array())
+	{
+		if (empty($options)) {
+			$options = $this->config;
+		}
+		$cacheOptions = array(
+			xPDO::OPT_CACHE_KEY => !empty($options['cache_key'])
+				? 'default'
+				: (!empty($this->modx->resource)
+					? $this->modx->getOption('cache_resource_key', null, 'resource')
+					: 'default'),
+			xPDO::OPT_CACHE_HANDLER => !empty($options['cache_handler'])
+				? $options['cache_handler']
+				: $this->modx->getOption('cache_resource_handler', null, 'xPDOFileCache'),
+			xPDO::OPT_CACHE_EXPIRES => $options['cacheTime'] !== ''
+				? (integer)$options['cacheTime']
+				: (integer)$this->modx->getOption('cache_resource_expires', null, 0),
+		);
+		return $cacheOptions;
+	}
+
+	/**
+	 * Returns key for cache of specified options
+	 *
+	 * @var mixed $options
+	 *
+	 * @return bool|string
+	 */
+	protected function getCacheKey($options = array())
+	{
+		if (empty($options)) {
+			$options = $this->config;
+		}
+		if (!empty($options['cache_key'])) {
+			return $options['cache_key'];
+		}
+		$key = !empty($this->modx->resource)
+			? $this->modx->resource->getCacheKey()
+			: '';
+		return $key . '/' . sha1(serialize($options));
 	}
 
 	/**
