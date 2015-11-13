@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Get a list of glCountry
+ * Get a list of glData
  */
-class modglCountryGetListProcessor extends modObjectGetListProcessor
+class modglDataGetListProcessor extends modObjectGetListProcessor
 {
-	public $objectType = 'glCountry';
-	public $classKey = 'glCountry';
-	public $defaultSortField = 'name_ru';
+	public $objectType = 'glData';
+	public $classKey = 'glData';
+	public $defaultSortField = 'id';
 	public $defaultSortDirection = 'ASC';
 	public $languageTopics = array('default', 'gl');
 	public $permission = '';
@@ -36,6 +36,28 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
 
 		}
 
+		$c->groupby('glData.id');
+
+		$c->leftJoin('glCountry', 'glCountry', 'glCountry.id = glData.identifier');
+		$c->leftJoin('glRegion', 'glRegion', 'glRegion.id = glData.identifier');
+		$c->leftJoin('glCity', 'glCity', 'glCity.id = glData.identifier');
+
+		$c->select($this->modx->getSelectColumns('glData', 'glData'));
+		$c->select(array(
+			'name' => 'glCountry.name_ru',
+			'name1' => 'glRegion.name_ru',
+			'name2' => 'glCity.name_ru',
+
+			'active' => 'glCountry.active',
+			'active1' => 'glRegion.active',
+			'active2' => 'glCity.active',
+		));
+
+//		$c->where(array("glCountry.name_ru:!" => null));
+//		$c->where(array("glRegion.name_ru:!" => null));
+//		$c->where(array("glCity.name_ru:!" => null));
+
+
 		$active = $this->getProperty('active');
 		if ($active != '') {
 			$c->where(array('active' => $active));
@@ -49,8 +71,8 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
 			));
 		}
 
-		$c->sortby('active', 'DESC');
-		$c->sortby('name_ru', 'ASC');
+//		$c->sortby('active', 'DESC');
+//		$c->sortby('name_ru', 'ASC');
 
 		return $c;
 	}
@@ -79,14 +101,32 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
 		$array['actions'] = array();
 
 		// Edit
-		/*$array['actions'][] = array(
+		$array['actions'][] = array(
 			'cls' => '',
-			'icon' => "$icon $icon-eye green",
-			'title' => $this->modx->lexicon('gl_action_view'),
+			'icon' => "$icon $icon-edit green",
+			'title' => $this->modx->lexicon('gl_action_update'),
 			'action' => 'update',
 			'button' => true,
 			'menu' => true,
-		);*/
+		);
+
+		if ($array['default']) {
+			return $array;
+		}
+
+		switch (true) {
+			case $array['active']:
+				break;
+			case $array['active1']:
+				$array['active'] = 1;
+				break;
+			case $array['active2']:
+				$array['active'] = 1;
+				break;
+			default:
+				$array['active'] = 0;
+		}
+
 		if (!$array['active']) {
 			$array['actions'][] = array(
 				'cls' => '',
@@ -130,4 +170,4 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
 
 }
 
-return 'modglCountryGetListProcessor';
+return 'modglDataGetListProcessor';

@@ -29,7 +29,6 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
 	 */
 	public function prepareQueryBeforeCount(xPDOQuery $c)
 	{
-
 		if (!$this->getProperty('combo')) {
 
 		} else {
@@ -86,19 +85,24 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
 	 */
 	public function prepareRow(xPDOObject $object)
 	{
-		$icon = 'fa';
 		$array = $object->toArray();
+
+		if ($this->getProperty('combo', 0)) {
+			return $array;
+		}
+
+		$icon = 'fa';
 		$array['actions'] = array();
 
 		// Edit
-		$array['actions'][] = array(
+		/*$array['actions'][] = array(
 			'cls' => '',
 			'icon' => "$icon $icon-eye green",
 			'title' => $this->modx->lexicon('gl_action_view'),
 			'action' => 'update',
 			'button' => true,
 			'menu' => true,
-		);
+		);*/
 		if (!$array['active']) {
 			$array['actions'][] = array(
 				'cls' => '',

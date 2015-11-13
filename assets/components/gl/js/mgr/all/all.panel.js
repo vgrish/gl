@@ -15,6 +15,16 @@ gl.panel.All = function(config) {
             border: true,
             hideMode: 'offsets',
             items: [{
+                title: _('gl_data'),
+                layout: 'anchor',
+                items: [{
+                    html: _('gl_data_intro'),
+                    cls: 'panel-desc'
+                }, {
+                    xtype: 'gl-grid-data',
+                    cls: 'main-wrapper'
+                }]
+            }, {
                 title: _('gl_countries'),
                 layout: 'anchor',
                 items: [{

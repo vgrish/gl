@@ -1,11 +1,11 @@
-gl.grid.Region = function(config) {
+gl.grid.Data = function(config) {
     config = config || {};
 
     this.exp = new Ext.grid.RowExpander({
         expandOnDblClick: false,
-        tpl: new Ext.Template('<p class="desc">{description}</p>'),
+        tpl: new Ext.Template('<p class="desc">{address}</p>'),
         renderer: function(v, p, record) {
-            return record.data.description != '' && record.data.description != null ? '<div class="x-grid3-row-expander">&#160;</div>' : '&#160;';
+            return record.data.address != '' && record.data.address != null ? '<div class="x-grid3-row-expander">&#160;</div>' : '&#160;';
         }
     });
 
@@ -14,12 +14,12 @@ gl.grid.Region = function(config) {
     Ext.applyIf(config, {
         url: gl.config.connector_url,
         baseParams: {
-            action: 'mgr/region/getlist',
+            action: 'mgr/data/getlist',
             class: config.class || ''
         },
-        save_action: 'mgr/region/updatefromgrid',
+        save_action: 'mgr/data/updatefromgrid',
         autosave: true,
-        save_callback: this._updateRow,
+        save_callback: this._download,
         fields: this.getFields(config),
         columns: this.getColumns(config),
         tbar: this.getTopBar(config),
@@ -42,23 +42,23 @@ gl.grid.Region = function(config) {
         cls: 'gl-grid',
         bodyCssClass: 'grid-with-buttons',
         stateful: true,
-        stateId: 'gl-grid-region-state'
+        stateId: 'gl-grid-data-state'
 
     });
-    gl.grid.Region.superclass.constructor.call(this, config);
+    gl.grid.Data.superclass.constructor.call(this, config);
 
 };
-Ext.extend(gl.grid.Region, MODx.grid.Grid, {
+Ext.extend(gl.grid.Data, MODx.grid.Grid, {
     windows: {},
 
     getFields: function(config) {
-        var fields = ['id', 'iso', 'country', 'name_ru', 'timezone', 'okato', 'active', 'actions'];
+        var fields = ['id', 'identifier', 'class', 'phone', 'email', 'address', 'default', 'actions'];
 
         return fields;
     },
 
     getTopBarComponent: function(config) {
-        var component = ['menu', 'download', 'left', 'active', 'search'];
+        var component = ['menu', 'create', 'left', 'active', 'search'];
         if (!!config.compact) {
             component = ['menu', 'create', 'left', 'spacer'];
         }
@@ -81,23 +81,23 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
                     cls: 'gl-cogs',
                     handler: this.inactive,
                     scope: this
-                }, '-', {
+                }, '-', /*{
+                    text: '<i class="fa fa-plus"></i> ' + _('gl_action_create'),
+                    cls: 'gl-cogs',
+                    handler: this.create,
+                    scope: this
+                },*/ {
                     text: '<i class="fa fa-trash-o red"></i> ' + _('gl_action_remove'),
                     cls: 'gl-cogs',
                     handler: this.remove,
                     scope: this
                 }]
             },
-            download: {
-                text: '<i class="fa fa-cloud-download"></i>',
-                handler: this._download,
-                scope: this
-            },
-           /* create: {
+            create: {
                 text: '<i class="fa fa-plus"></i>',
                 handler: this.create,
                 scope: this
-            },*/
+            },
             left: '->',
             active: {
                 xtype: 'gl-combo-active',
@@ -153,6 +153,8 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
         return tbar;
     },
 
+    //var fields = ['id', 'identifier', 'class', 'phone', 'email', 'address', 'default', 'actions'];
+
     getColumns: function(config) {
         var columns = [this.exp, this.sm];
         var add = {
@@ -160,24 +162,61 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
                 width: 10,
                 sortable: false
             },
-            name: {
+            class: {
+                width: 15,
+                sortable: false,
+                renderer: function (value, metaData, record) {
+                    switch (value) {
+                        case 'glCity':
+                            value = _('gl_city');
+                            break;
+                        case 'glRegion':
+                            value = _('gl_region');
+                            break;
+                        case 'glCountry':
+                            value = _('gl_country');
+                            break;
+                        default:
+                            value = _('gl_default');
+                    }
+                    return value;
+                }
+            },
+            identifier: {
                 width: 25,
                 sortable: false,
                 renderer: function (value, metaData, record) {
-                    return gl.utils.renderReplace(record['json']['name_ru'], record['json']['name_ru'])
+                    switch (true) {
+                        case record['json']['name'] != null:
+                            value = record['json']['name'];
+                            break;
+                        case record['json']['name1'] != null:
+                            value = record['json']['name1'];
+                            break;
+                        case record['json']['name2'] != null:
+                            value = record['json']['name2'];
+                            break;
+                        default:
+                            value = _('gl_default');
+                    }
+                    return gl.utils.renderReplace(record['json']['identifier'], value)
                 }
             },
-            iso: {
-                width: 15,
-                sortable: false
+            phone: {
+                width: 20,
+                sortable: false,
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: true
+                }
             },
-            country: {
-                width: 15,
-                sortable: false
-            },
-            timezone: {
-                width: 25,
-                sortable: false
+            email: {
+                width: 20,
+                sortable: false,
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: true
+                }
             },
             actions: {
                 width: 20,
@@ -242,7 +281,7 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: gl.config.connector_url,
             params: {
-                action: 'mgr/region/multiple',
+                action: 'mgr/data/multiple',
                 method: method,
                 field_name: field,
                 field_value: value,
@@ -291,7 +330,7 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: gl.config.connector_url,
             params: {
-                action: 'mgr/region/get',
+                action: 'mgr/data/get',
                 id: record.id
             },
             listeners: {
@@ -299,9 +338,9 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
                     fn: function(r) {
                         var record = r.object;
                         var w = MODx.load({
-                            xtype: 'gl-window-create-region',
+                            xtype: 'gl-window-create-data',
                             title: _('gl_action_update'),
-                            action: 'mgr/region/update',
+                            action: 'mgr/data/update',
                             record: record,
                             update: true,
                             listeners: {
@@ -323,11 +362,13 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
 
     create: function(btn, e) {
         var record = {
-            active: 1
+            active: 1,
+            default: 0,
+            class: 'glCity'
         };
 
         w = MODx.load({
-            xtype: 'gl-window-create-region',
+            xtype: 'gl-window-create-data',
             record: record,
 			fileUpload: true,
             listeners: {
@@ -357,19 +398,6 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
         this.getBottomToolbar().changePage(1);
     },
 
-    _download: function(response) {
-        Ext.Msg.confirm(
-            _('gl_action_download') || _('warning'),
-            _('gl_confirm_download'),
-            function(e) {
-                if (e == 'yes') {
-                    this.setAction('download', 'false', 0);
-                } else {
-                    this.fireEvent('cancel');
-                }
-            },this);
-    },
-
     _getSelectedIds: function() {
         var ids = [];
         var selected = this.getSelectionModel().getSelections();
@@ -385,4 +413,4 @@ Ext.extend(gl.grid.Region, MODx.grid.Grid, {
     }
 
 });
-Ext.reg('gl-grid-region', gl.grid.Region);
+Ext.reg('gl-grid-data', gl.grid.Data);

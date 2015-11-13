@@ -23,6 +23,9 @@ $_lang['gl_header_continent'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_timezone'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_region'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_country'] = '<i class="fa fa-info"></i>';
+$_lang['gl_header_class'] = '<i class="fa fa-cube"></i>';
+$_lang['gl_header_identifier'] = '<i class="fa fa-map-marker"></i>';
+$_lang['gl_header_phone'] = '<i class="fa fa-phone"></i>';
 
 
 /* tooltip */
@@ -48,7 +51,9 @@ $_lang['gl_tooltip_continent'] = 'Континент';
 $_lang['gl_tooltip_timezone'] = 'Часовой пояс';
 $_lang['gl_tooltip_region'] = 'Регион';
 $_lang['gl_tooltip_country'] = 'Страна';
-
+$_lang['gl_tooltip_class'] = 'Класс';
+$_lang['gl_tooltip_identifier'] = 'Идентификатор';
+$_lang['gl_tooltip_phone'] = 'Телефон';
 
 
 /* fields */
@@ -77,9 +82,14 @@ $_lang['gl_identifier'] = 'Идентификатор';
 $_lang['gl_iso'] = 'ISO';
 $_lang['gl_continent'] = 'Континент';
 $_lang['gl_timezone'] = 'Часовой пояс';
+$_lang['gl_city'] = 'Город';
 $_lang['gl_region'] = 'Регион';
 $_lang['gl_country'] = 'Страна';
-
+$_lang['gl_class'] = 'Класс';
+$_lang['gl_address'] = 'Адрес';
+$_lang['gl_phone'] = 'Телефон';
+$_lang['gl_email'] = 'Email';
+$_lang['gl_default'] = 'По умолчанию';
 
 
 /* action */

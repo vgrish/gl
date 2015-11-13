@@ -15,6 +15,7 @@ if ($object->xpdo) {
 				'glCountry',
 				'glRegion',
 				'glCity',
+				'glData'
 			);
 			foreach ($objects as $tmp) {
 				$manager->createObjectContainer($tmp);

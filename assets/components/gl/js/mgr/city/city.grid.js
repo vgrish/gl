@@ -162,26 +162,23 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
         return tbar;
     },
 
-    //var fields = ['id', 'region_id', 'name_ru', 'lat', 'lon', 'okato', 'active', 'actions'];
-
-
     getColumns: function(config) {
         var columns = [this.exp, this.sm];
         var add = {
             id: {
                 width: 10,
-                sortable: true
+                sortable: false
             },
             name: {
                 width: 25,
-                sortable: true,
+                sortable: false,
                 renderer: function (value, metaData, record) {
                     return gl.utils.renderReplace(record['json']['name_ru'], record['json']['name_ru'])
                 }
             },
             region: {
                 width: 25,
-                sortable: true,
+                sortable: false,
                 renderer: function (value, metaData, record) {
                     return gl.utils.renderReplace(record['json']['region_id'], record['json']['region_name_ru'])
                 }

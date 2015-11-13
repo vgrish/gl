@@ -27,27 +27,9 @@ class modglRegionGetProcessor extends modObjectGetProcessor
 	 */
 	public function cleanup()
 	{
-		$set = $this->object->toArray();
+		$array = $this->object->toArray();
 
-		/*$process = $this->getProperty('process', false);
-		if ($process) {
-			$set = array_merge($this->gl->Tools->processObject($this->object, true, true, '', true), $set);
-		}
-
-		$aliases = $this->modx->fromJSON($this->getProperty('aliases', ''));
-		if (!empty($aliases)) {
-			foreach ($aliases as $alias) {
-				$keyPrefix = '';
-				if (in_array($alias, array('ParentUser', 'ParentUserProfile'))) {
-					$keyPrefix = 'parent_';
-				}
-				if ($o = $this->object->getOne($alias)) {
-					$set = array_merge($this->gl->Tools->processObject($o, true, true, $keyPrefix, true), $set);
-				}
-			}
-		}*/
-
-		return $this->success('', $set);
+		return $this->success('', $array);
 	}
 
 }

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Get an glCountry
+ * Get an glData
  */
-class modglCountryGetProcessor extends modObjectGetProcessor
+class modglDataGetProcessor extends modObjectGetProcessor
 {
-	public $objectType = 'glCountry';
-	public $classKey = 'glCountry';
+	public $objectType = 'glData';
+	public $classKey = 'glData';
 	public $languageTopics = array('gl');
 	public $permission = '';
 
@@ -29,9 +29,18 @@ class modglCountryGetProcessor extends modObjectGetProcessor
 	{
 		$array = $this->object->toArray();
 
+		$class = $array['class'];
+		$identifier = $array['identifier'];
+		if (
+			!empty($class) AND
+			$object = $this->modx->getObject($class, $identifier)
+		) {
+			$array['active'] = $object->get('active');
+		}
+
 		return $this->success('', $array);
 	}
 
 }
 
-return 'modglCountryGetProcessor';
+return 'modglDataGetProcessor';

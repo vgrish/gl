@@ -79,14 +79,14 @@ class modglRegionGetListProcessor extends modObjectGetListProcessor
 		$array['actions'] = array();
 
 		// Edit
-		$array['actions'][] = array(
+		/*$array['actions'][] = array(
 			'cls' => '',
 			'icon' => "$icon $icon-eye green",
 			'title' => $this->modx->lexicon('gl_action_view'),
 			'action' => 'update',
 			'button' => true,
 			'menu' => true,
-		);
+		);*/
 		if (!$array['active']) {
 			$array['actions'][] = array(
 				'cls' => '',

@@ -40,6 +40,9 @@ class glAllManagerController extends glMainController {
 
 		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/city/city.grid.js');
 
+		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/data/data.grid.js');
+		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/data/data.window.js');
+
 		$this->addJavascript($this->gl->config['jsUrl'] . 'mgr/all/all.panel.js');
 
 		$script = 'Ext.onReady(function() {

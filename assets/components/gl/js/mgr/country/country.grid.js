@@ -158,29 +158,26 @@ Ext.extend(gl.grid.Country, MODx.grid.Grid, {
         var add = {
             id: {
                 width: 10,
-                sortable: true
+                sortable: false
             },
             name: {
                 width: 25,
-                sortable: true,
+                sortable: false,
                 renderer: function (value, metaData, record) {
                     return gl.utils.renderReplace(record['json']['name_ru'], record['json']['name_ru'])
                 }
             },
             iso: {
                 width: 15,
-                sortable: true,
-                editor: {
-                    xtype: 'textfield'
-                }
+                sortable: false
             },
             continent: {
                 width: 15,
-                sortable: true
+                sortable: false
             },
             timezone: {
                 width: 25,
-                sortable: true
+                sortable: false
             },
             actions: {
                 width: 20,
