@@ -19,7 +19,6 @@ gl.grid.City = function(config) {
         },
         save_action: 'mgr/city/updatefromgrid',
         autosave: true,
-        save_callback: this._download,
         fields: this.getFields(config),
         columns: this.getColumns(config),
         tbar: this.getTopBar(config),
@@ -169,11 +168,12 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
                 width: 10,
                 sortable: false
             },
-            name: {
+            name_ru: {
                 width: 25,
                 sortable: false,
-                renderer: function (value, metaData, record) {
-                    return gl.utils.renderReplace(record['json']['name_ru'], record['json']['name_ru'])
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: false
                 }
             },
             region: {

@@ -19,7 +19,6 @@ gl.grid.Country = function(config) {
         },
         save_action: 'mgr/country/updatefromgrid',
         autosave: true,
-        save_callback: this._updateRow,
         fields: this.getFields(config),
         columns: this.getColumns(config),
         tbar: this.getTopBar(config),
@@ -160,11 +159,12 @@ Ext.extend(gl.grid.Country, MODx.grid.Grid, {
                 width: 10,
                 sortable: false
             },
-            name: {
+            name_ru: {
                 width: 25,
                 sortable: false,
-                renderer: function (value, metaData, record) {
-                    return gl.utils.renderReplace(record['json']['name_ru'], record['json']['name_ru'])
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: false
                 }
             },
             iso: {

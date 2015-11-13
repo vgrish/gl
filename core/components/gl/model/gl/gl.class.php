@@ -334,8 +334,8 @@ class gl
 				'default' => 1,
 				'active' => 1,
 
-				'iso' => 'RU',
-				'continent' => 'EU',
+				'iso' => 'DD',
+				'continent' => 'DD',
 				'name_ru' => 'По умолчанию',
 				'name_en' => 'Default',
 				'lat' => '60',
@@ -351,8 +351,8 @@ class gl
 				'default' => 1,
 				'active' => 1,
 
-				'iso' => 'RU-MOW',
-				'country' => 'RU',
+				'iso' => 'DD-DD',
+				'country' => 'DD',
 				'name_ru' => 'По умолчанию',
 				'name_en' => 'Default',
 				'timezone' => 'Europe/Moscow',

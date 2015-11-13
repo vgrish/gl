@@ -19,7 +19,6 @@ gl.grid.Data = function(config) {
         },
         save_action: 'mgr/data/updatefromgrid',
         autosave: true,
-        save_callback: this._download,
         fields: this.getFields(config),
         columns: this.getColumns(config),
         tbar: this.getTopBar(config),
