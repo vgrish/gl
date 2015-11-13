@@ -16,8 +16,6 @@ class gl
 	/** @var array $opts */
 	public $opts = array();
 
-	/** @var Tools $Tools */
-	public $Tools;
 	/** @var SxGeo $SxGeo */
 	public $SxGeo;
 
@@ -97,22 +95,6 @@ class gl
 		return $option;
 	}
 
-	public function loadTools()
-	{
-		if (!is_object($this->Tools) OR !($this->Tools instanceof glSystemToolsInterface)) {
-			$toolsClass = $this->modx->loadClass('tools.Tools', $this->config['handlersPath'], true, true);
-			if ($derivedClass = $this->modx->getOption('gl_tools_handler_class', null, '', true)) {
-				if ($derivedClass = $this->modx->loadClass('tools.' . $derivedClass, $this->config['handlersPath'], true, true)) {
-					$toolsClass = $derivedClass;
-				}
-			}
-			if ($toolsClass) {
-				$this->Tools = new $toolsClass($this, $this->config);
-			}
-		}
-		return !empty($this->Tools) AND $this->Tools instanceof glSystemToolsInterface;
-	}
-
 	public function loadSxGeo()
 	{
 		if (!is_object($this->SxGeo) OR !($this->SxGeo instanceof SxGeo)) {
@@ -177,9 +159,6 @@ class gl
 			return true;
 		}
 
-		if (!$this->Tools) {
-			$this->loadTools();
-		}
 		if (!$this->SxGeo) {
 			$this->loadSxGeo();
 		}
@@ -320,6 +299,97 @@ class gl
 		}
 
 		return $ip;
+	}
+
+	/**
+	 * @param string $classKey
+	 * @return bool|string
+	 */
+	public function getFileContent($classKey = '')
+	{
+		$filePath = $this->config['sypexgeoPath'] . 'info/';
+
+		switch ($classKey) {
+			case 'glCountry':
+				$filePath .= 'country.tsv';
+				break;
+			case 'glRegion':
+				$filePath .= 'region.tsv';
+				break;
+			case 'glCity':
+				$filePath .= 'city.tsv';
+				break;
+
+		}
+
+		return file_get_contents($filePath);
+	}
+
+	/** {@inheritDoc} */
+	public function createDefault()
+	{
+		if (!$data = $this->modx->getCount('glCountry', array('default' => 1))) {
+			$data = $this->modx->newObject('glCountry', array(
+				'id' => 1,
+				'default' => 1,
+				'active' => 1,
+
+				'iso' => 'RU',
+				'continent' => 'EU',
+				'name_ru' => 'По умолчанию',
+				'name_en' => 'Default',
+				'lat' => '60',
+				'lon' => '100',
+				'timezone' => 'Europe/Moscow',
+			));
+			$data->save();
+		}
+
+		if (!$data = $this->modx->getCount('glRegion', array('default' => 1))) {
+			$data = $this->modx->newObject('glRegion', array(
+				'id' => 1,
+				'default' => 1,
+				'active' => 1,
+
+				'iso' => 'RU-MOW',
+				'country' => 'RU',
+				'name_ru' => 'По умолчанию',
+				'name_en' => 'Default',
+				'timezone' => 'Europe/Moscow',
+				'okato' => '',
+			));
+			$data->save();
+		}
+
+		if (!$data = $this->modx->getCount('glCity', array('default' => 1))) {
+			$data = $this->modx->newObject('glCity', array(
+				'id' => 1,
+				'default' => 1,
+				'active' => 1,
+
+				'region_id' => '1',
+				'name_ru' => 'По умолчанию',
+				'name_en' => 'Default',
+				'lat' => '60',
+				'lon' => '100',
+				'okato' => '',
+			));
+			$data->save();
+		}
+
+		if (!$data = $this->modx->getCount('glData', array('default' => 1))) {
+			$data = $this->modx->newObject('glData', array(
+				'id' => 1,
+				'default' => 1,
+
+				'identifier' => 1,
+				'class' => 'glCity',
+				'phone' => '8999999999',
+				'email' => 'email@mail.ru',
+				'address' => '',
+			));
+			$data->save();
+		}
 	}
 
 	/**

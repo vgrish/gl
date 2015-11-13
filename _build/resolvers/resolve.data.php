@@ -14,30 +14,14 @@ if ($object->xpdo) {
 			$modelPath = $modx->getOption('gl_core_path', null, $modx->getOption('core_path') . 'components/gl/') . 'model/';
 			$modx->addPackage('gl', $modelPath);
 
-			/* glProfit */
-			$datas = array(
-				'1' => array(
-					'identifier' => 1,
-					'class' => '',
-					'phone' => '89997733333',
-					'email' => 'email@mail.ru',
-					'address' => '',
-				),
-			);
+			/** @var gl $gl */
+			$gl = $modx->getService('gl');
+			$gl->initialize();
 
-			foreach ($datas as $id => $properties) {
-				if (!$data = $modx->getCount('glData', array('id' => $id))) {
-					$data = $modx->newObject('glData', array_merge(array(
-						'default' => 1,
-					), $properties));
-					$data->set('id', $id);
-					if ($data->save()) {
-
-					}
-				}
-			}
+			$gl->createDefault();
 
 			break;
+
 		case xPDOTransport::ACTION_UNINSTALL:
 			break;
 	}

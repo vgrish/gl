@@ -10,14 +10,18 @@ class modglClassGetListProcessor extends modObjectProcessor
 	{
 		$array = array(
 			0 => array(
+				'name' => $this->modx->lexicon('gl_default'),
+				'value' => ''
+			),
+			1 => array(
 				'name' => $this->modx->lexicon('gl_city'),
 				'value' => 'glCity'
 			),
-			1 => array(
+			2 => array(
 				'name' => $this->modx->lexicon('gl_region'),
 				'value' => 'glRegion'
 			),
-			2 => array(
+			3 => array(
 				'name' => $this->modx->lexicon('gl_country'),
 				'value' => 'glCountry'
 			),

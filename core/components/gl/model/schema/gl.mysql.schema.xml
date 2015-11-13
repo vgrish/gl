@@ -10,6 +10,7 @@
 		<field key="lat" dbtype="decimal" precision="6,2" phptype="float" null="false" default="0" />
 		<field key="lon" dbtype="decimal" precision="6,2" phptype="float" null="false" default="0" />
 		<field key="timezone" dbtype="varchar" precision="30" phptype="varchar" null="false" default=""/>
+		<field key="default" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
 		<field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
 
 		<index alias="iso" name="iso" primary="false" unique="false" type="BTREE">
@@ -20,6 +21,9 @@
 		</index>
 		<index alias="timezone" name="timezone" primary="false" unique="false" type="BTREE">
 			<column key="timezone" length="" collation="A" null="false"/>
+		</index>
+		<index alias="default" name="default" primary="false" unique="false" type="BTREE" >
+			<column key="default" length="" collation="A" null="false" />
 		</index>
 		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
 			<column key="active" length="" collation="A" null="false"/>
@@ -35,6 +39,7 @@
 		<field key="name_en" dbtype="varchar" precision="128" phptype="varchar" null="false" default=""/>
 		<field key="timezone" dbtype="varchar" precision="30" phptype="varchar" null="false" default=""/>
 		<field key="okato" dbtype="char" precision="4" phptype="string" null="false" default=""/>
+		<field key="default" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
 		<field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
 
 		<index alias="iso" name="iso" primary="false" unique="false" type="BTREE">
@@ -48,6 +53,9 @@
 		</index>
 		<index alias="okato" name="okato" primary="false" unique="false" type="BTREE">
 			<column key="okato" length="" collation="A" null="false"/>
+		</index>
+		<index alias="default" name="default" primary="false" unique="false" type="BTREE" >
+			<column key="default" length="" collation="A" null="false" />
 		</index>
 		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
 			<column key="active" length="" collation="A" null="false"/>
@@ -63,6 +71,7 @@
 		<field key="lat" dbtype="decimal" precision="10,5" phptype="float" null="false" default="0" />
 		<field key="lon" dbtype="decimal" precision="10,5" phptype="float" null="false" default="0" />
 		<field key="okato" dbtype="char" precision="20" phptype="string" null="false" default=""/>
+		<field key="default" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
 		<field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
 
 		<index alias="region_id" name="region_id" primary="false" unique="false" type="BTREE">
@@ -70,6 +79,9 @@
 		</index>
 		<index alias="okato" name="okato" primary="false" unique="false" type="BTREE">
 			<column key="okato" length="" collation="A" null="false"/>
+		</index>
+		<index alias="default" name="default" primary="false" unique="false" type="BTREE" >
+			<column key="default" length="" collation="A" null="false" />
 		</index>
 		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
 			<column key="active" length="" collation="A" null="false"/>

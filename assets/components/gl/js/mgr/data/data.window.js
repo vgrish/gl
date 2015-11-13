@@ -19,19 +19,19 @@ gl.window.CreateData = function (config) {
         config.update = false;
     }
 
-    this.on('afterrender', function() {
-        if (config.update && config.record.default) {
-            Ext.each(this.fp.getForm().items.items, function(t) {
-                if (
-                    t.isXType('gl-combo-identifier') ||
-                    t.isXType('gl-combo-class') ||
-                    t.isXType('checkboxgroup')
-                ) {
-                    t.disable().hide();
-                }
-            });
-        }
-    });
+    //this.on('afterrender', function() {
+    //    if (config.update && config.record.default) {
+    //        Ext.each(this.fp.getForm().items.items, function(t) {
+    //            if (
+    //                t.isXType('gl-combo-identifier') ||
+    //                t.isXType('gl-combo-class') ||
+    //                t.isXType('checkboxgroup')
+    //            ) {
+    //                t.disable().hide();
+    //            }
+    //        });
+    //    }
+    //});
 };
 Ext.extend(gl.window.CreateData, MODx.Window, {
 

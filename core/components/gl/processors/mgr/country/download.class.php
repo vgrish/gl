@@ -30,12 +30,13 @@ class modglCountrysDownloadProcessor extends modProcessor
 	/** {@inheritDoc} */
 	public function process()
 	{
-		$content = $this->gl->Tools->getFileContent($this->classKey);
+		$content = $this->gl->getFileContent($this->classKey);
 		if ($content == false) {
 			return $this->failure($this->gl->lexicon('err_file_ns'));
 		}
 
 		$this->clearTable();
+		$this->gl->createDefault();
 
 		$lines = explode("\n", $content);
 		array_pop($lines);
