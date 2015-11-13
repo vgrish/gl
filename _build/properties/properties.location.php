@@ -34,7 +34,7 @@ $tmp = array(
 		'type' => 'textfield',
 		'value' => 'gl',
 	),
-	'colorboxJsCss' => array(
+	/*'colorboxJsCss' => array(
 		'type' => 'combo-boolean',
 		'value' => true,
 	),
@@ -45,7 +45,7 @@ $tmp = array(
 	'colorboxCss' => array(
 		'type' => 'textfield',
 		'value' => '[[+assetsUrl]]vendor/colorbox/colorbox.css',
-	),
+	),*/
 	'jqueryJs' => array(
 		'type' => 'textfield',
 		'value' => '[[+assetsUrl]]vendor/jquery/jquery.min.js',

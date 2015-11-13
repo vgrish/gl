@@ -1,3 +1,6 @@
+@import url("./../../vendor/colorbox/colorbox.css");
+@import url("./../../vendor/select2/css/select2.min.css");
+
 .gl-current-select {
     color: #00F;
     cursor: pointer;
@@ -19,13 +22,37 @@
 }
 
 .gl-default {
-    width: 300px;
+	width: 400px;
     padding: 30px;
     text-align: center;
+	display: block;
 }
 
 .gl-change-select {
     width: 400px;
     padding: 30px;
     display: block;
+}
+
+.gl-change-list {
+	list-style: none;
+	padding: 0px;
+	overflow: hidden;
+	width: 100%;
+	margin: 25px 0 0 0;
+}
+
+.gl-change-list li {
+	float: left;
+	width: 33.33%;
+	padding: 0px 0px 0 0;
+	margin: 0 0 0px;
+	line-height: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.gl-change-list span {
+	color: blue;
+	cursor: pointer;
 }

@@ -204,14 +204,14 @@ class gl
 				'), true);
 			}
 
-			if ($this->config['colorboxJsCss']) {
-				if ($this->config['colorboxCss']) {
-					$this->modx->regClientCSS($this->config['colorboxCss']);
-				}
-				if ($this->config['colorboxJs']) {
-					$this->modx->regClientScript($this->config['colorboxJs']);
-				}
-			}
+//			if ($this->config['colorboxJsCss']) {
+//				if ($this->config['colorboxCss']) {
+//					$this->modx->regClientCSS($this->config['colorboxCss']);
+//				}
+//				if ($this->config['colorboxJs']) {
+//					$this->modx->regClientScript($this->config['colorboxJs']);
+//				}
+//			}
 
 			if ($this->config['frontendCss']) {
 				$this->modx->regClientCSS($this->config['frontendCss']);

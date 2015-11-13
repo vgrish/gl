@@ -6,8 +6,15 @@ if (typeof(gl) == 'undefined') {
 
 gl = {
     initialize: function () {
+		if (!jQuery().colorbox) {
+			document.write('<script src="' + glConfig.assetsUrl + 'vendor/colorbox/jquery.colorbox-min.js"><\/script>');
+			document.write('<script src="' + glConfig.assetsUrl + 'vendor/colorbox/i18n/jquery.colorbox-ru.js"><\/script>');
+		}
+		if (!jQuery().select2) {
+			document.write('<script src="' + glConfig.assetsUrl + 'vendor/select2/js/select2.min.js"><\/script>');
+			document.write('<script src="' + glConfig.assetsUrl + 'vendor/select2/js/i18n/ru.js"><\/script>');
+		}
         $(document).ready(function () {
-
 
         });
         gl.Init = true;
@@ -16,6 +23,12 @@ gl = {
 
 
 gl.location = {
+	config: {},
+	placeholder: {},
+	baseParams: {
+		limit: 0,
+		active: 1
+	},
     initialize: function () {
         if (!!!gl.Init) {
             gl.initialize();
@@ -35,39 +48,35 @@ gl.location = {
         });
 
         $(document).on('click touchend', '.btn-change', function (e) {
-
             $('.gl-default').hide();
             $('.gl-change-select').show();
-            $.colorbox.resize({innerWidth: '30%'});
+			$.colorbox.resize();
             e.preventDefault();
             return false;
         });
 
+		$(document).on('click touchend', '.gl-change-list .gl-list-location', function (e) {
+
+			console.log(this);
+
+			e.preventDefault();
+			return false;
+		});
+
         $(document).bind('cbox_complete', function(){
+			$('#colorbox').removeAttr('tabindex');
             $('.gl-default').show();
             $('.gl-change-select').hide();
             $.colorbox.resize();
+			gl.location.input.activate('location');
         });
 
-        $(document).bind('cbox_closed', function(){
-
-        });
-
-        //$(document).on('onClosed', '.btn-change', function(e) {
-        //
-        //    $('.gl-default').hide();
-        //    $('.gl-change-select').show();
-        //    $.colorbox.resize({ innerWidth:'30%' });
-        //    e.preventDefault();
-        //    return false;
-        //});
-        //
-
-
-        $(document).ready(function () {
-
-
-        });
+		$(document).bind('cbox_cleanup', function(){
+			gl.location.input.close('location');
+		});
+		$(document).bind('cbox_closed', function(){
+			gl.location.input.destroy('location');
+		});
 
         $(document).on('cbox_open', function () {
             $('body').css({overflow: 'hidden'});
@@ -75,16 +84,102 @@ gl.location = {
             $('body').css({overflow: ''});
         });
 
+		$(document).ready(function () {
+
+		});
+
     },
 
     modal: function (select) {
         var html = $('.gl-modal').html();
-        $.colorbox({html: html});
+        $.colorbox({
+			html: html,
+			//trapFocus: false
+		});
+
     },
 
     select: function (select) {
 
     },
+
+	input: {
+		close: function(key) {
+			var field = $('[name="' + key + '"]');
+			if (!field) {
+				return false;
+			}
+			field.select2('close');
+		},
+		destroy: function(key) {
+			var field = $('[name="' + key + '"]');
+			if (!field) {
+				return false;
+			}
+			field.select2('destroy');
+		},
+		activate: function(key, action) {
+
+			action = 'rrr';
+
+			var field = $('[name="' + key + '"]');
+			if (!field) {
+				return false;
+			}
+
+			field.select2({
+				templateResult: gl.location.input.getResult,
+				templateSelection: gl.location.input.getSelection,
+				maximumSelectionLength: 1,
+				language: "ru",
+				ajax: {
+					url: glConfig.actionUrl,
+					dataType: 'json',
+					delay: 200,
+					type: 'POST',
+					data: function(params) {
+						return $.extend({},
+							gl.location.baseParams, {
+								action: action,
+								query: params.term
+							});
+					},
+					processResults: function(data, page) {
+						return {
+							results: data.results
+						};
+					},
+					cache: false
+				}
+			});
+
+			//field.on("select2:select", function(e) {
+			//	mspointsissue.callbacks.handle("select2:select", e);
+			//});
+			//field.on("select2:unselect", function(e) {
+			//	mspointsissue.callbacks.handle("select2:unselect", e);
+			//});
+
+			/*field.on("select2:open", function(e) {
+			 mspointsissue.callbacks.handle("select2:open", e);
+			 });
+			 field.on("select2:close", function(e) {
+			 mspointsissue.callbacks.handle("select2:close", e);
+			 });*/
+		},
+		getResult: function(el) {
+			if (!el.id) {
+				return '';
+			}
+			return $('<div>' + el.name + ' <sup>' + el.company_name + '</sup></div><div>' + el.phone + '</div>');
+		},
+		getSelection: function(el) {
+			if (!el.id) {
+				return '';
+			}
+			return el.name;
+		}
+	},
 
 
 };
