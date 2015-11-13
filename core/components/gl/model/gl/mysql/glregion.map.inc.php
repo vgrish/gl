@@ -12,6 +12,7 @@ $xpdo_meta_map['glRegion']= array (
     'name_en' => '',
     'timezone' => '',
     'okato' => '',
+    'default' => 0,
     'active' => 0,
   ),
   'fieldMeta' => 
@@ -63,6 +64,14 @@ $xpdo_meta_map['glRegion']= array (
       'phptype' => 'string',
       'null' => false,
       'default' => '',
+    ),
+    'default' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'boolean',
+      'null' => true,
+      'default' => 0,
     ),
     'active' => 
     array (
@@ -132,6 +141,22 @@ $xpdo_meta_map['glRegion']= array (
       'columns' => 
       array (
         'okato' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'default' => 
+    array (
+      'alias' => 'default',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'default' => 
         array (
           'length' => '',
           'collation' => 'A',

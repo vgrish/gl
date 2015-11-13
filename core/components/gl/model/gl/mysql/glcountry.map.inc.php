@@ -13,6 +13,7 @@ $xpdo_meta_map['glCountry']= array (
     'lat' => 0,
     'lon' => 0,
     'timezone' => '',
+    'default' => 0,
     'active' => 0,
   ),
   'fieldMeta' => 
@@ -73,6 +74,14 @@ $xpdo_meta_map['glCountry']= array (
       'null' => false,
       'default' => '',
     ),
+    'default' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'boolean',
+      'null' => true,
+      'default' => 0,
+    ),
     'active' => 
     array (
       'dbtype' => 'tinyint',
@@ -125,6 +134,22 @@ $xpdo_meta_map['glCountry']= array (
       'columns' => 
       array (
         'timezone' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'default' => 
+    array (
+      'alias' => 'default',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'default' => 
         array (
           'length' => '',
           'collation' => 'A',

@@ -12,6 +12,7 @@ $xpdo_meta_map['glCity']= array (
     'lat' => 0,
     'lon' => 0,
     'okato' => '',
+    'default' => 0,
     'active' => 0,
   ),
   'fieldMeta' => 
@@ -64,6 +65,14 @@ $xpdo_meta_map['glCity']= array (
       'null' => false,
       'default' => '',
     ),
+    'default' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'boolean',
+      'null' => true,
+      'default' => 0,
+    ),
     'active' => 
     array (
       'dbtype' => 'tinyint',
@@ -100,6 +109,22 @@ $xpdo_meta_map['glCity']= array (
       'columns' => 
       array (
         'okato' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'default' => 
+    array (
+      'alias' => 'default',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'default' => 
         array (
           'length' => '',
           'collation' => 'A',
