@@ -1,3 +1,31 @@
-.gl-current-chooser {
-    color: #2F00D8;
+.gl-current-select {
+    color: #00F;
+    cursor: pointer;
+}
+
+.btn-yes {
+    height: 30px;
+    margin: 15px;
+    cursor: pointer;
+    color: #00F;
+}
+
+.btn-change {
+    height: 30px;
+    margin: 15px;
+    cursor: pointer;
+    color: #F00;
+    border-bottom: 1px dotted #005a99;
+}
+
+.gl-default {
+    width: 300px;
+    padding: 30px;
+    text-align: center;
+}
+
+.gl-change-select {
+    width: 400px;
+    padding: 30px;
+    display: block;
 }
