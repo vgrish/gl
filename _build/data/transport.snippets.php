@@ -7,6 +7,10 @@ $tmp = array(
 		'file' => 'location',
 		'description' => '',
 	),
+	'gl.modal' => array(
+		'file' => 'modal',
+		'description' => '',
+	),
 );
 
 foreach ($tmp as $k => $v) {

@@ -3,8 +3,12 @@
 $chunks = array();
 
 $tmp = array(
-	'tpl.gl.chooser' => array(
-		'file' => 'chooser',
+	'tpl.gl.location' => array(
+		'file' => 'location',
+		'description' => '',
+	),
+	'tpl.gl.modal' => array(
+		'file' => 'modal',
 		'description' => '',
 	),
 );

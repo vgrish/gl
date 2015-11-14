@@ -3,11 +3,11 @@
 $properties = array();
 
 $tmp = array(
-
 	'tpl' => array(
 		'type' => 'textfield',
-		'value' => 'tpl.gl.location'
+		'value' => 'tpl.gl.modal'
 	),
+
 	'class' => array(
 		'type' => 'list',
 		'options' => array(
@@ -18,26 +18,6 @@ $tmp = array(
 		'value' => 'glCity',
 	),
 
-	'limit' => array(
-		'type' => 'numberfield',
-		'value' => 10
-	),
-	'offset' => array(
-		'type' => 'numberfield',
-		'value' => 0
-	),
-	'where' => array(
-		'type' => 'textfield',
-		'value' => ''
-	),
-	'outputSeparator' => array(
-		'type' => 'textfield',
-		'value' => "\n"
-	),
-	'toPlaceholder' => array(
-		'type' => 'textfield',
-		'value' => ''
-	),
 //	'id' => array(
 //		'type' => 'textfield',
 //		'value' => ''
@@ -59,10 +39,6 @@ $tmp = array(
 //	),
 
 
-//	'objectName' => array(
-//		'type' => 'textfield',
-//		'value' => 'gl',
-//	),
 	/*'colorboxJsCss' => array(
 		'type' => 'combo-boolean',
 		'value' => true,
@@ -75,7 +51,19 @@ $tmp = array(
 		'type' => 'textfield',
 		'value' => '[[+assetsUrl]]vendor/colorbox/colorbox.css',
 	),*/
+	'jqueryJs' => array(
+		'type' => 'textfield',
+		'value' => '[[+assetsUrl]]vendor/jquery/jquery.min.js',
+	),
 
+	'frontendCss' => array(
+		'type' => 'textfield',
+		'value' => '[[+assetsUrl]]css/web/default.css',
+	),
+	'frontendJs' => array(
+		'type' => 'textfield',
+		'value' => '[[+assetsUrl]]js/web/default.js',
+	),
 
 );
 
