@@ -95,6 +95,9 @@ class gl
 		return $option;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function loadSxGeo()
 	{
 		if (!is_object($this->SxGeo) OR !($this->SxGeo instanceof SxGeo)) {
@@ -177,6 +180,8 @@ class gl
 		$config = $this->modx->toJSON(array(
 			'assetsUrl' => $this->config['assetsUrl'],
 			'actionUrl' => $this->config['actionUrl'],
+			'modalShow' => $this->config['modalShow'],
+			'locationClass' => $this->config['class'],
 		));
 
 		$this->modx->regClientStartupScript(preg_replace('#(\n|\t)#', '', '
@@ -454,7 +459,8 @@ class gl
 	 * @param bool $restore
 	 * @return array
 	 */
-	public function setPlaceholders($subject, $prefix= 'gl', $separator= '.', $restore= false) {
+	public function setPlaceholders($subject, $prefix = 'gl', $separator = '.', $restore = false)
+	{
 		$keys = array();
 		$restored = array();
 		if (is_array($subject)) {
@@ -473,8 +479,68 @@ class gl
 		return $return;
 	}
 
+	/**
+	 * @param bool $json
+	 * @return bool
+	 */
+	public function setJsonResponse($json = true)
+	{
+		return ($this->config['jsonResponse'] = $json);
+	}
+
+	/**
+	 * This method returns prepared response
+	 *
+	 * @param mixed $response
+	 *
+	 * @return array|string $response
+	 */
+	public function prepareResponse($response)
+	{
+		if ($response instanceof modProcessorResponse) {
+			$output = $response->getResponse();
+		} else {
+			$message = $response;
+			if (empty($message)) {
+				$message = $this->lexicon('err_unknown');
+			}
+			$output = $this->failure($message);
+		}
+		if ($this->config['jsonResponse'] AND is_array($output)) {
+			$output = $this->modx->toJSON($output);
+		} elseif (!$this->config['jsonResponse'] AND !is_array($output)) {
+			$output = $this->modx->fromJSON($output);
+		}
+		return $output;
+	}
 
 
+	/**
+	 * Shorthand for the call of processor
+	 *
+	 * @access public
+	 *
+	 * @param string $action Path to processor
+	 * @param array $data Data to be transmitted to the processor
+	 *
+	 * @return mixed The result of the processor
+	 */
+	public function runProcessor($action = '', $data = array(), $json = true)
+	{
+		if (empty($action)) {
+			return false;
+		}
+		$this->modx->error->reset();
+		/* @var modProcessorResponse $response */
+		$response = $this->modx->runProcessor($action, $data, array('processors_path' => $this->config['processorsPath']));
+
+		if (!$json) {
+			$this->setJsonResponse(false);
+		}
+		$result = $this->config['prepareResponse'] ? $this->prepareResponse($response) : $response;
+		$this->setJsonResponse();
+		return $result;
+	}
 
 	/**
 	 * Sets data to cache

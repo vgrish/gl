@@ -27,7 +27,9 @@ gl.location = {
 	placeholder: {},
 	baseParams: {
 		limit: 0,
-		active: 1
+		active: 1,
+        default: 0,
+        action: 'getlist'
 	},
     initialize: function () {
         if (!!!gl.Init) {
@@ -35,8 +37,7 @@ gl.location = {
         }
 
         $(document).on('click touchend', '.gl-current-select', function (e) {
-            var $this = $(this);
-            gl.location.modal($this);
+            gl.location.modal();
             e.preventDefault();
             return false;
         });
@@ -68,7 +69,7 @@ gl.location = {
             $('.gl-default').show();
             $('.gl-change-select').hide();
             $.colorbox.resize();
-			gl.location.input.activate('location');
+			gl.location.input.load('location');
         });
 
 		$(document).bind('cbox_cleanup', function(){
@@ -85,12 +86,14 @@ gl.location = {
         });
 
 		$(document).ready(function () {
-
+            if (glConfig.modalShow) {
+                gl.location.modal();
+            }
 		});
 
     },
 
-    modal: function (select) {
+    modal: function () {
         var html = $('.gl-modal').html();
         $.colorbox({
 			html: html,
@@ -101,6 +104,38 @@ gl.location = {
 
     select: function (select) {
 
+    },
+
+    request: function(action, data) {
+
+        $.ajax({
+            url: glConfig.actionUrl,
+            dataType: 'json',
+            delay: 200,
+            type: 'POST',
+            async: false,
+            data: $.extend({}, {action: action}, data),
+            success: function(response) {}
+        });
+
+        return true;
+    },
+
+    callbacks: {
+        select2: function(evt) {
+            var opts = "{}";
+
+            if (!!evt) {
+                opts = JSON.stringify(evt.params, function(key, value) {
+                    if (value && value.nodeName) return "[DOM node]";
+                    if (value instanceof $.Event) return "[$.Event]";
+                    return value;
+                });
+            }
+            opts = JSON.parse(opts);
+
+            return gl.location.request('select', opts.data);
+        }
     },
 
 	input: {
@@ -118,10 +153,7 @@ gl.location = {
 			}
 			field.select2('destroy');
 		},
-		activate: function(key, action) {
-
-			action = 'rrr';
-
+        load: function(key) {
 			var field = $('[name="' + key + '"]');
 			if (!field) {
 				return false;
@@ -140,7 +172,7 @@ gl.location = {
 					data: function(params) {
 						return $.extend({},
 							gl.location.baseParams, {
-								action: action,
+                                class: glConfig.locationClass,
 								query: params.term
 							});
 					},
@@ -153,102 +185,26 @@ gl.location = {
 				}
 			});
 
-			//field.on("select2:select", function(e) {
-			//	mspointsissue.callbacks.handle("select2:select", e);
-			//});
-			//field.on("select2:unselect", function(e) {
-			//	mspointsissue.callbacks.handle("select2:unselect", e);
-			//});
+			field.on("select2:select", function(e) {
+				gl.location.callbacks.select2(e);
+			});
 
-			/*field.on("select2:open", function(e) {
-			 mspointsissue.callbacks.handle("select2:open", e);
-			 });
-			 field.on("select2:close", function(e) {
-			 mspointsissue.callbacks.handle("select2:close", e);
-			 });*/
 		},
 		getResult: function(el) {
 			if (!el.id) {
 				return '';
 			}
-			return $('<div>' + el.name + ' <sup>' + el.company_name + '</sup></div><div>' + el.phone + '</div>');
+			return $('<div>' + el.name_ru + '</div>');
 		},
 		getSelection: function(el) {
 			if (!el.id) {
 				return '';
 			}
-			return el.name;
+			return el.name_ru;
 		}
-	},
-
+	}
 
 };
 
 
 gl.location.initialize();
-
-/*
-
- action: function(form, button, confirm) {
- if (confirm) {
- paymentsystem.Operation.Сonfirm(form, button);
- return false;
- }
- var action = $(button).prop('name').split('/');
-
- $(form).ajaxSubmit({
- data: {
- action: action
- },
- url: paymentsystemConfig.actionUrl,
- form: form,
- button: button,
- dataType: 'json',
- beforeSubmit: function() {
- $(button).attr('disabled', true);
- return true;
- },
- success: function(response) {
- if (response.success) {
- paymentsystem.Message.success('', response.message);
-
- if ($.inArray('paymentopen',action) > 0  && response.object['payment_url']) {
- document.location.href = response.object['payment_url'];
- }
-
- if (response.object && response.object['process']) {
- var process = response.object['process'];
- if (process.id && process.type && process.output != '') {
- var view = $(paymentsystemConfig.defaults.selector.view).parent().find('[data-type="' + process.type + '"][data-id="' + process.id + '"]');
- if (view.length) {
- view.html(process.output);
- }
- }
- }
-
- } else {
- if (response.data && response.data.length > 0) {
- var errors = [];
- var i, field;
- for (i in response.data) {
- field = response.data[i];
- var elem = $(form).find('[name="' + field.id + '"]').parent().find('.error');
- if (elem.length > 0) {
- elem.text(field.msg)
- }
- else if (field.id && field.msg) {
- errors.push(field.id + ': ' + field.msg);
- }
- }
- if (errors.length > 0) {
- paymentsystem.Message.error('', errors.join('<br/>'));
- }
- }
- else {
- paymentsystem.Message.error('', response.message);
- }
- }
- $(button).attr('disabled', false);
- }
- });
- }*/

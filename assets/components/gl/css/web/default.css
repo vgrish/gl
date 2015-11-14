@@ -63,3 +63,8 @@
 	font-weight: 700;
 	color: #636363;
 }
+
+/* fix select2 */
+.select2-dropdown.select2-dropdown--below {
+	z-index: 10001;
+}

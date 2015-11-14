@@ -17,6 +17,10 @@ $tmp = array(
 		),
 		'value' => 'glCity',
 	),
+	'modalShow' => array(
+		'type' => 'combo-boolean',
+		'value' => true,
+	),
 
 //	'id' => array(
 //		'type' => 'textfield',
@@ -51,6 +55,7 @@ $tmp = array(
 		'type' => 'textfield',
 		'value' => '[[+assetsUrl]]vendor/colorbox/colorbox.css',
 	),*/
+
 	'jqueryJs' => array(
 		'type' => 'textfield',
 		'value' => '[[+assetsUrl]]vendor/jquery/jquery.min.js',
