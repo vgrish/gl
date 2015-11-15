@@ -209,15 +209,6 @@ class gl
 				'), true);
 			}
 
-//			if ($this->config['colorboxJsCss']) {
-//				if ($this->config['colorboxCss']) {
-//					$this->modx->regClientCSS($this->config['colorboxCss']);
-//				}
-//				if ($this->config['colorboxJs']) {
-//					$this->modx->regClientScript($this->config['colorboxJs']);
-//				}
-//			}
-
 			if ($this->config['frontendCss']) {
 				$this->modx->regClientCSS($this->config['frontendCss']);
 			}
@@ -433,6 +424,86 @@ class gl
 				$data['data'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
 				$data['data'] = end($data['data']);
 			}
+			$this->setCache($data, $options);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCurrentData($id = 0, $class = 'glCity')
+	{
+		/* array cache $options */
+		$options = array(
+			'cache_key' => 'gl/data/' . $class . '/' . $id,
+			'cacheTime' => 0,
+		);
+		if (!$data = $this->getCache($options)) {
+			$data = array();
+
+			$q = $this->modx->newQuery('glData', array('identifier' => $id, 'class' => $class));
+			$q->select('class,phone,email,address,properties');
+			if ($q->prepare() && $q->stmt->execute()) {
+				$data['data'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+				$data['data'] = end($data['data']);
+			}
+
+			switch ($class) {
+				case 'glCountry':
+					$q = $this->modx->newQuery('glCountry', array('id' => $id));
+					$q->select('id,iso,lat,lon,name_ru,name_en');
+					if ($q->prepare() && $q->stmt->execute()) {
+						$data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+						$data['country'] = end($data['country']);
+					}
+					break;
+				case 'glRegion':
+					$q = $this->modx->newQuery('glRegion', array('id' => $id));
+					$q->select('id,name_ru,name_en,iso,country');
+					if ($q->prepare() && $q->stmt->execute()) {
+						$data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+						$data['region'] = end($data['region']);
+					}
+					$id = $data['region']['country'];
+					unset($data['region']['country']);
+					$q = $this->modx->newQuery('glCountry', array('id' => $id));
+					$q->select('id,iso,lat,lon,name_ru,name_en');
+					if ($q->prepare() && $q->stmt->execute()) {
+						$data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+						$data['country'] = end($data['country']);
+					}
+					break;
+				case 'glCity':
+					$q = $this->modx->newQuery('glCity', array('id' => $id));
+					$q->select('id,lat,lon,name_ru,name_en,region_id');
+					if ($q->prepare() && $q->stmt->execute()) {
+						$data['city'] = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+						$data['city'] = end($data['city']);
+					}
+					$id = $data['city']['region_id'];
+					unset($data['city']['region_id']);
+					$q = $this->modx->newQuery('glRegion', array('id' => $id));
+					$q->select('id,name_ru,name_en,iso,country');
+					if ($q->prepare() && $q->stmt->execute()) {
+						$data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+						$data['region'] = end($data['region']);
+					}
+					$id = $data['region']['country'];
+					unset($data['region']['country']);
+					$q = $this->modx->newQuery('glCountry', array('iso' => $id));
+					$q->select('id,iso,lat,lon,name_ru,name_en');
+					if ($q->prepare() && $q->stmt->execute()) {
+						$data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+						$data['country'] = end($data['country']);
+					}
+					break;
+				default:
+					$data = array();
+					break;
+			}
+
 			$this->setCache($data, $options);
 		}
 

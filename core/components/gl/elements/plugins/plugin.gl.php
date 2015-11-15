@@ -12,7 +12,9 @@ switch ($modx->event->name) {
 		if (empty($gl->opts['check'])) {
 			$gl->initialize($this->modx->context->key);
 			$gl->opts['real'] = $gl->getRealData();
-			$gl->opts['current'] = $gl->getDefaultData();
+			if (!isset($gl->opts['current'])) {
+				$gl->opts['current'] = $gl->getDefaultData();
+			}
 			$gl->opts['check'] = true;
 		}
 		$gl->setPlaceholders($gl->opts);
