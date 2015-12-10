@@ -6,21 +6,21 @@ $tmp = array(
 
 	//временные
 
-	'assets_path' => array(
-		'value' => '{base_path}gl/assets/components/gl/',
-		'xtype' => 'textfield',
-		'area' => 'gl_temp',
-	),
-	'assets_url' => array(
-		'value' => '/gl/assets/components/gl/',
-		'xtype' => 'textfield',
-		'area' => 'gl_temp',
-	),
-	'core_path' => array(
-		'value' => '{base_path}gl/core/components/gl/',
-		'xtype' => 'textfield',
-		'area' => 'gl_temp',
-	),
+//	'assets_path' => array(
+//		'value' => '{base_path}gl/assets/components/gl/',
+//		'xtype' => 'textfield',
+//		'area' => 'gl_temp',
+//	),
+//	'assets_url' => array(
+//		'value' => '/gl/assets/components/gl/',
+//		'xtype' => 'textfield',
+//		'area' => 'gl_temp',
+//	),
+//	'core_path' => array(
+//		'value' => '{base_path}gl/core/components/gl/',
+//		'xtype' => 'textfield',
+//		'area' => 'gl_temp',
+//	),
 
 	//временные
 

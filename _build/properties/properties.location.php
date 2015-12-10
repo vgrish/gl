@@ -26,6 +26,18 @@ $tmp = array(
 		'type' => 'numberfield',
 		'value' => 0
 	),
+	'sortby' => array(
+		'type' => 'textfield',
+		'value' => 'name_ru',
+	),
+	'sortdir' => array(
+		'type' => 'list',
+		'options' => array(
+			array('text' => 'ASC', 'value' => 'ASC'),
+			array('text' => 'DESC', 'value' => 'DESC'),
+		),
+		'value' => 'ASC'
+	),
 	'where' => array(
 		'type' => 'textfield',
 		'value' => ''

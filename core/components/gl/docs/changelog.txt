@@ -1,5 +1,9 @@
 Changelog for gl.
 
+1.0.1-beta (10.12.2015)
+==============
+- Fix city getlist.class.php
+
 1.0.0-beta
 ==============
 - Initial

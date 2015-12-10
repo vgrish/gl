@@ -53,16 +53,6 @@ class modglDataGetListProcessor extends modObjectGetListProcessor
 			'active2' => 'glCity.active',
 		));
 
-//		$c->where(array("glCountry.name_ru:!" => null));
-//		$c->where(array("glRegion.name_ru:!" => null));
-//		$c->where(array("glCity.name_ru:!" => null));
-
-
-		$active = $this->getProperty('active');
-		if ($active != '') {
-			$c->where(array('active' => $active));
-		}
-
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(

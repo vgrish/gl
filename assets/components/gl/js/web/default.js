@@ -42,6 +42,14 @@ gl.location = {
             return false;
         });
 
+        $(document).on('click touchend', '.btn-change', function(e) {
+            $('.gl-default').hide();
+            $('.gl-change-select').show();
+            $.colorbox.resize();
+            e.preventDefault();
+            return false;
+        });
+
         $(document).on('click touchend', '.btn-yes', function(e) {
             var data = {
                 id: 0,
@@ -49,14 +57,6 @@ gl.location = {
             };
 
             gl.location.select(data);
-            e.preventDefault();
-            return false;
-        });
-
-        $(document).on('click touchend', '.btn-change', function(e) {
-            $('.gl-default').hide();
-            $('.gl-change-select').show();
-            $.colorbox.resize();
             e.preventDefault();
             return false;
         });

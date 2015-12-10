@@ -57,19 +57,19 @@ class modglLocationGetListProcessor extends modObjectGetListProcessor
 
 		$active = $this->getProperty('active');
 		if ($active != '') {
-			$c->where(array('active' => $active));
+			$c->where(array("{$this->objectType}.active" => $active));
 		}
 
 		$default = $this->getProperty('default');
 		if ($default != '') {
-			$c->where(array('default' => $default));
+			$c->where(array("{$this->objectType}.default" => $default));
 		}
 
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				'name_ru:LIKE' => "%{$query}%",
-				'OR:name_en:LIKE' => "%{$query}%",
+				"{$this->objectType}.name_ru:LIKE" => "%{$query}%",
+				"OR:{$this->objectType}.name_en:LIKE" => "%{$query}%",
 			));
 		}
 

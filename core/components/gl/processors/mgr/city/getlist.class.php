@@ -35,6 +35,7 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
 
 		}
 
+
 		$c->leftJoin('glRegion', 'glRegion', 'glRegion.id = glCity.region_id');
 
 		$c->select($this->modx->getSelectColumns('glCity', 'glCity'));
@@ -44,24 +45,24 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
 
 		$active = $this->getProperty('active');
 		if ($active != '') {
-			$c->where(array('active' => $active));
+			$c->where(array('glCity.active' => $active));
 		}
 
 		$regionId = $this->getProperty('region_id');
 		if ($regionId != '') {
-			$c->where(array('region_id' => $regionId));
+			$c->where(array('glCity.region_id' => $regionId));
 		}
 
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				'name_ru:LIKE' => "%{$query}%",
-				'OR:name_en:LIKE' => "%{$query}%",
+				'glCity.name_ru:LIKE' => "%{$query}%",
+				'glCity.OR:name_en:LIKE' => "%{$query}%",
 			));
 		}
 
-		$c->sortby('active', 'DESC');
-		$c->sortby('name_ru', 'ASC');
+		$c->sortby('glCity.active', 'DESC');
+		$c->sortby('glCity.name_ru', 'ASC');
 
 		return $c;
 	}

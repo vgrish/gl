@@ -57,7 +57,7 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
     },
 
     getTopBarComponent: function(config) {
-        var component = ['menu', 'create', 'left', 'active', 'search'];
+        var component = ['menu', 'create', 'left', /*'active',*/ 'search'];
         if (!!config.compact) {
             component = ['menu', 'create', 'left', 'spacer'];
         }

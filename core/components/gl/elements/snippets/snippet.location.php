@@ -5,6 +5,8 @@ $class = $scriptProperties['class'] = $modx->getOption('class', $scriptPropertie
 $where = $scriptProperties['where'] = $modx->getOption('where', $scriptProperties, '{}', true);
 $limit = $scriptProperties['limit'] = $modx->getOption('limit', $scriptProperties, 10, true);
 $offset = $scriptProperties['offset'] = $modx->getOption('offset', $scriptProperties, 0, true);
+$sortby = $scriptProperties['sortby'] = $modx->getOption('sortby', $scriptProperties, 'name_ru', true);
+$sortdir = $scriptProperties['sortdir'] = $modx->getOption('sortdir', $scriptProperties, 'ASC', true);
 $tpl = $scriptProperties['tpl'] = $modx->getOption('tpl', $scriptProperties, 'tpl.gl.location', true);
 $idx = $scriptProperties['idx'] = $modx->getOption('idx', $scriptProperties, 0, true);
 $outputSeparator = $scriptProperties['outputSeparator'] = $modx->getOption('outputSeparator', $scriptProperties, "\n", true);
@@ -31,6 +33,7 @@ if (!empty($scriptProperties['where'])) {
 $q = $modx->newQuery($class);
 $q->where($where);
 $q->limit($limit, $offset);
+$q->sortby($sortby, $sortdir);
 $q->select($modx->getSelectColumns($class, $class));
 if ($q->prepare() AND $q->stmt->execute()) {
 	$rows = $q->stmt->fetchAll(PDO::FETCH_ASSOC);

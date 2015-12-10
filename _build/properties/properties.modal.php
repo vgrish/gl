@@ -22,40 +22,6 @@ $tmp = array(
 		'value' => true,
 	),
 
-//	'id' => array(
-//		'type' => 'textfield',
-//		'value' => ''
-//	),
-//	'chunk' => array(
-//		'type' => 'textfield',
-//		'value' => 'tpl.QuickView.msProduct',
-//	),
-//	'form' => array(
-//		'type' => 'textfield',
-//		'value' => 'form.QuickView.msProduct',
-//	),
-
-
-//
-//	'actionUrl' => array(
-//		'type' => 'textfield',
-//		'value' => '[[+assetsUrl]]action.php',
-//	),
-
-
-	/*'colorboxJsCss' => array(
-		'type' => 'combo-boolean',
-		'value' => true,
-	),
-	'colorboxJs' => array(
-		'type' => 'textfield',
-		'value' => '[[+assetsUrl]]vendor/colorbox/jquery.colorbox.js',
-	),
-	'colorboxCss' => array(
-		'type' => 'textfield',
-		'value' => '[[+assetsUrl]]vendor/colorbox/colorbox.css',
-	),*/
-
 	'jqueryJs' => array(
 		'type' => 'textfield',
 		'value' => '[[+assetsUrl]]vendor/jquery/jquery.min.js',
