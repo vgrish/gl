@@ -1,4 +1,8 @@
-Changelog for gl.
+Changelog for GeoLocation.
+
+1.0.2-beta (10.12.2015)
+==============
+- Name change
 
 1.0.1-beta (10.12.2015)
 ==============

@@ -46,7 +46,8 @@ if (!XPDO_CLI_MODE) {
 }
 
 $builder = new modPackageBuilder($modx);
-$builder->createPackage(PKG_NAME_LOWER, PKG_VERSION, PKG_RELEASE);
+//$builder->createPackage(PKG_NAME_LOWER, PKG_VERSION, PKG_RELEASE);
+$builder->createPackage(PKG_NAME, PKG_VERSION, PKG_RELEASE);
 $builder->registerNamespace(PKG_NAME_LOWER, false, true, PKG_NAMESPACE_PATH);
 
 $modx->log(modX::LOG_LEVEL_INFO, 'Created Transport Package and Namespace.');
@@ -305,7 +306,7 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
 			'workspace' => 1,
 			'provider' => 0,
 			'source' => $signature . '.transport.zip',
-			'package_name' => $sig[0],
+			'package_name' => PKG_NAME,
 			'version_major' => $versionSignature[0],
 			'version_minor' => !empty($versionSignature[1]) ? $versionSignature[1] : 0,
 			'version_patch' => !empty($versionSignature[2]) ? $versionSignature[2] : 0,

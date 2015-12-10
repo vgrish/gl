@@ -1,5 +1,5 @@
 --------------------
-gl
+GeoLocation
 --------------------
 Author: Vgrish <vgrish@gmail.com>
 --------------------
