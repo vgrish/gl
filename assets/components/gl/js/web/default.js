@@ -1,3 +1,5 @@
+/** v 1.0.3 */
+
 if (typeof(gl) == 'undefined') {
     gl = {
         Init: false
@@ -56,6 +58,14 @@ gl.location = {
                 class: 'default'
             };
 
+            var def = $('.gl-default-list').find('.gl-list-location').slice(0, 1);
+            if (def.length > 0) {
+                data = {
+                    id: def.data('id'),
+                    class: def.data('class')
+                };
+            }
+
             gl.location.select(data);
             e.preventDefault();
             return false;
@@ -89,9 +99,15 @@ gl.location = {
             gl.location.input.destroy('location');
         });
 
-        $(document).bind('gl_select', function(data, response) {
+        $(document).bind('gl_select', function(e, data, response) {
             $.colorbox.close();
-            location.reload();
+
+            if (response.object.current.data['resource_url'] != '') {
+                document.location.href = response.object.current.data['resource_url'];
+            }
+            else {
+                location.reload();
+            }
         });
 
         $(document).ready(function() {

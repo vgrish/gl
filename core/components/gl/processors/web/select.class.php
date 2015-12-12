@@ -29,7 +29,6 @@ class modglLocationSelectProcessor extends modObjectProcessor
 		if (!empty($current)) {
 			$this->gl->opts['current'] = $current;
 		}
-
 		$this->gl->opts['set'] = true;
 
 		return $this->success('', $this->gl->opts);

@@ -21,6 +21,15 @@ if ($object->xpdo) {
 				$manager->createObjectContainer($tmp);
 			}
 
+			$level = $modx->getLogLevel();
+			$modx->setLogLevel(xPDO::LOG_LEVEL_FATAL);
+
+			$manager->addField('glData', 'resource', array('after' => 'class'));
+			$manager->addField('glData', 'image', array('after' => 'address'));
+
+			$modx->setLogLevel($level);
+
+
 			break;
 
 		case xPDOTransport::ACTION_UNINSTALL:

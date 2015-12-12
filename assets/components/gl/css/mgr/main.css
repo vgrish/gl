@@ -163,3 +163,12 @@ span.gl-grid-color {
 .x-field-gl-identifier-clear:before {content: '\f00d' !important;}
 .x-field-gl-identifier-go {right: 31px !important; border-radius: 0 !important;}
 .x-field-gl-identifier-go:before {content: '\f041' !important;}
+
+/* resourcer field */
+.x-field-gl-resource-clear,
+.x-field-gl-resource-go {border-left: 1px solid #e4e4e4 !important;}
+.x-field-gl-resource-clear:hover,
+.x-field-gl-resource-go:hover {border-left-color: transparent !important;}
+.x-field-gl-resource-clear:before {content: '\f00d' !important;}
+.x-field-gl-resource-go {right: 31px !important; border-radius: 0 !important;}
+.x-field-gl-resource-go:before {content: '\f15b' !important;}

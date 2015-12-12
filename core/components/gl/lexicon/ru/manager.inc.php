@@ -92,8 +92,12 @@ $_lang['gl_class'] = 'Класс';
 $_lang['gl_address'] = 'Адрес';
 $_lang['gl_phone'] = 'Телефон';
 $_lang['gl_email'] = 'Email';
+$_lang['gl_resource'] = 'Ресурс';
+$_lang['gl_image'] = 'Изображение';
 $_lang['gl_default'] = 'По умолчанию';
 
+
+//
 
 /* action */
 $_lang['gl_action_active'] = 'Включить';

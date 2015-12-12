@@ -120,6 +120,15 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
                 }
             }
         }, {
+            xtype: 'gl-combo-resource',
+            custm: true,
+            clear: true,
+            fieldLabel: _('gl_resource'),
+            hiddenName: 'resource',
+            name: 'resource',
+            anchor: '99%',
+            allowBlank: true
+        }, {
             xtype: 'textfield',
             fieldLabel: _('gl_phone'),
             name: 'phone',
@@ -127,6 +136,7 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             allowBlank: true
         }];
     },
+
 
     getRightFields: function(config) {
         return [{
@@ -139,6 +149,15 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             anchor: '99%',
             allowBlank: false,
             class: config.record.class || ''
+        }, {
+            xtype: 'gl-combo-browser',
+            custm: true,
+            clear: true,
+            fieldLabel: _('gl_image'),
+            hiddenName: 'image',
+            name: 'image',
+            anchor: '99%',
+            allowBlank: true
         }, {
             xtype: 'textfield',
             fieldLabel: _('gl_email'),

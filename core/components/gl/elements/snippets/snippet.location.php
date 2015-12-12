@@ -45,7 +45,7 @@ $idx = $offset + $idx;
 foreach ($rows as $row) {
 	$row['idx'] = $idx++;
 	$row['class'] = $class;
-	$output[] = $modx->getChunk($tpl, $row);
+	$output[] = $gl->getChunk($tpl, $row);
 }
 
 $output = implode($outputSeparator, $output);

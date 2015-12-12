@@ -18,6 +18,8 @@ class gl
 
 	/** @var SxGeo $SxGeo */
 	public $SxGeo;
+	/** @var Format $Format */
+	public $Format;
 
 	/**
 	 * @param modX $modx
@@ -115,6 +117,25 @@ class gl
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function loadFormat()
+	{
+		if (!is_object($this->Format) OR !($this->Format instanceof FormatInterface)) {
+			$formatClass = $this->modx->loadClass('format.Format', $this->config['handlersPath'], true, true);
+			if ($derivedClass = $this->modx->getOption('gl_format_handler_class', null, '', true)) {
+				if ($derivedClass = $this->modx->loadClass('format.' . $derivedClass, $this->config['handlersPath'], true, true)) {
+					$formatClass = $derivedClass;
+				}
+			}
+			if ($formatClass) {
+				$this->Format = new $formatClass($this->modx, $this->config);
+			}
+		}
+		return !empty($this->Format) AND $this->Format instanceof FormatInterface;
+	}
+
+	/**
 	 * from https://github.com/bezumkin/pdoTools/blob/f947b2abd9511919de56cbb85682e5d0ef52ebf4/core/components/pdotools/model/pdotools/pdotools.class.php#L282
 	 *
 	 * Transform array to placeholders
@@ -165,6 +186,10 @@ class gl
 		if (!$this->SxGeo) {
 			$this->loadSxGeo();
 		}
+		if (!$this->Format) {
+			$this->loadFormat();
+		}
+
 		$this->initialized[$ctx] = true;
 
 		return true;
@@ -361,6 +386,9 @@ class gl
 	 */
 	public function getCountry()
 	{
+		if (!$this->SxGeo) {
+			$this->loadSxGeo();
+		}
 		return $this->SxGeo->getCountry($this->getUserIp());
 	}
 
@@ -369,6 +397,9 @@ class gl
 	 */
 	public function getCountryId()
 	{
+		if (!$this->SxGeo) {
+			$this->loadSxGeo();
+		}
 		return $this->SxGeo->getCountryId($this->getUserIp());
 	}
 
@@ -377,6 +408,9 @@ class gl
 	 */
 	public function getCity()
 	{
+		if (!$this->SxGeo) {
+			$this->loadSxGeo();
+		}
 		return $this->SxGeo->getCity($this->getUserIp());
 	}
 
@@ -385,7 +419,22 @@ class gl
 	 */
 	public function getCityFull()
 	{
+		if (!$this->SxGeo) {
+			$this->loadSxGeo();
+		}
 		return $this->SxGeo->getCityFull($this->getUserIp());
+	}
+
+	/**
+	 * @param array $data
+	 * @return array
+	 */
+	public function processData(array $data = array())
+	{
+		if (!$this->Format) {
+			$this->loadFormat();
+		}
+		return $this->Format->processData($data);
 	}
 
 	/**
@@ -444,7 +493,7 @@ class gl
 			$data = array();
 
 			$q = $this->modx->newQuery('glData', array('identifier' => $id, 'class' => $class));
-			$q->select('class,phone,email,address,properties');
+			$q->select($this->modx->getSelectColumns('glData', 'glData'));
 			if ($q->prepare() && $q->stmt->execute()) {
 				$data['data'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
 				$data['data'] = end($data['data']);
@@ -504,6 +553,9 @@ class gl
 					break;
 			}
 
+			if ($this->modx->getOption('gl_isprocess_data', null, true, true)) {
+				$data = $this->processData($data);
+			}
 			$this->setCache($data, $options);
 		}
 
@@ -704,6 +756,23 @@ class gl
 	}
 
 	/**
+	 * @param string $name
+	 * @param array $properties
+	 * @return mixed|string
+	 */
+	public function getChunk($name = '', array $properties = array())
+	{
+		if (strpos($name, '@INLINE ') !== false) {
+			$content = str_replace('@INLINE', '', $name);
+			/** @var modChunk $chunk */
+			$chunk = $this->modx->newObject('modChunk', array('name' => 'inline-' . uniqid()));
+			$chunk->setCacheable(false);
+			return $chunk->process($properties, $content);
+		}
+		return $this->modx->getChunk($name, $properties);
+	}
+
+	/**
 	 * @param string $message
 	 * @param array $data
 	 * @param array $placeholders
@@ -734,6 +803,5 @@ class gl
 		);
 		return $this->config['jsonResponse'] ? $this->modx->toJSON($response) : $response;
 	}
-
 
 }

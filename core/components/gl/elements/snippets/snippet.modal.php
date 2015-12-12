@@ -19,7 +19,7 @@ $gl->loadCustomJsCss($objectName);
 
 
 $row = $scriptProperties;
-$output = $modx->getChunk($tpl, $row);
+$output = $gl->getChunk($tpl, $row);
 
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);

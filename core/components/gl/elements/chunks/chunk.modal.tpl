@@ -4,7 +4,14 @@
             <h5>Ваш город — <b>[[+gl.current.city.name_ru]]</b>?</h5>
 
             <span class="btn-yes">Да </span>
-            <span class="btn-change">Изменить</span>
+            <span class="btn-change">Изменить </span>
+
+            <ul class="gl-default-list" style="display: none;">
+                [[!gl.location?
+                &class=`[[+class]]`
+                &where=`{"name_ru":"[[+gl.current.city.name_ru]]"}`
+                ]]
+            </ul>
 
         </div>
 

@@ -1,5 +1,12 @@
 Changelog for GeoLocation.
 
+1.0.3-beta (12.12.2015)
+==============
+- Add getChunk (+INLINE)
+- Add default list location
+- Add fields "resource" and "image"
+- Add format data handler
+
 1.0.2-beta (10.12.2015)
 ==============
 - Name change
