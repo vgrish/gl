@@ -18,7 +18,6 @@ class glOnWebPageInit extends glPlugin
 				$current = $this->gl->getCurrentData($data['identifier'], $data['class']);
 				if (!empty($current)) {
 					$this->gl->opts['current'] = $current;
-					$this->gl->opts['set'] = true;
 				}
 			}
 		}
