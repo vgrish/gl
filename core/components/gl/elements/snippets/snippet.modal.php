@@ -10,9 +10,10 @@ if (!$gl = $modx->getService('gl', 'gl', $modx->getOption('gl_core_path', null, 
 	return 'Could not load gl class!';
 }
 
-if ($modalShow OR !empty($gl->opts['set'])) {
+if (!$modalShow OR !empty($gl->opts['set'])) {
 	$scriptProperties['modalShow'] = false;
 }
+
 
 $gl->initialize($context, $scriptProperties);
 $gl->loadCustomJsCss($objectName);
