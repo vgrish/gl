@@ -1,5 +1,11 @@
 Changelog for GeoLocation.
 
+1.0.4-beta (13.12.2015)
+==============
+- Fix format in getDefaultData
+- Add check site status
+- Add find location of a resource
+
 1.0.3-beta (12.12.2015)
 ==============
 - Add getChunk (+INLINE)

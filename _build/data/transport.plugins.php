@@ -7,8 +7,12 @@ $tmp = array(
 		'file' => 'gl',
 		'description' => '',
 		'events' => array(
-			/*'OnWebPageInit' => array(),*/
-			'OnHandleRequest' => array(),
+			'OnWebPageInit' => array(
+
+			),
+			'OnHandleRequest' => array(
+				'priority' => 10000
+			),
 		)
 	)
 

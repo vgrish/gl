@@ -8,9 +8,11 @@ $xpdo_meta_map['glData']= array (
   array (
     'identifier' => 0,
     'class' => 'glCity',
+    'resource' => 0,
     'phone' => NULL,
     'email' => NULL,
     'address' => NULL,
+    'image' => NULL,
     'default' => 0,
     'properties' => NULL,
   ),
@@ -33,6 +35,15 @@ $xpdo_meta_map['glData']= array (
       'null' => false,
       'default' => 'glCity',
     ),
+    'resource' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
+    ),
     'phone' => 
     array (
       'dbtype' => 'varchar',
@@ -50,6 +61,13 @@ $xpdo_meta_map['glData']= array (
     'address' => 
     array (
       'dbtype' => 'text',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'image' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
       'phptype' => 'string',
       'null' => true,
     ),

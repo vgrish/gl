@@ -468,11 +468,16 @@ class gl
 				$data['country'] = end($data['country']);
 			}
 			$q = $this->modx->newQuery('glData', array('default' => 1));
-			$q->select('class,phone,email,address,properties');
+			$q->select($this->modx->getSelectColumns('glData', 'glData'));
 			if ($q->prepare() && $q->stmt->execute()) {
 				$data['data'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
 				$data['data'] = end($data['data']);
 			}
+
+			if ($this->modx->getOption('gl_isprocess_data', null, true, true)) {
+				$data = $this->processData($data);
+			}
+
 			$this->setCache($data, $options);
 		}
 
