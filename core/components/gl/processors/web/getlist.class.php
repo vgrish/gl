@@ -91,6 +91,10 @@ class modglLocationGetListProcessor extends modObjectGetListProcessor
 	{
 		$array = $object->toArray();
 
+		if (empty($array['class'])) {
+			$array['class'] = $this->objectType;
+		}
+
 		return $array;
 	}
 

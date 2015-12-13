@@ -1,6 +1,11 @@
 Changelog for GeoLocation.
 
-1.0.4-beta (13.12.2015)
+1.0.5-beta (13.12.2015)
+==============
+- Fix processData
+- Fix class getlist.class.php
+
+1.0.4-beta (12.12.2015)
 ==============
 - Fix format in getDefaultData
 - Add check site status
