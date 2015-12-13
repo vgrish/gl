@@ -1,4 +1,4 @@
-/** v 1.0.3 */
+/** v 1.0.5 */
 
 if (typeof(gl) == 'undefined') {
     gl = {
