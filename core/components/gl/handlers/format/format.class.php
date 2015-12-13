@@ -53,7 +53,7 @@ class Format implements FormatInterface
 	public function processData(array $data = array())
 	{
 		while (list($key, $val) = each($data)) {
-			if (!is_string($val) OR !is_array($val)) {
+			if (!is_string($val) AND !is_array($val)) {
 				continue;
 			}
 			$formatMethod = 'format' . ucfirst(str_replace('_', '', $key));
