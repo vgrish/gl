@@ -10,27 +10,10 @@ class modglDataUpdateProcessor extends modObjectUpdateProcessor
 	public $languageTopics = array('gl');
 	public $permission = '';
 
-
-	/** {@inheritDoc} */
-	public function beforeSave()
-	{
-		if (!$this->checkPermissions()) {
-			return $this->modx->lexicon('access_denied');
-		}
-
-		return true;
-	}
-
 	/** {@inheritDoc} */
 	public function beforeSet()
 	{
-		$id = (int)$this->getProperty('id');
-		if (empty($id)) {
-			return $this->modx->lexicon('gl_err_ns');
-		}
-
-		$default = $this->getProperty('default', 'false');
-		if ($default == 'true') {
+		if ($this->getProperty('default')) {
 			$this->setProperties(array(
 				'default' => 1,
 				'identifier' => 1,
@@ -52,7 +35,7 @@ class modglDataUpdateProcessor extends modObjectUpdateProcessor
 		if ($this->modx->getCount($this->classKey, array(
 			'identifier' => $identifier,
 			'class' => $class,
-			'id:!=' => $id
+			'id:!=' => $this->getProperty('id')
 		))
 		) {
 			$this->modx->error->addField('identifier', $this->modx->lexicon('gl_err_ae'));
@@ -64,16 +47,12 @@ class modglDataUpdateProcessor extends modObjectUpdateProcessor
 	/** {@inheritDoc} */
 	public function afterSave()
 	{
-		$active = $this->getProperty('active', 0);
+		if ($this->getProperty('default')) {
+			return true;
+		}
 
-		$class = trim($this->getProperty('class'));
-		$identifier = trim($this->getProperty('identifier'));
-
-		if (
-			!empty($class) AND
-			$object = $this->modx->getObject($class, $identifier)
-		) {
-			$object->set('active', $active);
+		if ($object = $this->modx->getObject(trim($this->getProperty('class')), trim($this->getProperty('identifier')))) {
+			$object->set('active', $this->getProperty('active', 0));
 			$object->save();
 		}
 

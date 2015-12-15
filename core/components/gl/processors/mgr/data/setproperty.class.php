@@ -19,9 +19,7 @@ class modglDataSetPropertyProcessor extends modglDataUpdateProcessor
 	{
 		$fieldName = $this->getProperty('field_name', null);
 		$fieldValue = $this->getProperty('field_value', null);
-
 		$this->properties = $this->object->toArray();
-
 		if (!is_null($fieldName) && !is_null($fieldValue)) {
 			$this->setProperty($fieldName, $fieldValue);
 		}

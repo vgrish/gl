@@ -80,6 +80,7 @@ class gl
 	 * @param $key
 	 * @param array $config
 	 * @param null $default
+	 *
 	 * @return mixed|null
 	 */
 	public function getOption($key, $config = array(), $default = null)
@@ -145,6 +146,7 @@ class gl
 	 * @param string $prefix
 	 * @param string $suffix
 	 * @param bool $uncacheable
+	 *
 	 * @return array
 	 */
 	public function makePlaceholders(array $array = array(), $plPrefix = '', $prefix = '[[+', $suffix = ']]', $uncacheable = true)
@@ -172,6 +174,7 @@ class gl
 	 *
 	 * @param string $ctx The context to load. Defaults to web.
 	 * @param array $scriptProperties
+	 *
 	 * @return boolean
 	 */
 	public function initialize($ctx = 'web', $scriptProperties = array())
@@ -252,6 +255,7 @@ class gl
 	 *
 	 * @param $message
 	 * @param array $placeholders
+	 *
 	 * @return string
 	 */
 	public function lexicon($message, $placeholders = array())
@@ -270,6 +274,7 @@ class gl
 
 	/**
 	 * @param string $classKey
+	 *
 	 * @return bool|string
 	 */
 	public function getFileContent($classKey = '')
@@ -427,6 +432,7 @@ class gl
 
 	/**
 	 * @param array $data
+	 *
 	 * @return array
 	 */
 	public function processData(array $data = array())
@@ -572,12 +578,7 @@ class gl
 	 */
 	public function getRealData()
 	{
-		if (!$data = $this->getCityFull()) {
-			$data = array();
-		}
-		$data = array_merge($this->getDefaultData(), $data);
-
-		return $data;
+		return array_merge((array)$this->getDefaultData(), (array)$this->getCityFull());
 	}
 
 	/**
@@ -585,6 +586,7 @@ class gl
 	 * @param string $prefix
 	 * @param string $separator
 	 * @param bool $restore
+	 *
 	 * @return array
 	 */
 	public function setPlaceholders($subject, $prefix = 'gl', $separator = '.', $restore = false)
@@ -609,6 +611,7 @@ class gl
 
 	/**
 	 * @param bool $json
+	 *
 	 * @return bool
 	 */
 	public function setJsonResponse($json = true)
@@ -763,6 +766,7 @@ class gl
 	/**
 	 * @param string $name
 	 * @param array $properties
+	 *
 	 * @return mixed|string
 	 */
 	public function getChunk($name = '', array $properties = array())
@@ -781,6 +785,7 @@ class gl
 	 * @param string $message
 	 * @param array $data
 	 * @param array $placeholders
+	 *
 	 * @return array|string
 	 */
 	public function failure($message = '', $data = array(), $placeholders = array())
@@ -797,6 +802,7 @@ class gl
 	 * @param string $message
 	 * @param array $data
 	 * @param array $placeholders
+	 *
 	 * @return array|string
 	 */
 	public function success($message = '', $data = array(), $placeholders = array())

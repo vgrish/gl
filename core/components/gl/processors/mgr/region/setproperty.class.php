@@ -1,9 +1,11 @@
 <?php
 
+require_once dirname(__FILE__) . '/update.class.php';
+
 /**
  * SetProperty a glRegion
  */
-class modglRegionSetPropertyProcessor extends modObjectUpdateProcessor
+class modglRegionSetPropertyProcessor extends modglRegionUpdateProcessor
 {
 	/** @var glRegion $object */
 	public $object;
@@ -17,32 +19,11 @@ class modglRegionSetPropertyProcessor extends modObjectUpdateProcessor
 	{
 		$fieldName = $this->getProperty('field_name', null);
 		$fieldValue = $this->getProperty('field_value', null);
-
-		$this->properties = array();
-
-		if (!is_null($fieldName) && !is_null($fieldValue)) {
-			$this->setProperty('field_name', $fieldName);
-			$this->setProperty('field_value', $fieldValue);
+		$this->properties = $this->object->toArray();
+		if (!is_null($fieldName) AND !is_null($fieldValue)) {
+			$this->setProperty($fieldName, $fieldValue);
 		}
-
-		return true;
-	}
-
-	/** {@inheritDoc} */
-	public function beforeSave()
-	{
-		$fieldName = $this->getProperty('field_name', null);
-		$fieldValue = $this->getProperty('field_value', null);
-		if (!is_null($fieldName) && !is_null($fieldValue)) {
-			$array = $this->object->toArray();
-			if (isset($array[$fieldName])) {
-				$this->object->fromArray(array(
-					$fieldName => $fieldValue,
-				));
-			}
-		}
-
-		return parent::beforeSave();
+		return parent::beforeSet();
 	}
 }
 

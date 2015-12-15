@@ -40,8 +40,10 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             xtype: 'hidden',
             name: 'id'
         }, {
-            xtype: 'hidden',
-            name: 'default'
+			xtype: 'xcheckbox',
+            name: 'default',
+			checked: false,
+			hidden: true
         }, {
             items: [{
                 layout: 'form',

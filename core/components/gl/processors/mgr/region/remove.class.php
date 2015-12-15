@@ -10,12 +10,12 @@ class modglRegionRemoveProcessor extends modObjectRemoveProcessor
 	public $permission = '';
 
 	/** {@inheritDoc} */
-	public function initialize()
+	public function beforeRemove()
 	{
-		if (!$this->modx->hasPermission($this->permission)) {
-			return $this->modx->lexicon('access_denied');
+		if ($this->object->get('default')) {
+			return $this->modx->lexicon('gl_err_lock');
 		}
-		return parent::initialize();
+		return parent::beforeRemove();
 	}
 
 }

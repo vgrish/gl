@@ -1,8 +1,14 @@
 Changelog for GeoLocation.
 
-1.0.6-beta ()
+1.0.6-beta (15.12.2015)
 ==============
-- Fix
+- Fix default class
+- Fix getRealData
+- Fix get.class.php
+- Fix getlist.class.php
+- Fix update.class.php
+- Fix remove.class.php
+
 
 1.0.5-beta (13.12.2015)
 ==============

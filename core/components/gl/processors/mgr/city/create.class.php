@@ -15,7 +15,7 @@ class modglCityCreateProcessor extends modObjectCreateProcessor
 	{
 		return parent::beforeSet();
 	}
-
+	
 }
 
 return 'modglCityCreateProcessor';
