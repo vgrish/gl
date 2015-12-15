@@ -29,23 +29,31 @@ class modglRegionGetListProcessor extends modObjectGetListProcessor
 	 */
 	public function prepareQueryBeforeCount(xPDOQuery $c)
 	{
-
-		if (!$this->getProperty('combo')) {
-
-		} else {
-
+		$id = $this->getProperty('id');
+		if (!empty($id) AND $this->getProperty('combo')) {
+			$q = $this->modx->newQuery($this->objectType);
+			$q->where(array('id!=' => $id));
+			$q->select('id');
+			$q->limit(11);
+			$q->prepare();
+			$q->stmt->execute();
+			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+			$ids = array_merge_recursive(array($id), $ids);
+			$c->where(array(
+				"{$this->objectType}.id:IN" => $ids
+			));
 		}
 
 		$active = $this->getProperty('active');
 		if ($active != '') {
-			$c->where(array('active' => $active));
+			$c->where("{$this->objectType}.active={$active}");
 		}
 
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				'name_ru:LIKE' => "%{$query}%",
-				'OR:name_en:LIKE' => "%{$query}%",
+				"{$this->objectType}.name_ru:LIKE" => "%{$query}%",
+				"OR:{$this->objectType}.name_en:LIKE" => "%{$query}%",
 			));
 		}
 

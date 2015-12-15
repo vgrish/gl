@@ -1,5 +1,9 @@
 Changelog for GeoLocation.
 
+1.0.6-beta ()
+==============
+- Fix
+
 1.0.5-beta (13.12.2015)
 ==============
 - Fix processData

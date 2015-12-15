@@ -1,4 +1,4 @@
-## GeoLocation - Geo Location (MODx Revolution)
+## GL - Geo Location (MODx Revolution)
 
 ```
 <p>

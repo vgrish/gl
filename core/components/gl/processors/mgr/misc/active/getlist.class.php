@@ -11,11 +11,11 @@ class modglActiveGetListProcessor extends modObjectProcessor
 		$array = array(
 			0 => array(
 				'name' => $this->modx->lexicon('gl_active'),
-				'value' => 1
+				'value' => '1'
 			),
 			1 => array(
 				'name' => $this->modx->lexicon('gl_inactive'),
-				'value' => 0
+				'value' => '0'
 			),
 		);
 

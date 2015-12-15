@@ -2,7 +2,7 @@
 
 class modglIdentifierGetListProcessor extends modObjectProcessor
 {
-	public $classKey = 'vpHandler';
+	public $classKey = '';
 
 	/** {@inheritDoc} */
 	public function process()
@@ -23,15 +23,17 @@ class modglIdentifierGetListProcessor extends modObjectProcessor
 
 		}
 
+		$id = $this->getProperty('id');
 		$query = $this->getProperty('query');
 
 		if (!$response = $this->modx->runProcessor('getlist',
 			array(
 				'combo' => true,
+				'id' => $id,
 				'query' => $query,
 
 				'start' => $this->getProperty('start', 0),
-				'limit' => $this->getProperty('limit', 10),
+				'limit' => $this->getProperty('limit', 20),
 			),
 			array('processors_path' => dirname(dirname(dirname(__FILE__))) . '/' . $element . '/')
 		)

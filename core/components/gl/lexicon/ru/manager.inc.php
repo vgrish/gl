@@ -27,6 +27,7 @@ $_lang['gl_header_country'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_class'] = '<i class="fa fa-cube"></i>';
 $_lang['gl_header_identifier'] = '<i class="fa fa-map-marker"></i>';
 $_lang['gl_header_phone'] = '<i class="fa fa-phone"></i>';
+$_lang['gl_header_email'] = '<i class="fa fa-envelope"></i>';
 
 
 /* tooltip */
@@ -56,6 +57,7 @@ $_lang['gl_tooltip_country'] = 'Страна';
 $_lang['gl_tooltip_class'] = 'Класс';
 $_lang['gl_tooltip_identifier'] = 'Идентификатор';
 $_lang['gl_tooltip_phone'] = 'Телефон';
+$_lang['gl_tooltip_email'] = 'Почта';
 
 
 /* fields */

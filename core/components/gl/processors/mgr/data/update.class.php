@@ -34,7 +34,7 @@ class modglDataUpdateProcessor extends modObjectUpdateProcessor
 			$this->setProperties(array(
 				'default' => 1,
 				'identifier' => 1,
-				'class' => '',
+				'class' => 'glCity',
 			));
 			return parent::beforeSet();
 		}

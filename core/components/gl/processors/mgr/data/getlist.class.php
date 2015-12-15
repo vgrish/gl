@@ -29,13 +29,6 @@ class modglDataGetListProcessor extends modObjectGetListProcessor
 	 */
 	public function prepareQueryBeforeCount(xPDOQuery $c)
 	{
-
-		if (!$this->getProperty('combo')) {
-
-		} else {
-
-		}
-
 		$c->groupby('glData.id');
 
 		$c->leftJoin('glCountry', 'glCountry', 'glCountry.id = glData.identifier');
