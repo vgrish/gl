@@ -25,7 +25,7 @@ class modglDataCreateProcessor extends modObjectCreateProcessor
 
 		if ($this->modx->getCount($this->classKey, array(
 			'identifier' => $identifier,
-			'class' => $class,
+			'class'      => $class,
 		))
 		) {
 			$this->modx->error->addField('identifier', $this->modx->lexicon('gl_err_ae'));

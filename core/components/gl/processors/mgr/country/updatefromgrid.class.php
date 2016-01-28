@@ -14,6 +14,7 @@ class modglCountryFromGridProcessor extends modglCountryUpdateProcessor
 	{
 		/** @var modProcessor $processor */
 		$processor = new modglCountryFromGridProcessor($modx, $properties);
+
 		return $processor;
 	}
 
@@ -30,6 +31,7 @@ class modglCountryFromGridProcessor extends modglCountryUpdateProcessor
 		}
 		$this->setProperties($data);
 		$this->unsetProperty('data');
+
 		return parent::initialize();
 	}
 }

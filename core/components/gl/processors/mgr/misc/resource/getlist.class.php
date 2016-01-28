@@ -33,6 +33,7 @@ class modglResourceGetListProcessor extends modObjectGetListProcessor
 		if (!empty($query)) {
 			$c->where(array('pagetitle:LIKE' => '%' . $query . '%'));
 		}
+
 		return $c;
 	}
 
@@ -41,12 +42,13 @@ class modglResourceGetListProcessor extends modObjectGetListProcessor
 	{
 		if ($this->getProperty('combo')) {
 			$array = array(
-				'id' => $object->get('id'),
+				'id'        => $object->get('id'),
 				'pagetitle' => $object->get('pagetitle')
 			);
 		} else {
 			$array = $object->toArray();
 		}
+
 		return $array;
 	}
 }

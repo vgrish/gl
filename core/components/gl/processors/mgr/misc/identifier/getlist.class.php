@@ -29,7 +29,7 @@ class modglIdentifierGetListProcessor extends modObjectProcessor
 		if (!$response = $this->modx->runProcessor('getlist',
 			array(
 				'combo' => true,
-				'id' => $id,
+				'id'    => $id,
 				'query' => $query,
 
 				'start' => $this->getProperty('start', 0),
@@ -39,6 +39,7 @@ class modglIdentifierGetListProcessor extends modObjectProcessor
 		)
 		) {
 			$this->modx->log(1, print_r('[gl]:Error get element -  ' . $element, 1));
+
 			return $this->failure('');
 		}
 

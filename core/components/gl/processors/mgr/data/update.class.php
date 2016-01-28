@@ -15,10 +15,11 @@ class modglDataUpdateProcessor extends modObjectUpdateProcessor
 	{
 		if ($this->getProperty('default')) {
 			$this->setProperties(array(
-				'default' => 1,
+				'default'    => 1,
 				'identifier' => 1,
-				'class' => 'glCity',
+				'class'      => 'glCity',
 			));
+
 			return parent::beforeSet();
 		}
 
@@ -34,8 +35,8 @@ class modglDataUpdateProcessor extends modObjectUpdateProcessor
 
 		if ($this->modx->getCount($this->classKey, array(
 			'identifier' => $identifier,
-			'class' => $class,
-			'id:!=' => $this->getProperty('id')
+			'class'      => $class,
+			'id:!='      => $this->getProperty('id')
 		))
 		) {
 			$this->modx->error->addField('identifier', $this->modx->lexicon('gl_err_ae'));

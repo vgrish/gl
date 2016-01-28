@@ -1,5 +1,9 @@
 Changelog for GeoLocation.
 
+1.0.7-beta (28.01.2016)
+==============
+- Update SxGeo
+
 1.0.6-beta (15.12.2015)
 ==============
 - Fix default class
@@ -8,7 +12,6 @@ Changelog for GeoLocation.
 - Fix getlist.class.php
 - Fix update.class.php
 - Fix remove.class.php
-
 
 1.0.5-beta (13.12.2015)
 ==============

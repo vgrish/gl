@@ -52,7 +52,7 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				"{$this->objectType}.name_ru:LIKE" => "%{$query}%",
+				"{$this->objectType}.name_ru:LIKE"    => "%{$query}%",
 				"OR:{$this->objectType}.name_en:LIKE" => "%{$query}%",
 			));
 		}
@@ -68,10 +68,11 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
 	{
 		if ($this->getProperty('addall')) {
 			$array = array_merge_recursive(array(array(
-				'id' => 0,
+				'id'   => 0,
 				'name' => $this->modx->lexicon('gl_all')
 			)), $array);
 		}
+
 		return parent::outputArray($array, $count);
 	}
 
@@ -97,40 +98,40 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
 		);*/
 		if (!$array['active']) {
 			$array['actions'][] = array(
-				'cls' => '',
-				'icon' => "$icon $icon-toggle-off red",
-				'title' => $this->modx->lexicon('gl_action_active'),
+				'cls'    => '',
+				'icon'   => "$icon $icon-toggle-off red",
+				'title'  => $this->modx->lexicon('gl_action_active'),
 				'action' => 'active',
 				'button' => true,
-				'menu' => true,
+				'menu'   => true,
 			);
 		} else {
 			$array['actions'][] = array(
-				'cls' => '',
-				'icon' => "$icon $icon-toggle-on green",
-				'title' => $this->modx->lexicon('gl_action_inactive'),
+				'cls'    => '',
+				'icon'   => "$icon $icon-toggle-on green",
+				'title'  => $this->modx->lexicon('gl_action_inactive'),
 				'action' => 'inactive',
 				'button' => true,
-				'menu' => true,
+				'menu'   => true,
 			);
 		}
 		// sep
 		$array['actions'][] = array(
-			'cls' => '',
-			'icon' => '',
-			'title' => '',
+			'cls'    => '',
+			'icon'   => '',
+			'title'  => '',
 			'action' => 'sep',
 			'button' => false,
-			'menu' => true,
+			'menu'   => true,
 		);
 		// Remove
 		$array['actions'][] = array(
-			'cls' => '',
-			'icon' => "$icon $icon-trash-o red",
-			'title' => $this->modx->lexicon('gl_action_remove'),
+			'cls'    => '',
+			'icon'   => "$icon $icon-trash-o red",
+			'title'  => $this->modx->lexicon('gl_action_remove'),
 			'action' => 'remove',
 			'button' => true,
-			'menu' => true,
+			'menu'   => true,
 		);
 
 		return $array;

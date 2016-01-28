@@ -19,8 +19,8 @@ class modglCityMultipleProcessor extends modProcessor
 				if (!empty($id)) {
 					if ($response = $this->modx->runProcessor($method,
 						array(
-							'id' => $id,
-							'field_name' => $this->getProperty('field_name', null),
+							'id'          => $id,
+							'field_name'  => $this->getProperty('field_name', null),
 							'field_value' => $this->getProperty('field_value', null)
 						),
 						array('processors_path' => dirname(__FILE__) . '/')

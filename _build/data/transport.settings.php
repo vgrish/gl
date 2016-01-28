@@ -9,28 +9,21 @@ $tmp = array(
 //	'assets_path' => array(
 //		'value' => '{base_path}gl/assets/components/gl/',
 //		'xtype' => 'textfield',
-//		'area' => 'gl_temp',
+//		'area'  => 'gl_temp',
 //	),
-//	'assets_url' => array(
+//	'assets_url'  => array(
 //		'value' => '/gl/assets/components/gl/',
 //		'xtype' => 'textfield',
-//		'area' => 'gl_temp',
+//		'area'  => 'gl_temp',
 //	),
-//	'core_path' => array(
+//	'core_path'   => array(
 //		'value' => '{base_path}gl/core/components/gl/',
 //		'xtype' => 'textfield',
-//		'area' => 'gl_temp',
+//		'area'  => 'gl_temp',
 //	),
 
 	//временные
 
-	/*
-		'some_setting' => array(
-			'xtype' => 'combo-boolean',
-			'value' => true,
-			'area' => 'gl_main',
-		),
-		*/
 );
 
 foreach ($tmp as $k => $v) {

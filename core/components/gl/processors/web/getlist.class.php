@@ -25,11 +25,11 @@ class modglLocationGetListProcessor extends modObjectGetListProcessor
 			case 'glCity':
 				$this->objectType = $this->classKey = 'glCity';
 				break;
-			//
 		}
 		if (empty($this->classKey)) {
 			return $this->modx->lexicon('gl_err_class_ns');
 		}
+
 		return parent::initialize();
 	}
 
@@ -68,7 +68,7 @@ class modglLocationGetListProcessor extends modObjectGetListProcessor
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				"{$this->objectType}.name_ru:LIKE" => "%{$query}%",
+				"{$this->objectType}.name_ru:LIKE"    => "%{$query}%",
 				"OR:{$this->objectType}.name_en:LIKE" => "%{$query}%",
 			));
 		}

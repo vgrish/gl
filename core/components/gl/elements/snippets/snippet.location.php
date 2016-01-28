@@ -19,7 +19,7 @@ $gl->initialize($context, $scriptProperties);
 
 $rows = array();
 $where = array(
-	'active' => 1,
+	'active'  => 1,
 	'default' => 0,
 );
 
@@ -52,7 +52,6 @@ $output = implode($outputSeparator, $output);
 
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);
-}
-else {
+} else {
 	return $output;
 }

@@ -14,6 +14,7 @@ class modglCityFromGridProcessor extends modglCityUpdateProcessor
 	{
 		/** @var modProcessor $processor */
 		$processor = new modglCityFromGridProcessor($modx, $properties);
+
 		return $processor;
 	}
 
@@ -30,6 +31,7 @@ class modglCityFromGridProcessor extends modglCityUpdateProcessor
 		}
 		$this->setProperties($data);
 		$this->unsetProperty('data');
+
 		return parent::initialize();
 	}
 }

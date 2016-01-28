@@ -23,6 +23,7 @@ class modglCountrySetPropertyProcessor extends modglCountryUpdateProcessor
 		if (!is_null($fieldName) AND !is_null($fieldValue)) {
 			$this->setProperty($fieldName, $fieldValue);
 		}
+
 		return parent::beforeSet();
 	}
 }

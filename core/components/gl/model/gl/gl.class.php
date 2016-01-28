@@ -22,7 +22,7 @@ class gl
 	public $Format;
 
 	/**
-	 * @param modX $modx
+	 * @param modX  $modx
 	 * @param array $config
 	 */
 	function __construct(modX &$modx, array $config = array())
@@ -35,25 +35,25 @@ class gl
 		$assetsPath = MODX_ASSETS_PATH;
 
 		$this->config = array_merge(array(
-			'assetsUrl' => $assetsUrl,
-			'cssUrl' => $assetsUrl . 'css/',
-			'jsUrl' => $assetsUrl . 'js/',
-			'imagesUrl' => $assetsUrl . 'images/',
-			'connectorUrl' => $connectorUrl,
-			'actionUrl' => $assetsUrl . 'action.php',
+			'assetsUrl'       => $assetsUrl,
+			'cssUrl'          => $assetsUrl . 'css/',
+			'jsUrl'           => $assetsUrl . 'js/',
+			'imagesUrl'       => $assetsUrl . 'images/',
+			'connectorUrl'    => $connectorUrl,
+			'actionUrl'       => $assetsUrl . 'action.php',
 
-			'corePath' => $corePath,
-			'modelPath' => $corePath . 'model/',
-			'chunksPath' => $corePath . 'elements/chunks/',
-			'templatesPath' => $corePath . 'elements/templates/',
-			'chunkSuffix' => '.chunk.tpl',
-			'snippetsPath' => $corePath . 'elements/snippets/',
-			'processorsPath' => $corePath . 'processors/',
-			'handlersPath' => $corePath . 'handlers/',
-			'sypexgeoPath' => $assetsPath . 'components/gl/vendor/sypexgeo/',
+			'corePath'        => $corePath,
+			'modelPath'       => $corePath . 'model/',
+			'chunksPath'      => $corePath . 'elements/chunks/',
+			'templatesPath'   => $corePath . 'elements/templates/',
+			'chunkSuffix'     => '.chunk.tpl',
+			'snippetsPath'    => $corePath . 'elements/snippets/',
+			'processorsPath'  => $corePath . 'processors/',
+			'handlersPath'    => $corePath . 'handlers/',
+			'sypexgeoPath'    => $assetsPath . 'components/gl/vendor/sypexgeo/',
 
 			'prepareResponse' => true,
-			'jsonResponse' => true,
+			'jsonResponse'    => true,
 
 		), $config);
 
@@ -68,7 +68,7 @@ class gl
 	}
 
 	/**
-	 * @param $n
+	 * @param       $n
 	 * @param array $p
 	 */
 	public function __call($n, array$p)
@@ -77,9 +77,9 @@ class gl
 	}
 
 	/**
-	 * @param $key
+	 * @param       $key
 	 * @param array $config
-	 * @param null $default
+	 * @param null  $default
 	 *
 	 * @return mixed|null
 	 */
@@ -95,6 +95,7 @@ class gl
 				$option = $this->modx->getOption("{$this->namespace}_{$key}");
 			}
 		}
+
 		return $option;
 	}
 
@@ -114,6 +115,7 @@ class gl
 				$this->SxGeo = new $sypexgeoClass($this->config['sypexgeoPath'] . 'data/SxGeoCity.dat');
 			}
 		}
+
 		return !empty($this->SxGeo) AND $this->SxGeo instanceof SxGeo;
 	}
 
@@ -133,19 +135,21 @@ class gl
 				$this->Format = new $formatClass($this->modx, $this->config);
 			}
 		}
+
 		return !empty($this->Format) AND $this->Format instanceof FormatInterface;
 	}
 
 	/**
-	 * from https://github.com/bezumkin/pdoTools/blob/f947b2abd9511919de56cbb85682e5d0ef52ebf4/core/components/pdotools/model/pdotools/pdotools.class.php#L282
+	 * from
+	 * https://github.com/bezumkin/pdoTools/blob/f947b2abd9511919de56cbb85682e5d0ef52ebf4/core/components/pdotools/model/pdotools/pdotools.class.php#L282
 	 *
 	 * Transform array to placeholders
 	 *
-	 * @param array $array
+	 * @param array  $array
 	 * @param string $plPrefix
 	 * @param string $prefix
 	 * @param string $suffix
-	 * @param bool $uncacheable
+	 * @param bool   $uncacheable
 	 *
 	 * @return array
 	 */
@@ -166,6 +170,7 @@ class gl
 				}
 			}
 		}
+
 		return $result;
 	}
 
@@ -173,7 +178,7 @@ class gl
 	 * Initializes component into different contexts.
 	 *
 	 * @param string $ctx The context to load. Defaults to web.
-	 * @param array $scriptProperties
+	 * @param array  $scriptProperties
 	 *
 	 * @return boolean
 	 */
@@ -206,9 +211,9 @@ class gl
 	public function loadCustomJsCss($objectName = 'gl')
 	{
 		$config = $this->modx->toJSON(array(
-			'assetsUrl' => $this->config['assetsUrl'],
-			'actionUrl' => $this->config['actionUrl'],
-			'modalShow' => $this->config['modalShow'],
+			'assetsUrl'     => $this->config['assetsUrl'],
+			'actionUrl'     => $this->config['actionUrl'],
+			'modalShow'     => $this->config['modalShow'],
 			'locationClass' => $this->config['class'],
 		));
 
@@ -253,7 +258,7 @@ class gl
 	/**
 	 * return lexicon message if possibly
 	 *
-	 * @param $message
+	 * @param       $message
 	 * @param array $placeholders
 	 *
 	 * @return string
@@ -269,6 +274,7 @@ class gl
 		if ($key !== '') {
 			$message = $this->modx->lexicon->process($key, $placeholders);
 		}
+
 		return $message;
 	}
 
@@ -302,63 +308,63 @@ class gl
 	{
 		if (!$data = $this->modx->getCount('glCountry', array('default' => 1))) {
 			$data = $this->modx->newObject('glCountry', array(
-				'id' => 1,
-				'default' => 1,
-				'active' => 1,
+				'id'        => 1,
+				'default'   => 1,
+				'active'    => 1,
 
-				'iso' => 'DD',
+				'iso'       => 'DD',
 				'continent' => 'DD',
-				'name_ru' => 'По умолчанию',
-				'name_en' => 'Default',
-				'lat' => '60',
-				'lon' => '100',
-				'timezone' => 'Europe/Moscow',
+				'name_ru'   => 'По умолчанию',
+				'name_en'   => 'Default',
+				'lat'       => '60',
+				'lon'       => '100',
+				'timezone'  => 'Europe/Moscow',
 			));
 			$data->save();
 		}
 
 		if (!$data = $this->modx->getCount('glRegion', array('default' => 1))) {
 			$data = $this->modx->newObject('glRegion', array(
-				'id' => 1,
-				'default' => 1,
-				'active' => 1,
+				'id'       => 1,
+				'default'  => 1,
+				'active'   => 1,
 
-				'iso' => 'DD-DD',
-				'country' => 'DD',
-				'name_ru' => 'По умолчанию',
-				'name_en' => 'Default',
+				'iso'      => 'DD-DD',
+				'country'  => 'DD',
+				'name_ru'  => 'По умолчанию',
+				'name_en'  => 'Default',
 				'timezone' => 'Europe/Moscow',
-				'okato' => '',
+				'okato'    => '',
 			));
 			$data->save();
 		}
 
 		if (!$data = $this->modx->getCount('glCity', array('default' => 1))) {
 			$data = $this->modx->newObject('glCity', array(
-				'id' => 1,
-				'default' => 1,
-				'active' => 1,
+				'id'        => 1,
+				'default'   => 1,
+				'active'    => 1,
 
 				'region_id' => '1',
-				'name_ru' => 'По умолчанию',
-				'name_en' => 'Default',
-				'lat' => '60',
-				'lon' => '100',
-				'okato' => '',
+				'name_ru'   => 'По умолчанию',
+				'name_en'   => 'Default',
+				'lat'       => '60',
+				'lon'       => '100',
+				'okato'     => '',
 			));
 			$data->save();
 		}
 
 		if (!$data = $this->modx->getCount('glData', array('default' => 1))) {
 			$data = $this->modx->newObject('glData', array(
-				'id' => 1,
-				'default' => 1,
+				'id'         => 1,
+				'default'    => 1,
 
 				'identifier' => 1,
-				'class' => 'glCity',
-				'phone' => '8999999999',
-				'email' => 'email@mail.ru',
-				'address' => '',
+				'class'      => 'glCity',
+				'phone'      => '8999999999',
+				'email'      => 'email@mail.ru',
+				'address'    => '',
 			));
 			$data->save();
 		}
@@ -394,6 +400,7 @@ class gl
 		if (!$this->SxGeo) {
 			$this->loadSxGeo();
 		}
+
 		return $this->SxGeo->getCountry($this->getUserIp());
 	}
 
@@ -405,6 +412,7 @@ class gl
 		if (!$this->SxGeo) {
 			$this->loadSxGeo();
 		}
+
 		return $this->SxGeo->getCountryId($this->getUserIp());
 	}
 
@@ -416,6 +424,7 @@ class gl
 		if (!$this->SxGeo) {
 			$this->loadSxGeo();
 		}
+
 		return $this->SxGeo->getCity($this->getUserIp());
 	}
 
@@ -427,6 +436,7 @@ class gl
 		if (!$this->SxGeo) {
 			$this->loadSxGeo();
 		}
+
 		return $this->SxGeo->getCityFull($this->getUserIp());
 	}
 
@@ -440,6 +450,7 @@ class gl
 		if (!$this->Format) {
 			$this->loadFormat();
 		}
+
 		return $this->Format->processData($data);
 	}
 
@@ -582,10 +593,10 @@ class gl
 	}
 
 	/**
-	 * @param $subject
+	 * @param        $subject
 	 * @param string $prefix
 	 * @param string $separator
-	 * @param bool $restore
+	 * @param bool   $restore
 	 *
 	 * @return array
 	 */
@@ -606,6 +617,7 @@ class gl
 		}
 		$return = array('keys' => $keys);
 		if ($restore === true) $return['restore'] = $restored;
+
 		return $return;
 	}
 
@@ -642,6 +654,7 @@ class gl
 		} elseif (!$this->config['jsonResponse'] AND !is_array($output)) {
 			$output = $this->modx->fromJSON($output);
 		}
+
 		return $output;
 	}
 
@@ -652,7 +665,7 @@ class gl
 	 * @access public
 	 *
 	 * @param string $action Path to processor
-	 * @param array $data Data to be transmitted to the processor
+	 * @param array  $data Data to be transmitted to the processor
 	 *
 	 * @return mixed The result of the processor
 	 */
@@ -670,6 +683,7 @@ class gl
 		}
 		$result = $this->config['prepareResponse'] ? $this->prepareResponse($response) : $response;
 		$this->setJsonResponse();
+
 		return $result;
 	}
 
@@ -693,6 +707,7 @@ class gl
 				$cacheOptions
 			);
 		}
+
 		return $cacheKey;
 	}
 
@@ -711,6 +726,7 @@ class gl
 		if (!empty($cacheOptions) && !empty($cacheKey) && $this->modx->getCacheManager()) {
 			$cached = $this->modx->cacheManager->get($cacheKey, $cacheOptions);
 		}
+
 		return $cached;
 	}
 
@@ -727,7 +743,7 @@ class gl
 			$options = $this->config;
 		}
 		$cacheOptions = array(
-			xPDO::OPT_CACHE_KEY => !empty($options['cache_key'])
+			xPDO::OPT_CACHE_KEY     => !empty($options['cache_key'])
 				? 'default'
 				: (!empty($this->modx->resource)
 					? $this->modx->getOption('cache_resource_key', null, 'resource')
@@ -739,6 +755,7 @@ class gl
 				? (integer)$options['cacheTime']
 				: (integer)$this->modx->getOption('cache_resource_expires', null, 0),
 		);
+
 		return $cacheOptions;
 	}
 
@@ -760,12 +777,13 @@ class gl
 		$key = !empty($this->modx->resource)
 			? $this->modx->resource->getCacheKey()
 			: '';
+
 		return $key . '/' . sha1(serialize($options));
 	}
 
 	/**
 	 * @param string $name
-	 * @param array $properties
+	 * @param array  $properties
 	 *
 	 * @return mixed|string
 	 */
@@ -776,15 +794,17 @@ class gl
 			/** @var modChunk $chunk */
 			$chunk = $this->modx->newObject('modChunk', array('name' => 'inline-' . uniqid()));
 			$chunk->setCacheable(false);
+
 			return $chunk->process($properties, $content);
 		}
+
 		return $this->modx->getChunk($name, $properties);
 	}
 
 	/**
 	 * @param string $message
-	 * @param array $data
-	 * @param array $placeholders
+	 * @param array  $data
+	 * @param array  $placeholders
 	 *
 	 * @return array|string
 	 */
@@ -793,15 +813,16 @@ class gl
 		$response = array(
 			'success' => false,
 			'message' => $this->lexicon($message, $placeholders),
-			'data' => $data,
+			'data'    => $data,
 		);
+
 		return $this->config['jsonResponse'] ? $this->modx->toJSON($response) : $response;
 	}
 
 	/**
 	 * @param string $message
-	 * @param array $data
-	 * @param array $placeholders
+	 * @param array  $data
+	 * @param array  $placeholders
 	 *
 	 * @return array|string
 	 */
@@ -810,8 +831,9 @@ class gl
 		$response = array(
 			'success' => true,
 			'message' => $this->lexicon($message, $placeholders),
-			'data' => $data,
+			'data'    => $data,
 		);
+
 		return $this->config['jsonResponse'] ? $this->modx->toJSON($response) : $response;
 	}
 

@@ -33,7 +33,8 @@ class modglRegionsDownloadProcessor extends modProcessor
 		$sql = "SELECT iso "
 			. "FROM {$this->modx->getTableName($parentClass)} "
 			. "WHERE active=1";
-		$stmt =$this->modx->query($sql);
+		$stmt = $this->modx->query($sql);
+
 		return ($stmt) ? $stmt->fetchAll(PDO::FETCH_COLUMN) : array();
 	}
 

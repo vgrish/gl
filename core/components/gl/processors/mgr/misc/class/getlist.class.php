@@ -10,27 +10,27 @@ class modglClassGetListProcessor extends modObjectProcessor
 	{
 		$array = array(
 			0 => array(
-				'name' => $this->modx->lexicon('gl_default'),
+				'name'  => $this->modx->lexicon('gl_default'),
 				'value' => ''
 			),
 			1 => array(
-				'name' => $this->modx->lexicon('gl_city'),
+				'name'  => $this->modx->lexicon('gl_city'),
 				'value' => 'glCity'
 			),
 			2 => array(
-				'name' => $this->modx->lexicon('gl_region'),
+				'name'  => $this->modx->lexicon('gl_region'),
 				'value' => 'glRegion'
 			),
 			3 => array(
-				'name' => $this->modx->lexicon('gl_country'),
+				'name'  => $this->modx->lexicon('gl_country'),
 				'value' => 'glCountry'
 			),
 		);
 
 		$query = $this->getProperty('query');
 		if (!empty($query)) {
-			foreach($array as $k => $format) {
-				if (stripos($format['name'], $query) === FALSE ) {
+			foreach ($array as $k => $format) {
+				if (stripos($format['name'], $query) === false) {
 					unset($array[$k]);
 				}
 			}
@@ -45,10 +45,11 @@ class modglClassGetListProcessor extends modObjectProcessor
 	{
 		if ($this->getProperty('addall')) {
 			$array = array_merge_recursive(array(array(
-				'name' => $this->modx->lexicon('gl_all'),
+				'name'  => $this->modx->lexicon('gl_all'),
 				'value' => ''
 			)), $array);
 		}
+
 		return parent::outputArray($array, $count);
 	}
 

@@ -15,6 +15,7 @@ class modglDataRemoveProcessor extends modObjectRemoveProcessor
 		if ($this->object->get('default')) {
 			return $this->modx->lexicon('gl_err_lock');
 		}
+
 		return parent::beforeRemove();
 	}
 

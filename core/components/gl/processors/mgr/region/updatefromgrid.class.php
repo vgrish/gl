@@ -14,6 +14,7 @@ class modglRegionFromGridProcessor extends modglRegionUpdateProcessor
 	{
 		/** @var modProcessor $processor */
 		$processor = new modglRegionFromGridProcessor($modx, $properties);
+
 		return $processor;
 	}
 
@@ -30,6 +31,7 @@ class modglRegionFromGridProcessor extends modglRegionUpdateProcessor
 		}
 		$this->setProperties($data);
 		$this->unsetProperty('data');
+
 		return parent::initialize();
 	}
 }

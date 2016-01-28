@@ -37,11 +37,11 @@ class modglDataGetListProcessor extends modObjectGetListProcessor
 
 		$c->select($this->modx->getSelectColumns('glData', 'glData'));
 		$c->select(array(
-			'name' => 'glCountry.name_ru',
-			'name1' => 'glRegion.name_ru',
-			'name2' => 'glCity.name_ru',
+			'name'    => 'glCountry.name_ru',
+			'name1'   => 'glRegion.name_ru',
+			'name2'   => 'glCity.name_ru',
 
-			'active' => 'glCountry.active',
+			'active'  => 'glCountry.active',
 			'active1' => 'glRegion.active',
 			'active2' => 'glCity.active',
 		));
@@ -49,7 +49,7 @@ class modglDataGetListProcessor extends modObjectGetListProcessor
 		$query = trim($this->getProperty('query'));
 		if ($query) {
 			$c->where(array(
-				'name_ru:LIKE' => "%{$query}%",
+				'name_ru:LIKE'    => "%{$query}%",
 				'OR:name_en:LIKE' => "%{$query}%",
 			));
 		}
@@ -65,10 +65,11 @@ class modglDataGetListProcessor extends modObjectGetListProcessor
 	{
 		if ($this->getProperty('addall')) {
 			$array = array_merge_recursive(array(array(
-				'id' => 0,
+				'id'   => 0,
 				'name' => $this->modx->lexicon('gl_all')
 			)), $array);
 		}
+
 		return parent::outputArray($array, $count);
 	}
 
@@ -85,12 +86,12 @@ class modglDataGetListProcessor extends modObjectGetListProcessor
 
 		// Edit
 		$array['actions'][] = array(
-			'cls' => '',
-			'icon' => "$icon $icon-edit green",
-			'title' => $this->modx->lexicon('gl_action_update'),
+			'cls'    => '',
+			'icon'   => "$icon $icon-edit green",
+			'title'  => $this->modx->lexicon('gl_action_update'),
 			'action' => 'update',
 			'button' => true,
-			'menu' => true,
+			'menu'   => true,
 		);
 
 		if ($array['default']) {
@@ -112,40 +113,40 @@ class modglDataGetListProcessor extends modObjectGetListProcessor
 
 		if (!$array['active']) {
 			$array['actions'][] = array(
-				'cls' => '',
-				'icon' => "$icon $icon-toggle-off red",
-				'title' => $this->modx->lexicon('gl_action_active'),
+				'cls'    => '',
+				'icon'   => "$icon $icon-toggle-off red",
+				'title'  => $this->modx->lexicon('gl_action_active'),
 				'action' => 'active',
 				'button' => true,
-				'menu' => true,
+				'menu'   => true,
 			);
 		} else {
 			$array['actions'][] = array(
-				'cls' => '',
-				'icon' => "$icon $icon-toggle-on green",
-				'title' => $this->modx->lexicon('gl_action_inactive'),
+				'cls'    => '',
+				'icon'   => "$icon $icon-toggle-on green",
+				'title'  => $this->modx->lexicon('gl_action_inactive'),
 				'action' => 'inactive',
 				'button' => true,
-				'menu' => true,
+				'menu'   => true,
 			);
 		}
 		// sep
 		$array['actions'][] = array(
-			'cls' => '',
-			'icon' => '',
-			'title' => '',
+			'cls'    => '',
+			'icon'   => '',
+			'title'  => '',
 			'action' => 'sep',
 			'button' => false,
-			'menu' => true,
+			'menu'   => true,
 		);
 		// Remove
 		$array['actions'][] = array(
-			'cls' => '',
-			'icon' => "$icon $icon-trash-o red",
-			'title' => $this->modx->lexicon('gl_action_remove'),
+			'cls'    => '',
+			'icon'   => "$icon $icon-trash-o red",
+			'title'  => $this->modx->lexicon('gl_action_remove'),
 			'action' => 'remove',
 			'button' => true,
-			'menu' => true,
+			'menu'   => true,
 		);
 
 		return $array;

@@ -38,7 +38,7 @@ class Format implements FormatInterface
 
 
 	/**
-	 * @param $n
+	 * @param       $n
 	 * @param array $p
 	 */
 	public function __call($n, array$p)
@@ -48,6 +48,7 @@ class Format implements FormatInterface
 
 	/**
 	 * @param array $data
+	 *
 	 * @return array
 	 */
 	public function processData(array $data = array())
@@ -68,21 +69,25 @@ class Format implements FormatInterface
 				$data[$key] = $val;
 			}
 		}
+
 		return $data;
 	}
 
 	/**
 	 * @param array $data
+	 *
 	 * @return array
 	 */
 	public function formatData(array $data = array())
 	{
 		$data['resource_url'] = $data['resource'];
+
 		return $data;
 	}
 
 	/**
 	 * @param int $resource
+	 *
 	 * @return string
 	 */
 	public function formatResourceUrl($resource = 0)
@@ -92,6 +97,7 @@ class Format implements FormatInterface
 		if (!empty($resource)) {
 			$url = $this->modx->makeUrl($resource, '', $args, 'full', array('xhtml_urls' => false));
 		}
+
 		return $url;
 	}
 

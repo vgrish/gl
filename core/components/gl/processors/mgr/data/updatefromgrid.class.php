@@ -14,6 +14,7 @@ class modglDataFromGridProcessor extends modglDataUpdateProcessor
 	{
 		/** @var modProcessor $processor */
 		$processor = new modglDataFromGridProcessor($modx, $properties);
+
 		return $processor;
 	}
 
@@ -31,6 +32,7 @@ class modglDataFromGridProcessor extends modglDataUpdateProcessor
 
 		$this->setProperties($data);
 		$this->unsetProperty('data');
+
 		return parent::initialize();
 	}
 }
