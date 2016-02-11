@@ -8,7 +8,7 @@ class gl
     /* @var modX $modx */
     public $modx;
     /** @var string $namespace */
-    public $namespace = 'location';
+    public $namespace = 'gl';
     /* @var array The array of config */
     public $config = array();
     /** @var array $initialized */
@@ -29,10 +29,8 @@ class gl
     {
         $this->modx =& $modx;
 
-        $corePath = $this->modx->getOption('gl_core_path', $config,
-            $this->modx->getOption('core_path') . 'components/gl/');
-        $assetsUrl = $this->modx->getOption('gl_assets_url', $config,
-            $this->modx->getOption('assets_url') . 'components/gl/');
+        $corePath = $this->getOption('core_path', $config, $this->modx->getOption('core_path') . 'components/gl/');
+        $assetsUrl = $this->getOption('assets_url', $config, $this->modx->getOption('assets_url') . 'components/gl/');
         $connectorUrl = $assetsUrl . 'connector.php';
         $assetsPath = MODX_ASSETS_PATH;
 
@@ -419,44 +417,123 @@ class gl
     /**
      * @return array
      */
-    public function getDefaultData()
+    public function getRealData()
+    {
+        $cityFull = (array)$this->getCityFull();
+
+        $realId = 0;
+        $realClass = $this->getOption('default_real_class', null, 'glCity', true);
+
+        switch ($realClass) {
+            case 'glCountry':
+                $realId = !isset($cityFull['country']) ?: $cityFull['country']['id'];
+                break;
+            case 'glRegion':
+                $realId = !isset($cityFull['region']) ?: $cityFull['region']['id'];
+                break;
+            case 'glCity':
+                $realId = !isset($cityFull['city']) ?: $cityFull['city']['id'];
+                break;
+        }
+        $currentData = (array)$this->getCurrentData((int)$realId, $realClass);
+        $defaultData = (array)$this->getDefaultData();
+
+        if (empty($currentData['data']) AND !empty($defaultData['data'])) {
+            $currentData['data'] = $defaultData['data'];
+        }
+
+        return array_merge($currentData, $cityFull);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCityFull()
+    {
+        if (!$this->SxGeo) {
+            $this->loadSxGeo();
+        }
+
+        return $this->SxGeo->getCityFull($this->getUserIp());
+    }
+
+    /**
+     * @return array
+     */
+    public function getCurrentData($id = 0, $class = 'glCity')
     {
         /* array cache $options */
         $options = array(
-            'cache_key' => 'gl/default/data',
+            'cache_key' => 'gl/data/' . $class . '/' . $id,
             'cacheTime' => 0,
         );
         if (!$data = $this->getCache($options)) {
             $data = array();
-            $q = $this->modx->newQuery('glCity', array('default' => 1));
-            $q->select('id,lat,lon,name_ru,name_en');
-            if ($q->prepare() && $q->stmt->execute()) {
-                $data['city'] = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
-                $data['city'] = end($data['city']);
-            }
-            $q = $this->modx->newQuery('glRegion', array('default' => 1));
-            $q->select('id,name_ru,name_en,iso');
-            if ($q->prepare() && $q->stmt->execute()) {
-                $data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
-                $data['region'] = end($data['region']);
-            }
-            $q = $this->modx->newQuery('glCountry', array('default' => 1));
-            $q->select('id,iso,lat,lon,name_ru,name_en');
-            if ($q->prepare() && $q->stmt->execute()) {
-                $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
-                $data['country'] = end($data['country']);
-            }
-            $q = $this->modx->newQuery('glData', array('default' => 1));
+
+            $q = $this->modx->newQuery('glData', array('identifier' => $id, 'class' => $class));
             $q->select($this->modx->getSelectColumns('glData', 'glData'));
             if ($q->prepare() && $q->stmt->execute()) {
                 $data['data'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
                 $data['data'] = end($data['data']);
             }
 
+            switch ($class) {
+                case 'glCountry':
+                    $q = $this->modx->newQuery('glCountry', array('id' => $id));
+                    $q->select('id,iso,lat,lon,name_ru,name_en');
+                    if ($q->prepare() && $q->stmt->execute()) {
+                        $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+                        $data['country'] = end($data['country']);
+                    }
+                    break;
+                case 'glRegion':
+                    $q = $this->modx->newQuery('glRegion', array('id' => $id));
+                    $q->select('id,name_ru,name_en,iso,country');
+                    if ($q->prepare() && $q->stmt->execute()) {
+                        $data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+                        $data['region'] = end($data['region']);
+                    }
+                    $id = $data['region']['country'];
+                    unset($data['region']['country']);
+                    $q = $this->modx->newQuery('glCountry', array('id' => $id));
+                    $q->select('id,iso,lat,lon,name_ru,name_en');
+                    if ($q->prepare() && $q->stmt->execute()) {
+                        $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+                        $data['country'] = end($data['country']);
+                    }
+                    break;
+                case 'glCity':
+                    $q = $this->modx->newQuery('glCity', array('id' => $id));
+                    $q->select('id,lat,lon,name_ru,name_en,region_id');
+                    if ($q->prepare() && $q->stmt->execute()) {
+                        $data['city'] = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+                        $data['city'] = end($data['city']);
+                    }
+                    $id = $data['city']['region_id'];
+                    unset($data['city']['region_id']);
+                    $q = $this->modx->newQuery('glRegion', array('id' => $id));
+                    $q->select('id,name_ru,name_en,iso,country');
+                    if ($q->prepare() && $q->stmt->execute()) {
+                        $data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+                        $data['region'] = end($data['region']);
+                    }
+                    $id = $data['region']['country'];
+                    unset($data['region']['country']);
+                    $q = $this->modx->newQuery('glCountry', array('iso' => $id));
+                    $q->select('id,iso,lat,lon,name_ru,name_en');
+                    if ($q->prepare() && $q->stmt->execute()) {
+                        $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+                        $data['country'] = end($data['country']);
+                    }
+                    break;
+                default:
+                    $data = array();
+                    break;
+            }
+
             if ($this->modx->getOption('gl_isprocess_data', null, true, true)) {
                 $data = $this->processData($data);
             }
-
             $this->setCache($data, $options);
         }
 
@@ -574,118 +651,44 @@ class gl
     /**
      * @return array
      */
-    public function getRealData()
-    {
-        $cityFull = (array)$this->getCityFull();
-
-        $realId = 0;
-        $realClass = $this->getOption('default_real_class', null, 'glCity', true);
-
-        switch ($realClass) {
-            case 'glCountry':
-                $realId = !isset($cityFull['country']) ?: $cityFull['country']['id'];
-                break;
-            case 'glRegion':
-                $realId = !isset($cityFull['region']) ?: $cityFull['region']['id'];
-                break;
-            case 'glCity':
-                $realId = !isset($cityFull['city']) ?: $cityFull['city']['id'];
-                break;
-        }
-        $currentData = (array)$this->getCurrentData((int)$realId, $realClass);
-
-        return array_merge($currentData, $cityFull);
-    }
-
-    /**
-     * @return array
-     */
-    public function getCityFull()
-    {
-        if (!$this->SxGeo) {
-            $this->loadSxGeo();
-        }
-
-        return $this->SxGeo->getCityFull($this->getUserIp());
-    }
-
-    /**
-     * @return array
-     */
-    public function getCurrentData($id = 0, $class = 'glCity')
+    public function getDefaultData()
     {
         /* array cache $options */
         $options = array(
-            'cache_key' => 'gl/data/' . $class . '/' . $id,
+            'cache_key' => 'gl/default/data',
             'cacheTime' => 0,
         );
         if (!$data = $this->getCache($options)) {
             $data = array();
-
-            $q = $this->modx->newQuery('glData', array('identifier' => $id, 'class' => $class));
+            $q = $this->modx->newQuery('glCity', array('default' => 1));
+            $q->select('id,lat,lon,name_ru,name_en');
+            if ($q->prepare() && $q->stmt->execute()) {
+                $data['city'] = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+                $data['city'] = end($data['city']);
+            }
+            $q = $this->modx->newQuery('glRegion', array('default' => 1));
+            $q->select('id,name_ru,name_en,iso');
+            if ($q->prepare() && $q->stmt->execute()) {
+                $data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+                $data['region'] = end($data['region']);
+            }
+            $q = $this->modx->newQuery('glCountry', array('default' => 1));
+            $q->select('id,iso,lat,lon,name_ru,name_en');
+            if ($q->prepare() && $q->stmt->execute()) {
+                $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
+                $data['country'] = end($data['country']);
+            }
+            $q = $this->modx->newQuery('glData', array('default' => 1));
             $q->select($this->modx->getSelectColumns('glData', 'glData'));
             if ($q->prepare() && $q->stmt->execute()) {
                 $data['data'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
                 $data['data'] = end($data['data']);
             }
 
-            switch ($class) {
-                case 'glCountry':
-                    $q = $this->modx->newQuery('glCountry', array('id' => $id));
-                    $q->select('id,iso,lat,lon,name_ru,name_en');
-                    if ($q->prepare() && $q->stmt->execute()) {
-                        $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
-                        $data['country'] = end($data['country']);
-                    }
-                    break;
-                case 'glRegion':
-                    $q = $this->modx->newQuery('glRegion', array('id' => $id));
-                    $q->select('id,name_ru,name_en,iso,country');
-                    if ($q->prepare() && $q->stmt->execute()) {
-                        $data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
-                        $data['region'] = end($data['region']);
-                    }
-                    $id = $data['region']['country'];
-                    unset($data['region']['country']);
-                    $q = $this->modx->newQuery('glCountry', array('id' => $id));
-                    $q->select('id,iso,lat,lon,name_ru,name_en');
-                    if ($q->prepare() && $q->stmt->execute()) {
-                        $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
-                        $data['country'] = end($data['country']);
-                    }
-                    break;
-                case 'glCity':
-                    $q = $this->modx->newQuery('glCity', array('id' => $id));
-                    $q->select('id,lat,lon,name_ru,name_en,region_id');
-                    if ($q->prepare() && $q->stmt->execute()) {
-                        $data['city'] = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
-                        $data['city'] = end($data['city']);
-                    }
-                    $id = $data['city']['region_id'];
-                    unset($data['city']['region_id']);
-                    $q = $this->modx->newQuery('glRegion', array('id' => $id));
-                    $q->select('id,name_ru,name_en,iso,country');
-                    if ($q->prepare() && $q->stmt->execute()) {
-                        $data['region'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
-                        $data['region'] = end($data['region']);
-                    }
-                    $id = $data['region']['country'];
-                    unset($data['region']['country']);
-                    $q = $this->modx->newQuery('glCountry', array('iso' => $id));
-                    $q->select('id,iso,lat,lon,name_ru,name_en');
-                    if ($q->prepare() && $q->stmt->execute()) {
-                        $data['country'] = ($q->stmt->fetchAll(PDO::FETCH_ASSOC));
-                        $data['country'] = end($data['country']);
-                    }
-                    break;
-                default:
-                    $data = array();
-                    break;
-            }
-
             if ($this->modx->getOption('gl_isprocess_data', null, true, true)) {
                 $data = $this->processData($data);
             }
+
             $this->setCache($data, $options);
         }
 
