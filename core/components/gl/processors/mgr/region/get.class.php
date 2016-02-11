@@ -5,32 +5,32 @@
  */
 class modglRegionGetProcessor extends modObjectGetProcessor
 {
-	public $objectType = 'glRegion';
-	public $classKey = 'glRegion';
-	public $languageTopics = array('gl');
-	public $permission = '';
+    public $objectType = 'glRegion';
+    public $classKey = 'glRegion';
+    public $languageTopics = array('gl');
+    public $permission = '';
 
-	public $gl;
+    public $gl;
 
-	/** {@inheritDoc} */
-	public function initialize()
-	{
-		/** @var gl $gl */
-		$this->gl = $this->modx->getService('gl');
-		$this->gl->initialize($this->getProperty('context', $this->modx->context->key));
+    /** {@inheritDoc} */
+    public function initialize()
+    {
+        /** @var gl $gl */
+        $this->gl = $this->modx->getService('gl');
+        $this->gl->initialize($this->getProperty('context', $this->modx->context->key));
 
-		return parent::initialize();
-	}
+        return parent::initialize();
+    }
 
-	/**
-	 * @return array|string
-	 */
-	public function cleanup()
-	{
-		$array = $this->object->toArray();
+    /**
+     * @return array|string
+     */
+    public function cleanup()
+    {
+        $array = $this->object->toArray();
 
-		return $this->success('', $array);
-	}
+        return $this->success('', $array);
+    }
 
 }
 

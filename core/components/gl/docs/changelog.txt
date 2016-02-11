@@ -1,5 +1,9 @@
 Changelog for GeoLocation.
 
+1.0.8-beta (11.02.2016)
+==============
+- Fix getRealData
+
 1.0.7-beta (28.01.2016)
 ==============
 - Update SxGeo

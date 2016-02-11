@@ -121,7 +121,6 @@ $_lang['gl_tab_package'] = 'Пакет';
 $_lang['gl_tab_add'] = 'Дополнительно';
 
 
-
 /* confirm */
 $_lang['gl_confirm_remove'] = 'Вы уверены, что хотите удалить это?';
 $_lang['gl_confirm_send'] = 'Вы уверены, что хотите отправить?';

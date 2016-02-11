@@ -9,25 +9,29 @@ $sortby = $scriptProperties['sortby'] = $modx->getOption('sortby', $scriptProper
 $sortdir = $scriptProperties['sortdir'] = $modx->getOption('sortdir', $scriptProperties, 'ASC', true);
 $tpl = $scriptProperties['tpl'] = $modx->getOption('tpl', $scriptProperties, 'tpl.gl.location', true);
 $idx = $scriptProperties['idx'] = $modx->getOption('idx', $scriptProperties, 0, true);
-$outputSeparator = $scriptProperties['outputSeparator'] = $modx->getOption('outputSeparator', $scriptProperties, "\n", true);
+$outputSeparator = $scriptProperties['outputSeparator'] = $modx->getOption('outputSeparator', $scriptProperties, "\n",
+    true);
 /** @var gl $gl */
-if (!$gl = $modx->getService('gl', 'gl', $modx->getOption('gl_core_path', null, $modx->getOption('core_path') . 'components/gl/') . 'model/gl/', $scriptProperties)) {
-	return 'Could not load gl class!';
+if (!$gl = $modx->getService('gl', 'gl',
+    $modx->getOption('gl_core_path', null, $modx->getOption('core_path') . 'components/gl/') . 'model/gl/',
+    $scriptProperties)
+) {
+    return 'Could not load gl class!';
 }
 
 $gl->initialize($context, $scriptProperties);
 
 $rows = array();
 $where = array(
-	'active'  => 1,
-	'default' => 0,
+    'active'  => 1,
+    'default' => 0,
 );
 
 if (!empty($scriptProperties['where'])) {
-	$tmp = $modx->fromJSON($scriptProperties['where']);
-	if (is_array($tmp) AND !empty($tmp)) {
-		$where = array_merge($where, $tmp);
-	}
+    $tmp = $modx->fromJSON($scriptProperties['where']);
+    if (is_array($tmp) AND !empty($tmp)) {
+        $where = array_merge($where, $tmp);
+    }
 }
 
 $q = $modx->newQuery($class);
@@ -36,22 +40,22 @@ $q->limit($limit, $offset);
 $q->sortby($sortby, $sortdir);
 $q->select($modx->getSelectColumns($class, $class));
 if ($q->prepare() AND $q->stmt->execute()) {
-	$rows = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+    $rows = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 $output = array();
 $idx = $offset + $idx;
 
 foreach ($rows as $row) {
-	$row['idx'] = $idx++;
-	$row['class'] = $class;
-	$output[] = $gl->getChunk($tpl, $row);
+    $row['idx'] = $idx++;
+    $row['class'] = $class;
+    $output[] = $gl->getChunk($tpl, $row);
 }
 
 $output = implode($outputSeparator, $output);
 
 if (!empty($toPlaceholder)) {
-	$modx->setPlaceholder($toPlaceholder, $output);
+    $modx->setPlaceholder($toPlaceholder, $output);
 } else {
-	return $output;
+    return $output;
 }

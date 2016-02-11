@@ -6,12 +6,15 @@ $objectName = $scriptProperties['objectName'] = $modx->getOption('objectName', $
 $modalShow = $scriptProperties['modalShow'] = $modx->getOption('modalShow', $scriptProperties, true, true);
 
 /** @var gl $gl */
-if (!$gl = $modx->getService('gl', 'gl', $modx->getOption('gl_core_path', null, $modx->getOption('core_path') . 'components/gl/') . 'model/gl/', $scriptProperties)) {
-	return 'Could not load gl class!';
+if (!$gl = $modx->getService('gl', 'gl',
+    $modx->getOption('gl_core_path', null, $modx->getOption('core_path') . 'components/gl/') . 'model/gl/',
+    $scriptProperties)
+) {
+    return 'Could not load gl class!';
 }
 
 if (!$modalShow OR !empty($gl->opts['set'])) {
-	$scriptProperties['modalShow'] = false;
+    $scriptProperties['modalShow'] = false;
 }
 
 
@@ -23,7 +26,7 @@ $row = $scriptProperties;
 $output = $gl->getChunk($tpl, $row);
 
 if (!empty($toPlaceholder)) {
-	$modx->setPlaceholder($toPlaceholder, $output);
+    $modx->setPlaceholder($toPlaceholder, $output);
 } else {
-	return $output;
+    return $output;
 }

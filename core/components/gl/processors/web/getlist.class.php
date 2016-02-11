@@ -5,98 +5,98 @@
  */
 class modglLocationGetListProcessor extends modObjectGetListProcessor
 {
-	public $objectType = '';
-	public $classKey = '';
-	public $defaultSortField = 'name_ru';
-	public $defaultSortDirection = 'ASC';
-	public $languageTopics = array('default', 'gl');
-	public $permission = '';
+    public $objectType = '';
+    public $classKey = '';
+    public $defaultSortField = 'name_ru';
+    public $defaultSortDirection = 'ASC';
+    public $languageTopics = array('default', 'gl');
+    public $permission = '';
 
-	/** {@inheritDoc} */
-	public function initialize()
-	{
-		switch ($this->getProperty('class')) {
-			case 'glCountry':
-				$this->objectType = $this->classKey = 'glCountry';
-				break;
-			case 'glRegion':
-				$this->objectType = $this->classKey = 'glRegion';
-				break;
-			case 'glCity':
-				$this->objectType = $this->classKey = 'glCity';
-				break;
-		}
-		if (empty($this->classKey)) {
-			return $this->modx->lexicon('gl_err_class_ns');
-		}
+    /** {@inheritDoc} */
+    public function initialize()
+    {
+        switch ($this->getProperty('class')) {
+            case 'glCountry':
+                $this->objectType = $this->classKey = 'glCountry';
+                break;
+            case 'glRegion':
+                $this->objectType = $this->classKey = 'glRegion';
+                break;
+            case 'glCity':
+                $this->objectType = $this->classKey = 'glCity';
+                break;
+        }
+        if (empty($this->classKey)) {
+            return $this->modx->lexicon('gl_err_class_ns');
+        }
 
-		return parent::initialize();
-	}
+        return parent::initialize();
+    }
 
-	/** {@inheritDoc} */
-	public function beforeQuery()
-	{
-		if (!$this->checkPermissions()) {
-			return $this->modx->lexicon('access_denied');
-		}
+    /** {@inheritDoc} */
+    public function beforeQuery()
+    {
+        if (!$this->checkPermissions()) {
+            return $this->modx->lexicon('access_denied');
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * @param xPDOQuery $c
-	 *
-	 * @return xPDOQuery
-	 */
-	public function prepareQueryBeforeCount(xPDOQuery $c)
-	{
-		$c->leftJoin("glData", "glData", "glData.identifier = {$this->classKey}.id");
+    /**
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
+    public function prepareQueryBeforeCount(xPDOQuery $c)
+    {
+        $c->leftJoin("glData", "glData", "glData.identifier = {$this->classKey}.id");
 
-		$c->select($this->modx->getSelectColumns("glData", "glData"));
-		$c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
+        $c->select($this->modx->getSelectColumns("glData", "glData"));
+        $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
 
-		$active = $this->getProperty('active');
-		if ($active != '') {
-			$c->where(array("{$this->objectType}.active" => $active));
-		}
+        $active = $this->getProperty('active');
+        if ($active != '') {
+            $c->where(array("{$this->objectType}.active" => $active));
+        }
 
-		$default = $this->getProperty('default');
-		if ($default != '') {
-			$c->where(array("{$this->objectType}.default" => $default));
-		}
+        $default = $this->getProperty('default');
+        if ($default != '') {
+            $c->where(array("{$this->objectType}.default" => $default));
+        }
 
-		$query = trim($this->getProperty('query'));
-		if ($query) {
-			$c->where(array(
-				"{$this->objectType}.name_ru:LIKE"    => "%{$query}%",
-				"OR:{$this->objectType}.name_en:LIKE" => "%{$query}%",
-			));
-		}
+        $query = trim($this->getProperty('query'));
+        if ($query) {
+            $c->where(array(
+                "{$this->objectType}.name_ru:LIKE"    => "%{$query}%",
+                "OR:{$this->objectType}.name_en:LIKE" => "%{$query}%",
+            ));
+        }
 
-		return $c;
-	}
+        return $c;
+    }
 
-	/** {@inheritDoc} */
-	public function outputArray(array $array, $count = false)
-	{
-		return parent::outputArray($array, $count);
-	}
+    /** {@inheritDoc} */
+    public function outputArray(array $array, $count = false)
+    {
+        return parent::outputArray($array, $count);
+    }
 
-	/**
-	 * @param xPDOObject $object
-	 *
-	 * @return array
-	 */
-	public function prepareRow(xPDOObject $object)
-	{
-		$array = $object->toArray();
+    /**
+     * @param xPDOObject $object
+     *
+     * @return array
+     */
+    public function prepareRow(xPDOObject $object)
+    {
+        $array = $object->toArray();
 
-		if (empty($array['class'])) {
-			$array['class'] = $this->objectType;
-		}
+        if (empty($array['class'])) {
+            $array['class'] = $this->objectType;
+        }
 
-		return $array;
-	}
+        return $array;
+    }
 
 }
 

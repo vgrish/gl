@@ -1,2 +1,5 @@
 <?php
-class glRegion extends xPDOSimpleObject {}
+
+class glRegion extends xPDOSimpleObject
+{
+}

@@ -1,2 +1,5 @@
 <?php
-class glData extends xPDOSimpleObject {}
+
+class glData extends xPDOSimpleObject
+{
+}

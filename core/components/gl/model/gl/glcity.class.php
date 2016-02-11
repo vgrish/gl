@@ -1,2 +1,5 @@
 <?php
-class glCity extends xPDOSimpleObject {}
+
+class glCity extends xPDOSimpleObject
+{
+}
