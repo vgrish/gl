@@ -24,7 +24,6 @@ $gl->initialize($context, $scriptProperties);
 $rows = array();
 $where = array(
     'active'  => 1,
-    'default' => 0,
 );
 
 if (!empty($scriptProperties['where'])) {

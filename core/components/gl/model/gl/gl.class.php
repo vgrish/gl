@@ -843,7 +843,7 @@ class gl
      */
     public function getChunk($name = '', array $properties = array())
     {
-        if (strpos($name, '@INLINE ') !== false) {
+        if (strpos($name, '@INLINE') !== false) {
             $content = str_replace('@INLINE', '', $name);
             /** @var modChunk $chunk */
             $chunk = $this->modx->newObject('modChunk', array('name' => 'inline-' . uniqid()));

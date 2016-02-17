@@ -1,15 +1,25 @@
 <div style="display: none;">
     <div class="gl-modal">
         <div class="gl-default">
-            <h5>Ваш город — <b>[[+gl.current.city.name_ru]]</b>?</h5>
+            <h5>Ваш город —
+                <b>
+                    [[!gl.location?
+                    &limit=`1`
+                    &tpl=`@INLINE [[+name_ru]]`
+                    &class=`[[+class]]`
+                    &where=`["name_ru = \"[[+gl.current.city.name_ru]]\" OR (name_ru = \"[[+gl.real.city.name_ru]]\" AND active = 1)"]`
+                    ]]
+                </b>?
+            </h5>
 
             <span class="btn-yes">Да </span>
             <span class="btn-change">Изменить </span>
 
             <ul class="gl-default-list" style="display: none;">
                 [[!gl.location?
+                &limit=`1`
                 &class=`[[+class]]`
-                &where=`{"name_ru":"[[+gl.current.city.name_ru]]"}`
+                &where=`["name_ru = \"[[+gl.current.city.name_ru]]\" OR (name_ru = \"[[+gl.real.city.name_ru]]\" AND active = 1)"]`
                 ]]
             </ul>
 
@@ -30,6 +40,7 @@
             <ul class="gl-change-list">
                 [[!gl.location?
                 &class=`[[+class]]`
+                &where=`{"default":0}`
                 ]]
             </ul>
 

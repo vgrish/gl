@@ -1,5 +1,9 @@
 Changelog for GeoLocation.
 
+1.0.9-beta (17.02.2016)
+==============
+- Fix chunk "tpl.gl.modal"
+
 1.0.8-beta (11.02.2016)
 ==============
 - Fix getRealData
