@@ -1,7 +1,7 @@
 /**
  *  v 1.1.0
  *
- * with colorbox
+ * with uikit
  *
  * */
 
@@ -13,10 +13,10 @@ if (typeof(gl) == 'undefined') {
 
 gl = {
     initialize: function() {
-        if (!jQuery().colorbox) {
-            document.writeln('<style data-compiled-css>@import url('+glConfig.assetsUrl + 'vendor/colorbox/colorbox.css); </style>');
-            document.writeln('<script src="' + glConfig.assetsUrl + 'vendor/colorbox/jquery.colorbox-min.js"><\/script>');
-            document.writeln('<script src="' + glConfig.assetsUrl + 'vendor/colorbox/i18n/jquery.colorbox-ru.js"><\/script>');
+        if (!jQuery().UIkit) {
+            document.writeln('<style data-compiled-css>@import url('+glConfig.assetsUrl + 'vendor/uikit/src/css/core/modal.css); </style>');
+            document.write('<script src="' + glConfig.assetsUrl + 'vendor/uikit/src/js/core/core.js"><\/script>');
+            document.write('<script src="' + glConfig.assetsUrl + 'vendor/uikit/src/js/core/modal.js"><\/script>');
         }
         if (!jQuery().select2) {
             document.writeln('<style data-compiled-css>@import url('+glConfig.assetsUrl + 'vendor/select2/css/select2.min.css); </style>');
@@ -32,6 +32,7 @@ gl = {
 
 
 gl.location = {
+    modal: null,
     config: {},
     placeholder: {},
     baseParams: {
@@ -49,6 +50,7 @@ gl.location = {
 
         btnYes: '.btn-yes',
         btnChange: '.btn-change',
+
     },
     initialize: function() {
         if (!!!gl.Init) {
@@ -56,20 +58,20 @@ gl.location = {
         }
 
         $(document).on('click touchend', gl.location.selectors.selectCurrent, function(e) {
-            gl.location.modal();
             e.preventDefault();
+            gl.location.modal.show();
+            gl.location.input.load('location');
             return false;
         });
 
         $(document).on('click touchend', gl.location.selectors.btnChange, function(e) {
             $('.gl-default').hide();
             $('.gl-change-select').show();
-            $.colorbox.resize();
             e.preventDefault();
             return false;
         });
 
-        $(document).on('click touchend', gl.location.selectors.btnYes, function(e) {
+        $(document).on('click touchend',  gl.location.selectors.btnYes, function(e) {
             var data = {
                 id: 0,
                 class: 'default'
@@ -100,47 +102,27 @@ gl.location = {
             return false;
         });
 
-        $(document).bind('cbox_complete', function() {
-            $('#colorbox').removeAttr('tabindex');
-            $('.gl-default').show();
-            $('.gl-change-select').hide();
-            $.colorbox.resize();
-            gl.location.input.load('location');
-        });
-
-        $(document).bind('cbox_cleanup', function() {
-            gl.location.input.close('location');
-        });
-
-        $(document).bind('cbox_closed', function() {
-            gl.location.input.destroy('location');
-        });
-
         $(document).bind('gl_select', function(e, data, response) {
-            $.colorbox.close();
+            gl.location.modal.hide();
 
             var resourceUrl = response.object.current.data['resource_url'];
             if (!!resourceUrl) {
                 document.location.href = resourceUrl;
-            } else {
+            }
+            else {
                 location.reload();
             }
         });
 
         $(document).ready(function() {
+            gl.location.modal = UIkit.modal(gl.location.selectors.modal);
+            $(gl.location.selectors.modal).parent().show();
+
             if (glConfig.modalShow) {
-                gl.location.modal();
+                gl.location.modal.show();
             }
         });
 
-    },
-
-    modal: function() {
-        var html = $(gl.location.selectors.modal).html();
-
-        $.colorbox({
-            html: html
-        });
     },
 
     request: function(action, data) {

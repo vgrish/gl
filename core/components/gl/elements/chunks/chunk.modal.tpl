@@ -1,6 +1,6 @@
 <div style="display: none;">
-    <div class="gl-modal">
-        <div class="gl-default">
+    <div class="gl-modal uk-modal">
+        <div class="gl-default uk-modal-dialog">
             <h5>Ваш город —
                 <b>
                     [[!gl.location?
@@ -25,7 +25,7 @@
 
         </div>
 
-        <div class="gl-change-select" style="display: none;">
+        <div class="gl-change-select uk-modal-dialog" style="display: none;">
             <h5>Выберите Ваш город</h5>
 
             <p class="desc">
