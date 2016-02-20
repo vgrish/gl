@@ -1,5 +1,5 @@
 /**
- *  v 1.1.0
+ *  v 1.1.1
  *
  * with uikit
  *
@@ -223,13 +223,19 @@ gl.location = {
             if (!el.id) {
                 return '';
             }
-            return $('<div>' + el.name_ru + '</div>');
+
+            var name = !!!el.name_alt ? el.name_ru :el.name_alt;
+
+            return $('<div>' + name + '</div>');
         },
         getSelection: function(el) {
             if (!el.id) {
                 return '';
             }
-            return el.name_ru;
+
+            var name = !!!el.name_alt ? el.name_ru :el.name_alt;
+
+            return name
         }
     }
 

@@ -51,7 +51,7 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
     windows: {},
 
     getFields: function(config) {
-        var fields = ['id', 'identifier', 'class', 'phone', 'email', 'address', 'default', 'actions'];
+        var fields = gl.config.fields_grid_data;
 
         return fields;
     },
@@ -186,6 +186,9 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
                 sortable: false,
                 renderer: function (value, metaData, record) {
                     switch (true) {
+                        case record['json']['name_alt'] != null:
+                            value = record['json']['name_alt'];
+                            break;
                         case record['json']['name'] != null:
                             value = record['json']['name'];
                             break;
@@ -201,6 +204,14 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
                     return gl.utils.renderReplace(record['json']['identifier'], value)
                 }
             },
+            name_alt: {
+                width: 20,
+                sortable: false,
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: true
+                }
+            },
             phone: {
                 width: 20,
                 sortable: false,
@@ -209,7 +220,23 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
                     allowBlank: true
                 }
             },
+            phone_add: {
+                width: 20,
+                sortable: false,
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: true
+                }
+            },
             email: {
+                width: 20,
+                sortable: false,
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: true
+                }
+            },
+            email_add: {
                 width: 20,
                 sortable: false,
                 editor: {
@@ -229,7 +256,9 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
 
         }
 
-        for (var field in add) {
+        var fields = this.getFields();
+        for (var i = 0; i < fields.length; i++) {
+            var field = fields[i];
             if (add[field]) {
                 Ext.applyIf(add[field], {
                     header: _('gl_header_' + field),

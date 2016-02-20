@@ -8,13 +8,19 @@ $xpdo_meta_map['glData'] = array(
         array(
             'identifier' => 0,
             'class'      => 'glCity',
+            'name_alt'   => null,
             'resource'   => 0,
             'phone'      => null,
+            'phone_add'  => null,
             'email'      => null,
+            'email_add'  => null,
             'address'    => null,
             'image'      => null,
             'default'    => 0,
             'properties' => null,
+            'add1'       => null,
+            'add2'       => null,
+            'add3'       => null,
         ),
     'fieldMeta' =>
         array(
@@ -35,6 +41,13 @@ $xpdo_meta_map['glData'] = array(
                     'null'      => false,
                     'default'   => 'glCity',
                 ),
+            'name_alt'   =>
+                array(
+                    'dbtype'    => 'varchar',
+                    'precision' => '255',
+                    'phptype'   => 'string',
+                    'null'      => true,
+                ),
             'resource'   =>
                 array(
                     'dbtype'     => 'int',
@@ -51,7 +64,21 @@ $xpdo_meta_map['glData'] = array(
                     'phptype'   => 'string',
                     'null'      => true,
                 ),
+            'phone_add'  =>
+                array(
+                    'dbtype'    => 'varchar',
+                    'precision' => '20',
+                    'phptype'   => 'string',
+                    'null'      => true,
+                ),
             'email'      =>
+                array(
+                    'dbtype'    => 'varchar',
+                    'precision' => '255',
+                    'phptype'   => 'string',
+                    'null'      => true,
+                ),
+            'email_add'  =>
                 array(
                     'dbtype'    => 'varchar',
                     'precision' => '255',
@@ -83,6 +110,24 @@ $xpdo_meta_map['glData'] = array(
                 array(
                     'dbtype'  => 'text',
                     'phptype' => 'json',
+                    'null'    => true,
+                ),
+            'add1'       =>
+                array(
+                    'dbtype'  => 'text',
+                    'phptype' => 'string',
+                    'null'    => true,
+                ),
+            'add2'       =>
+                array(
+                    'dbtype'  => 'text',
+                    'phptype' => 'string',
+                    'null'    => true,
+                ),
+            'add3'       =>
+                array(
+                    'dbtype'  => 'text',
+                    'phptype' => 'string',
                     'null'    => true,
                 ),
         ),

@@ -51,7 +51,7 @@ Ext.extend(gl.grid.Country, MODx.grid.Grid, {
     windows: {},
 
     getFields: function(config) {
-        var fields = ['id', 'iso', 'continent', 'name', 'name_ru', 'lat', 'lon', 'timezone', 'active', 'actions'];
+        var fields = gl.config.fields_grid_countries;
 
         return fields;
     },
@@ -191,7 +191,9 @@ Ext.extend(gl.grid.Country, MODx.grid.Grid, {
 
         }
 
-        for (var field in add) {
+        var fields = this.getFields();
+        for (var i = 0; i < fields.length; i++) {
+            var field = fields[i];
             if (add[field]) {
                 Ext.applyIf(add[field], {
                     header: _('gl_header_' + field),

@@ -28,6 +28,11 @@ abstract class glMainController extends modExtraManagerController
 
         $config = $this->gl->config;
         $config['connector_url'] = $this->gl->config['connectorUrl'];
+        $config['fields_grid_countries'] = $this->gl->getFieldsGridCountries();
+        $config['fields_grid_regions'] = $this->gl->getFieldsGridRegions();
+        $config['fields_grid_cities'] = $this->gl->getFieldsGridCities();
+        $config['fields_grid_data'] = $this->gl->getFieldsGridData();
+        $config['fields_window_data'] = $this->gl->getFieldsWindowData();
 
         $this->addHtml("<script type='text/javascript'>gl.config={$this->modx->toJSON($config)}</script>");
 

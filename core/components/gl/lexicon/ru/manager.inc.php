@@ -13,6 +13,7 @@ $_lang['gl_header_createdby'] = '<i class="fa fa-user"></i>';
 $_lang['gl_header_actions'] = '<i class="fa fa-cogs"></i>';
 $_lang['gl_header_name'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_name_ru'] = '<i class="fa fa-info"></i>';
+$_lang['gl_header_name_alt'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_color'] = '<i class="fa fa-adjust"></i>';
 $_lang['gl_header_field'] = '<i class="fa fa-asterisk"></i>';
 $_lang['gl_header_target'] = '<i class="fa fa-dot-circle-o"></i>';
@@ -23,12 +24,14 @@ $_lang['gl_header_iso'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_continent'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_timezone'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_region'] = '<i class="fa fa-info"></i>';
+$_lang['gl_header_region_id'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_country'] = '<i class="fa fa-info"></i>';
 $_lang['gl_header_class'] = '<i class="fa fa-cube"></i>';
 $_lang['gl_header_identifier'] = '<i class="fa fa-map-marker"></i>';
 $_lang['gl_header_phone'] = '<i class="fa fa-phone"></i>';
 $_lang['gl_header_email'] = '<i class="fa fa-envelope"></i>';
-
+$_lang['gl_header_phone_add'] = '<i class="fa fa-phone"></i>';
+$_lang['gl_header_email_add'] = '<i class="fa fa-envelope"></i>';
 
 /* tooltip */
 $_lang['gl_tooltip_id'] = 'Id';
@@ -53,17 +56,20 @@ $_lang['gl_tooltip_iso'] = 'ISO';
 $_lang['gl_tooltip_continent'] = 'Континент';
 $_lang['gl_tooltip_timezone'] = 'Часовой пояс';
 $_lang['gl_tooltip_region'] = 'Регион';
+$_lang['gl_tooltip_region_id'] = 'Регион';
 $_lang['gl_tooltip_country'] = 'Страна';
 $_lang['gl_tooltip_class'] = 'Класс';
 $_lang['gl_tooltip_identifier'] = 'Идентификатор';
 $_lang['gl_tooltip_phone'] = 'Телефон';
 $_lang['gl_tooltip_email'] = 'Почта';
-
+$_lang['gl_tooltip_phone_add'] = 'Телефон';
+$_lang['gl_tooltip_email_add'] = 'Почта';
 
 /* fields */
 $_lang['gl_no'] = 'Нет';
 $_lang['gl_name'] = 'Имя';
 $_lang['gl_name_ru'] = 'Имя';
+$_lang['gl_name_alt'] = 'Альтернативное Имя';
 $_lang['gl_email'] = 'Почта';
 $_lang['gl_notify'] = 'Уведомить';
 $_lang['gl_chunk'] = 'Шаблон';
@@ -97,9 +103,8 @@ $_lang['gl_email'] = 'Email';
 $_lang['gl_resource'] = 'Ресурс';
 $_lang['gl_image'] = 'Изображение';
 $_lang['gl_default'] = 'По умолчанию';
+$_lang['gl_add'] = 'Дополнительно';
 
-
-//
 
 /* action */
 $_lang['gl_action_active'] = 'Включить';

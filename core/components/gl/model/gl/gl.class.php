@@ -67,14 +67,16 @@ class gl
         }
     }
 
+
     /**
      * @param       $key
      * @param array $config
      * @param null  $default
+     * @param bool  $skipEmpty
      *
      * @return mixed|null
      */
-    public function getOption($key, $config = array(), $default = null)
+    public function getOption($key, $config = array(), $default = null, $skipEmpty = false)
     {
         $option = $default;
         if (!empty($key) AND is_string($key)) {
@@ -85,6 +87,9 @@ class gl
             } elseif (array_key_exists("{$this->namespace}_{$key}", $this->modx->config)) {
                 $option = $this->modx->getOption("{$this->namespace}_{$key}");
             }
+        }
+        if ($skipEmpty AND empty($option)) {
+            $option = $default;
         }
 
         return $option;
@@ -871,6 +876,94 @@ class gl
         );
 
         return $this->config['jsonResponse'] ? $this->modx->toJSON($response) : $response;
+    }
+
+    /**
+     * @param        $array
+     * @param string $delimiter
+     *
+     * @return array|string
+     */
+    public function cleanAndImplode($array, $delimiter = ',')
+    {
+        $array = array_map('trim', $array);       // Trim array's values
+        $array = array_keys(array_flip($array));  // Remove duplicate fields
+        $array = array_filter($array);            // Remove empty values from array
+        $array = implode($delimiter, $array);
+
+        return $array;
+    }
+
+    /** @return array Fields Grid Countries */
+    public function getFieldsGridCountries()
+    {
+        $fields = $this->getOption('fields_grid_countries', null,
+            'id,name_ru,name_alt,iso,continent,lat,lon,timezone', true);
+        $fields .= ',id,iso,name_ru,active,properties,actions';
+        $fields = $this->explodeAndClean($fields);
+
+        return $fields;
+    }
+
+    /**
+     * @param        $array
+     * @param string $delimiter
+     *
+     * @return array
+     */
+    public function explodeAndClean($array, $delimiter = ',')
+    {
+        $array = explode($delimiter, $array);     // Explode fields to array
+        $array = array_map('trim', $array);       // Trim array's values
+        $array = array_keys(array_flip($array));  // Remove duplicate fields
+        $array = array_filter($array);            // Remove empty values from array
+        return $array;
+    }
+
+    /** @return array Fields Grid Regions */
+    public function getFieldsGridRegions()
+    {
+        $fields = $this->getOption('fields_grid_regions', null,
+            'id,name_ru,name_alt,iso,country,timezone,okato', true);
+        $fields .= ',id,iso,name_ru,country,active,properties,actions';
+        $fields = $this->explodeAndClean($fields);
+
+        return $fields;
+    }
+
+    /** @return array Fields Grid Cities */
+    public function getFieldsGridCities()
+    {
+        $fields = $this->getOption('fields_grid_cities', null,
+            'id,name_ru,name_alt,region_id,okato', true);
+        $fields .= ',id,name_ru,region_id,active,properties,actions';
+        $fields = $this->explodeAndClean($fields);
+
+        return $fields;
+    }
+
+    /** @return array Fields Grid Data */
+    public function getFieldsGridData()
+    {
+        $fields = $this->getOption('fields_grid_data', null,
+            'id,class,identifier,phone,email', true);
+        $fields .= ',id,class,identifier,active,properties,default,actions';
+        $fields = $this->explodeAndClean($fields);
+
+        return $fields;
+    }
+
+    /** @return array Fields Grid Data */
+    public function getFieldsWindowData()
+    {
+        $fields = $this->getOption('fields_window_data', null,
+            'id,default,class,resource,identifier,image,phone,email,address,active,name_alt', true);
+
+        /* name_alt,phone_add,email_add,add1,add2,add3 */
+        $fields .= ',id,default,class,identifier,active';
+        $fields = $this->explodeAndClean($fields);
+
+        return $fields;
     }
 
 }

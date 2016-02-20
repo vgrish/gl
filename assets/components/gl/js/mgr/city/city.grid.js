@@ -51,7 +51,7 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
     windows: {},
 
     getFields: function(config) {
-        var fields = ['id', 'region_id', 'name_ru', 'lat', 'lon', 'okato', 'active', 'actions'];
+        var fields = gl.config.fields_grid_cities;
 
         return fields;
     },
@@ -176,7 +176,7 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
                     allowBlank: false
                 }
             },
-            region: {
+            region_id: {
                 width: 25,
                 sortable: false,
                 renderer: function (value, metaData, record) {
@@ -195,7 +195,9 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
 
         }
 
-        for (var field in add) {
+        var fields = this.getFields();
+        for (var i = 0; i < fields.length; i++) {
+            var field = fields[i];
             if (add[field]) {
                 Ext.applyIf(add[field], {
                     header: _('gl_header_' + field),

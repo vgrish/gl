@@ -25,8 +25,14 @@ if ($object->xpdo) {
             $level = $modx->getLogLevel();
             $modx->setLogLevel(xPDO::LOG_LEVEL_FATAL);
 
+            $manager->addField('glData', 'name_alt', array('after' => 'class'));
+            $manager->addField('glData', 'phone_add', array('after' => 'phone'));
+            $manager->addField('glData', 'email_add', array('after' => 'email'));
             $manager->addField('glData', 'resource', array('after' => 'class'));
             $manager->addField('glData', 'image', array('after' => 'address'));
+            $manager->addField('glData', 'add1', array('after' => 'properties'));
+            $manager->addField('glData', 'add2', array('after' => 'add1'));
+            $manager->addField('glData', 'add3', array('after' => 'add2'));
 
             $modx->setLogLevel($level);
 

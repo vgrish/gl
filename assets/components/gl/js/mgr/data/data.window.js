@@ -2,7 +2,7 @@ gl.window.CreateData = function (config) {
     config = config || {};
     Ext.applyIf(config, {
         title: _('create'),
-        width: 550,
+        width: 650,
         autoHeight: true,
         url: gl.config.connector_url,
         action: 'mgr/data/create',
@@ -19,19 +19,24 @@ gl.window.CreateData = function (config) {
         config.update = false;
     }
 
-    //this.on('afterrender', function() {
-    //    if (config.update && config.record.default) {
-    //        Ext.each(this.fp.getForm().items.items, function(t) {
-    //            if (
-    //                t.isXType('gl-combo-identifier') ||
-    //                t.isXType('gl-combo-class') ||
-    //                t.isXType('checkboxgroup')
-    //            ) {
-    //                t.disable().hide();
-    //            }
-    //        });
-    //    }
-    //});
+    this.on('afterrender', function () {
+        Ext.each(this.fp.getForm().items.items, function (t) {
+            if (!t.name) {
+                return true;
+            }
+            if (
+                gl.config.fields_window_data.indexOf(t.name) >= 0 ||
+                gl.config.fields_window_data.indexOf(t.name.replace(/(_)/, "")) >= 0
+            ) {
+                return true;
+            }
+            else {
+                t.disable().hide();
+            }
+        });
+
+    });
+
 };
 Ext.extend(gl.window.CreateData, MODx.Window, {
 
@@ -40,10 +45,11 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             xtype: 'hidden',
             name: 'id'
         }, {
-			xtype: 'xcheckbox',
-            name: 'default',
-			checked: false,
-			hidden: true
+            xtype: 'textfield',
+            fieldLabel: _('gl_name_alt'),
+            name: 'name_alt',
+            anchor: '99%',
+            allowBlank: true
         }, {
             items: [{
                 layout: 'form',
@@ -84,6 +90,60 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             height: 50,
             allowBlank: true
         }, {
+            xtype: 'xcheckbox',
+            hideLabel: true,
+            boxLabel: _('gl_add'),
+            name: '_add1',
+            checked: false,
+            listeners: {
+                check: gl.utils.handleChecked,
+                afterrender: gl.utils.handleChecked
+            }
+        }, {
+            xtype: 'textarea',
+            fieldLabel: '',
+            msgTarget: 'under',
+            name: 'add1',
+            anchor: '99%',
+            height: 50,
+            allowBlank: true
+        }, {
+            xtype: 'xcheckbox',
+            hideLabel: true,
+            boxLabel: _('gl_add'),
+            name: '_add2',
+            checked: false,
+            listeners: {
+                check: gl.utils.handleChecked,
+                afterrender: gl.utils.handleChecked
+            }
+        }, {
+            xtype: 'textarea',
+            fieldLabel: '',
+            msgTarget: 'under',
+            name: 'add2',
+            anchor: '99%',
+            height: 50,
+            allowBlank: true
+        }, {
+            xtype: 'xcheckbox',
+            hideLabel: true,
+            boxLabel: _('gl_add'),
+            name: '_add3',
+            checked: false,
+            listeners: {
+                check: gl.utils.handleChecked,
+                afterrender: gl.utils.handleChecked
+            }
+        }, {
+            xtype: 'textarea',
+            fieldLabel: '',
+            msgTarget: 'under',
+            name: 'add3',
+            anchor: '99%',
+            height: 50,
+            allowBlank: true
+        }, {
             xtype: 'checkboxgroup',
             hideLabel: true,
             /*fieldLabel: '',*/
@@ -93,11 +153,16 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
                 boxLabel: _('gl_active'),
                 name: 'active',
                 checked: config.record.active
+            },{
+                xtype: 'xcheckbox',
+                name: 'default',
+                checked: false,
+                hidden: true
             }]
         }];
     },
 
-    getLeftFields: function(config) {
+    getLeftFields: function (config) {
         return [{
             xtype: 'gl-combo-class',
             custm: true,
@@ -108,14 +173,14 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             anchor: '99%',
             allowBlank: false,
             listeners: {
-     /*           afterrender: {
-                    fn: function(r) {
-                        this.handleChangeType(0);
-                    },
-                    scope: this
-                },*/
+                /*           afterrender: {
+                 fn: function(r) {
+                 this.handleChangeType(0);
+                 },
+                 scope: this
+                 },*/
                 select: {
-                    fn: function(r) {
+                    fn: function (r) {
                         this.handleChangeType(1);
                     },
                     scope: this
@@ -136,11 +201,17 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             name: 'phone',
             anchor: '99%',
             allowBlank: true
+        }, {
+            xtype: 'textfield',
+            fieldLabel: _('gl_phone'),
+            name: 'phone_add',
+            anchor: '99%',
+            allowBlank: true
         }];
     },
 
 
-    getRightFields: function(config) {
+    getRightFields: function (config) {
         return [{
             xtype: 'gl-combo-identifier',
             custm: true,
@@ -166,17 +237,23 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             name: 'email',
             anchor: '99%',
             allowBlank: true
+        }, {
+            xtype: 'textfield',
+            fieldLabel: _('gl_email'),
+            name: 'email_add',
+            anchor: '99%',
+            allowBlank: true
         }];
     },
 
-    handleChangeType: function(change) {
+    handleChangeType: function (change) {
         var f = this.fp.getForm();
         var _class = f.findField('class');
         var _identifier = f.findField('identifier');
 
         _identifier.baseParams.class = _class.getValue();
 
-        if(!!_identifier.pageTb) {
+        if (!!_identifier.pageTb) {
             _identifier.pageTb.show();
         }
         if ((1 == change)) {
