@@ -1,5 +1,5 @@
 /**
- *  v 1.1.1
+ *  v 1.1.2
  *
  * with uikit
  *
@@ -60,7 +60,7 @@ gl.location = {
         $(document).on('click touchend', gl.location.selectors.selectCurrent, function(e) {
             e.preventDefault();
             gl.location.modal.show();
-            gl.location.input.load('location');
+
             return false;
         });
 
@@ -115,12 +115,14 @@ gl.location = {
         });
 
         $(document).ready(function() {
-            gl.location.modal = UIkit.modal(gl.location.selectors.modal);
+            gl.location.modal = UIkit.modal(gl.location.selectors.modal, {center:true});
             $(gl.location.selectors.modal).parent().show();
 
             if (glConfig.modalShow) {
                 gl.location.modal.show();
             }
+            gl.location.input.load('location');
+
         });
 
     },

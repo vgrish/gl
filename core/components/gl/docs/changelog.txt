@@ -1,5 +1,10 @@
 Changelog for GeoLocation.
 
+1.1.2-beta (25.02.2016)
+==============
+- Fix uikit
+- Remove fontawesome
+
 1.1.1-beta (21.02.2016)
 ==============
 - Add fields "name_alt", "phone_add", "email_add", "add1", "add2", "add3"

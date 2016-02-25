@@ -2,36 +2,36 @@
 
 
 /* header */
-$_lang['gl_header_id'] = '<i class="fa fa-sort-numeric-desc"></i>';
-$_lang['gl_header_resource'] = '<i class="fa fa-folder-o"></i>';
-$_lang['gl_header_type'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_mode'] = '<i class="fa fa-cog"></i>';
-$_lang['gl_header_method'] = '<i class="fa fa-cog"></i>';
-$_lang['gl_header_createdon'] = '<i class="fa fa-calendar"></i>';
-$_lang['gl_header_updatedon'] = '<i class="fa fa-calendar"></i>';
-$_lang['gl_header_createdby'] = '<i class="fa fa-user"></i>';
-$_lang['gl_header_actions'] = '<i class="fa fa-cogs"></i>';
-$_lang['gl_header_name'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_name_ru'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_name_alt'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_color'] = '<i class="fa fa-adjust"></i>';
-$_lang['gl_header_field'] = '<i class="fa fa-asterisk"></i>';
-$_lang['gl_header_target'] = '<i class="fa fa-dot-circle-o"></i>';
-$_lang['gl_header_value'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_object'] = '<i class="fa fa-cube"></i>';
-$_lang['gl_header_action'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_iso'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_continent'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_timezone'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_region'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_region_id'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_country'] = '<i class="fa fa-info"></i>';
-$_lang['gl_header_class'] = '<i class="fa fa-cube"></i>';
-$_lang['gl_header_identifier'] = '<i class="fa fa-map-marker"></i>';
-$_lang['gl_header_phone'] = '<i class="fa fa-phone"></i>';
-$_lang['gl_header_email'] = '<i class="fa fa-envelope"></i>';
-$_lang['gl_header_phone_add'] = '<i class="fa fa-phone"></i>';
-$_lang['gl_header_email_add'] = '<i class="fa fa-envelope"></i>';
+$_lang['gl_header_id'] = '<i class="icon icon-sort-numeric-desc"></i>';
+$_lang['gl_header_resource'] = '<i class="icon icon-folder-o"></i>';
+$_lang['gl_header_type'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_mode'] = '<i class="icon icon-cog"></i>';
+$_lang['gl_header_method'] = '<i class="icon icon-cog"></i>';
+$_lang['gl_header_createdon'] = '<i class="icon icon-calendar"></i>';
+$_lang['gl_header_updatedon'] = '<i class="icon icon-calendar"></i>';
+$_lang['gl_header_createdby'] = '<i class="icon icon-user"></i>';
+$_lang['gl_header_actions'] = '<i class="icon icon-cogs"></i>';
+$_lang['gl_header_name'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_name_ru'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_name_alt'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_color'] = '<i class="icon icon-adjust"></i>';
+$_lang['gl_header_field'] = '<i class="icon icon-asterisk"></i>';
+$_lang['gl_header_target'] = '<i class="icon icon-dot-circle-o"></i>';
+$_lang['gl_header_value'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_object'] = '<i class="icon icon-cube"></i>';
+$_lang['gl_header_action'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_iso'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_continent'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_timezone'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_region'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_region_id'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_country'] = '<i class="icon icon-info"></i>';
+$_lang['gl_header_class'] = '<i class="icon icon-cube"></i>';
+$_lang['gl_header_identifier'] = '<i class="icon icon-map-marker"></i>';
+$_lang['gl_header_phone'] = '<i class="icon icon-phone"></i>';
+$_lang['gl_header_email'] = '<i class="icon icon-envelope"></i>';
+$_lang['gl_header_phone_add'] = '<i class="icon icon-phone"></i>';
+$_lang['gl_header_email_add'] = '<i class="icon icon-envelope"></i>';
 
 /* tooltip */
 $_lang['gl_tooltip_id'] = 'Id';

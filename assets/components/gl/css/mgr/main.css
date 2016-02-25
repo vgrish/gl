@@ -83,7 +83,7 @@ ul.gl-row-actions .actions-menu:after {content: " \f107";}
 
 
 /* icon in button */
-.ext-strict .x-menu-item-icon.fa {
+.ext-strict .x-menu-item-icon.icon {
 	left: 6px;
 }
 /* actions menu */
@@ -97,7 +97,7 @@ ul.gl-row-actions .actions-menu:after {content: " \f107";}
 .gl-cogs {
 	padding: 3px 20px 3px 6px!important;
 }
-.gl-cogs i.fa {
+.gl-cogs i.icon {
 	padding-right: 3px;
 	width: 15px;
 }

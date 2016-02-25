@@ -69,31 +69,31 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
         var tbar = [];
         var add = {
             menu: {
-                text: '<i class="fa fa-cogs"></i> ',
+                text: '<i class="icon icon-cogs"></i> ',
                 menu: [{
-                    text: '<i class="fa fa-toggle-on green"></i> ' + _('gl_action_active'),
+                    text: '<i class="icon icon-toggle-on green"></i> ' + _('gl_action_active'),
                     cls: 'gl-cogs',
                     handler: this.active,
                     scope: this
                 }, {
-                    text: '<i class="fa fa-toggle-off red"></i> ' + _('gl_action_inactive'),
+                    text: '<i class="icon icon-toggle-off red"></i> ' + _('gl_action_inactive'),
                     cls: 'gl-cogs',
                     handler: this.inactive,
                     scope: this
                 }, '-', /*{
-                    text: '<i class="fa fa-plus"></i> ' + _('gl_action_create'),
+                    text: '<i class="icon icon-plus"></i> ' + _('gl_action_create'),
                     cls: 'gl-cogs',
                     handler: this.create,
                     scope: this
                 },*/ {
-                    text: '<i class="fa fa-trash-o red"></i> ' + _('gl_action_remove'),
+                    text: '<i class="icon icon-trash-o red"></i> ' + _('gl_action_remove'),
                     cls: 'gl-cogs',
                     handler: this.remove,
                     scope: this
                 }]
             },
             create: {
-                text: '<i class="fa fa-plus"></i>',
+                text: '<i class="icon icon-plus"></i>',
                 handler: this.create,
                 scope: this
             },

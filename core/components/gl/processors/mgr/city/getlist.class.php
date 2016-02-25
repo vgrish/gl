@@ -96,13 +96,13 @@ class modglCityGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareRow(xPDOObject $object)
     {
+        $icon = 'icon';
         $array = $object->toArray();
 
-        if ($this->getProperty('combo', 0)) {
+        if ($this->getProperty('combo', false)) {
             return $array;
         }
 
-        $icon = 'fa';
         $array['actions'] = array();
 
         // Edit

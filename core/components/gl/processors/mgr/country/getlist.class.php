@@ -85,7 +85,7 @@ class modglCountryGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareRow(xPDOObject $object)
     {
-        $icon = 'fa';
+        $icon = 'icon';
         $array = $object->toArray();
         $array['actions'] = array();
 

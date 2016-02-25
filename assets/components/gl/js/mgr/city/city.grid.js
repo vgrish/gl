@@ -69,26 +69,26 @@ Ext.extend(gl.grid.City, MODx.grid.Grid, {
         var tbar = [];
         var add = {
             menu: {
-                text: '<i class="fa fa-cogs"></i> ',
+                text: '<i class="icon icon-cogs"></i> ',
                 menu: [{
-                    text: '<i class="fa fa-toggle-on green"></i> ' + _('gl_action_active'),
+                    text: '<i class="icon icon-toggle-on green"></i> ' + _('gl_action_active'),
                     cls: 'gl-cogs',
                     handler: this.active,
                     scope: this
                 }, {
-                    text: '<i class="fa fa-toggle-off red"></i> ' + _('gl_action_inactive'),
+                    text: '<i class="icon icon-toggle-off red"></i> ' + _('gl_action_inactive'),
                     cls: 'gl-cogs',
                     handler: this.inactive,
                     scope: this
                 }, '-', {
-                    text: '<i class="fa fa-trash-o red"></i> ' + _('gl_action_remove'),
+                    text: '<i class="icon icon-trash-o red"></i> ' + _('gl_action_remove'),
                     cls: 'gl-cogs',
                     handler: this.remove,
                     scope: this
                 }]
             },
             download: {
-                text: '<i class="fa fa-cloud-download"></i>',
+                text: '<i class="icon icon-cloud-download"></i>',
                 handler: this._download,
                 scope: this
             },
