@@ -104,7 +104,6 @@ gl.location = {
 
         $(document).bind('gl_select', function(e, data, response) {
             gl.location.modal.hide();
-            gl.location.input.destroy('location');
             var resourceUrl = response.object.current.data['resource_url'];
             if (!!resourceUrl) {
                 document.location.href = resourceUrl;
@@ -121,8 +120,7 @@ gl.location = {
             if (glConfig.modalShow) {
                 gl.location.modal.show();
             }
-
-            /*gl.location.input.load('location');*/
+            gl.location.input.load('location');
 
         });
 
@@ -191,7 +189,7 @@ gl.location = {
                 return false;
             }
 
-            var container = $(".select2-container");
+            var container = $(".gl-select2-container");
 
             field.select2({
                 templateResult: gl.location.input.getResult,
