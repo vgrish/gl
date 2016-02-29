@@ -1,5 +1,5 @@
 /**
- *  v 1.1.2
+ *  v 1.1.3
  *
  * with uikit
  *
@@ -60,7 +60,7 @@ gl.location = {
         $(document).on('click touchend', gl.location.selectors.selectCurrent, function(e) {
             e.preventDefault();
             gl.location.modal.show();
-
+            gl.location.input.load('location');
             return false;
         });
 
@@ -104,7 +104,7 @@ gl.location = {
 
         $(document).bind('gl_select', function(e, data, response) {
             gl.location.modal.hide();
-
+            gl.location.input.destroy('location');
             var resourceUrl = response.object.current.data['resource_url'];
             if (!!resourceUrl) {
                 document.location.href = resourceUrl;
@@ -115,13 +115,14 @@ gl.location = {
         });
 
         $(document).ready(function() {
-            gl.location.modal = UIkit.modal(gl.location.selectors.modal, {center:true});
+            gl.location.modal = UIkit.modal(gl.location.selectors.modal, { center:true });
             $(gl.location.selectors.modal).parent().show();
 
             if (glConfig.modalShow) {
                 gl.location.modal.show();
             }
-            gl.location.input.load('location');
+
+            /*gl.location.input.load('location');*/
 
         });
 
@@ -190,11 +191,14 @@ gl.location = {
                 return false;
             }
 
+            var container = $(".select2-container");
+
             field.select2({
                 templateResult: gl.location.input.getResult,
                 templateSelection: gl.location.input.getSelection,
                 maximumSelectionLength: 1,
                 language: "ru",
+                dropdownParent: container,
                 ajax: {
                     url: glConfig.actionUrl,
                     dataType: 'json',

@@ -35,6 +35,7 @@
             <div class="gl-change-input-block">
                 <select name="location" value="" style="width: 100%" class="select2 " multiple>
                 </select>
+                <span class="select2-container"></span>
             </div>
 
             <ul class="gl-change-list">
