@@ -4,6 +4,7 @@ Changelog for GeoLocation.
 ==============
 - Update select2
 - Update modal chunk
+- Fix select2 dropdown in uikit modal
 
 1.1.2-beta (25.02.2016)
 ==============

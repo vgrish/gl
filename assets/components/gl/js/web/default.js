@@ -1,5 +1,5 @@
 /**
- *  v 1.1.1
+ *  v 1.1.3
  *
  * with colorbox
  *
@@ -46,6 +46,7 @@ gl.location = {
         listDefault: '.gl-default-list',
         selectCurrent: '.gl-current-select',
         location: '.gl-list-location',
+        select2Container: '.gl-select2-container',
 
         btnYes: '.btn-yes',
         btnChange: '.btn-change',

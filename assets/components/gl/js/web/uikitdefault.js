@@ -47,6 +47,7 @@ gl.location = {
         listDefault: '.gl-default-list',
         selectCurrent: '.gl-current-select',
         location: '.gl-list-location',
+        select2Container: '.gl-select2-container',
 
         btnYes: '.btn-yes',
         btnChange: '.btn-change',
@@ -189,14 +190,17 @@ gl.location = {
                 return false;
             }
 
-            var container = $(".gl-select2-container");
+            var select2Container = $(gl.location.selectors.select2Container);
+            if (!select2Container.length) {
+                select2Container = field.parent();
+            }
 
             field.select2({
                 templateResult: gl.location.input.getResult,
                 templateSelection: gl.location.input.getSelection,
+                dropdownParent: select2Container,
                 maximumSelectionLength: 1,
                 language: "ru",
-                dropdownParent: container,
                 ajax: {
                     url: glConfig.actionUrl,
                     dataType: 'json',

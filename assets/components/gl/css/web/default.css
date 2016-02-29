@@ -66,3 +66,8 @@
 .select2-dropdown.select2-dropdown--below {
 	z-index: 10001;
 }
+/*
+span.gl-select2-container span.select2-container.select2-container--default.select2-container--open {
+	top: inherit!important;
+	left: inherit!important;
+}*/
