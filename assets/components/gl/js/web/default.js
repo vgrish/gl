@@ -151,7 +151,6 @@ gl.location = {
             dataType: 'json',
             delay: 200,
             type: 'POST',
-            async: false,
             cache: false,
             data: $.extend({}, {
                 action: action
