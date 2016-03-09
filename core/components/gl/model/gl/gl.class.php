@@ -214,6 +214,14 @@ class gl
 					}
 				</script>
 				'), true);
+            } else {
+                $this->modx->regClientScript(preg_replace('#(\n|\t)#', '', '
+				<script type="text/javascript">
+					if (typeof jQuery == "undefined") {
+						document.write("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js\" type=\"text/javascript\"><\/script>");
+					}
+				</script>
+				'), true);
             }
 
             if ($this->config['frontendCss']) {

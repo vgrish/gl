@@ -1,5 +1,5 @@
 /**
- *  v 1.1.3
+ *  v 1.1.5
  *
  * with uikit
  *
@@ -14,14 +14,14 @@ if (typeof(gl) == 'undefined') {
 gl = {
     initialize: function() {
         if (!jQuery().UIkit) {
-            document.writeln('<style data-compiled-css>@import url('+glConfig.assetsUrl + 'vendor/uikit/src/css/core/modal.css); </style>');
+            document.writeln('<style data-compiled-css>@import url('+glConfig.assetsUrl + 'css/web/uikit/modal.css); </style>');
             document.write('<script src="' + glConfig.assetsUrl + 'vendor/uikit/src/js/core/core.js"><\/script>');
             document.write('<script src="' + glConfig.assetsUrl + 'vendor/uikit/src/js/core/modal.js"><\/script>');
         }
         if (!jQuery().select2) {
-            document.writeln('<style data-compiled-css>@import url('+glConfig.assetsUrl + 'vendor/select2/css/select2.min.css); </style>');
-            document.writeln('<script src="' + glConfig.assetsUrl + 'vendor/select2/js/select2.min.js"><\/script>');
-            document.writeln('<script src="' + glConfig.assetsUrl + 'vendor/select2/js/i18n/ru.js"><\/script>');
+            document.writeln('<style data-compiled-css>@import url('+glConfig.assetsUrl + 'vendor/select2/dist/css/select2.min.css); </style>');
+            document.writeln('<script src="' + glConfig.assetsUrl + 'vendor/select2/dist/js/select2.min.js"><\/script>');
+            document.writeln('<script src="' + glConfig.assetsUrl + 'vendor/select2/dist/js/i18n/ru.js"><\/script>');
         }
         $(document).ready(function() {
 

@@ -1,5 +1,11 @@
 Changelog for GeoLocation.
 
+1.1.5-beta (09.03.2016)
+==============
+- Remove local vendors
+- Add remote vendors
+- Modify default script
+
 1.1.4-beta (06.03.2016)
 ==============
 - Modify default script
