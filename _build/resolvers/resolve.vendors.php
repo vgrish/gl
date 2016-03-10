@@ -83,7 +83,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                     $separated = implode('/', $ddir);
                     $ndir = $separated . '/' . $rename;
                     if ($dirname != $ndir) {
-                        if (!rename($dirname, $ndir)) {
+                        if (!@rename($dirname, $ndir)) {
                             $modx->log(xPDO::LOG_LEVEL_INFO, "Could not rename <b>{$ndir}</b>");
                         }
                     }

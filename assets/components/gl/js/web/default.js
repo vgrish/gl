@@ -120,10 +120,11 @@ gl.location = {
         $(document).bind('gl_select', function(e, data, response) {
             $.colorbox.close();
 
-            var resourceUrl = response.object.current.data['resource_url'];
-            if (!!resourceUrl) {
-                document.location.href = resourceUrl;
-            } else {
+            if(response.object.current.data && response.object.current.data.resource_url)
+            {
+                document.location.href = response.object.current.data.resource_url;
+            }
+            else {
                 location.reload();
             }
         });
