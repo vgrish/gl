@@ -156,7 +156,7 @@ Ext.extend(gl.window.CreateData, MODx.Window, {
             },{
                 xtype: 'xcheckbox',
                 name: 'default',
-                checked: false,
+                checked: config.record.default,
                 hidden: true
             }]
         }];

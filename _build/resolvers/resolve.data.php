@@ -13,10 +13,9 @@ if ($object->xpdo) {
         case xPDOTransport::ACTION_UPGRADE:
             $modelPath = $modx->getOption('gl_core_path', null,
                     $modx->getOption('core_path') . 'components/gl/') . 'model/';
-            $modx->addPackage('gl', $modelPath);
 
             /** @var gl $gl */
-            $gl = $modx->getService('gl');
+            $gl = $modx->getService('gl', 'gl', $modelPath . 'gl/');
             $gl->initialize();
 
             $gl->createDefault();

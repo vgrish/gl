@@ -305,7 +305,7 @@ class gl
     /** {@inheritDoc} */
     public function createDefault()
     {
-        if (!$data = $this->modx->getCount('glCountry', array('default' => 1))) {
+        if (!$this->modx->getCount('glCountry', array('default' => 1))) {
             $data = $this->modx->newObject('glCountry', array(
                 'id'      => 1,
                 'default' => 1,
@@ -322,7 +322,7 @@ class gl
             $data->save();
         }
 
-        if (!$data = $this->modx->getCount('glRegion', array('default' => 1))) {
+        if (!$this->modx->getCount('glRegion', array('default' => 1))) {
             $data = $this->modx->newObject('glRegion', array(
                 'id'      => 1,
                 'default' => 1,
@@ -338,7 +338,7 @@ class gl
             $data->save();
         }
 
-        if (!$data = $this->modx->getCount('glCity', array('default' => 1))) {
+        if (!$this->modx->getCount('glCity', array('default' => 1))) {
             $data = $this->modx->newObject('glCity', array(
                 'id'      => 1,
                 'default' => 1,
@@ -354,7 +354,7 @@ class gl
             $data->save();
         }
 
-        if (!$data = $this->modx->getCount('glData', array('default' => 1))) {
+        if (!$this->modx->getCount('glData', array('default' => 1))) {
             $data = $this->modx->newObject('glData', array(
                 'id'      => 1,
                 'default' => 1,

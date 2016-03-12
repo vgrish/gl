@@ -1,5 +1,11 @@
 Changelog for GeoLocation.
 
+1.1.7 - 1.1.8-beta (12.03.2016)
+==============
+- Fix create default locations
+- Fix alt name
+- Fix default.js
+
 1.1.6-beta (10.03.2016)
 ==============
 - Fix default.js

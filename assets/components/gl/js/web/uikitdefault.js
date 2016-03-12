@@ -1,5 +1,5 @@
 /**
- *  v 1.1.5
+ *  v 1.1.7
  *
  * with uikit
  *
@@ -103,10 +103,10 @@ gl.location = {
             return false;
         });
 
-        $(document).bind('gl_select', function(e, data, response) {
+        $(document).on('gl_select', function(e, data, response) {
             gl.location.modal.hide();
 
-            if(response.object.current.data && response.object.current.data.resource_url)
+            if(response.object.current && response.object.current.data && response.object.current.data.resource_url)
             {
                 document.location.href = response.object.current.data.resource_url;
             }

@@ -3,7 +3,7 @@
 define('PKG_NAME', 'GeoLocation');
 define('PKG_NAME_LOWER', 'gl');
 
-define('PKG_VERSION', '1.1.6');
+define('PKG_VERSION', '1.1.8');
 define('PKG_RELEASE', 'beta');
 define('PKG_AUTO_INSTALL', true);
 define('PKG_NAMESPACE_PATH', '{core_path}components/gl/');

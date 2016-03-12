@@ -13,16 +13,6 @@ class modglDataUpdateProcessor extends modObjectUpdateProcessor
     /** {@inheritDoc} */
     public function beforeSet()
     {
-        if ($this->getProperty('default')) {
-            $this->setProperties(array(
-                'default'    => 1,
-                'identifier' => 1,
-                'class'      => 'glCity',
-            ));
-
-            return parent::beforeSet();
-        }
-
         $identifier = trim($this->getProperty('identifier'));
         if (empty($identifier)) {
             $this->modx->error->addField('identifier', $this->modx->lexicon('gl_err_ae'));

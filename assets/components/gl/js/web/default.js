@@ -1,5 +1,5 @@
 /**
- *  v 1.1.5
+ *  v 1.1.7
  *
  * with colorbox
  *
@@ -101,7 +101,7 @@ gl.location = {
             return false;
         });
 
-        $(document).bind('cbox_complete', function() {
+        $(document).on('cbox_complete', function() {
             $('#colorbox').removeAttr('tabindex');
             $('.gl-default').show();
             $('.gl-change-select').hide();
@@ -109,18 +109,18 @@ gl.location = {
             gl.location.input.load('location');
         });
 
-        $(document).bind('cbox_cleanup', function() {
+        $(document).on('cbox_cleanup', function() {
             gl.location.input.close('location');
         });
 
-        $(document).bind('cbox_closed', function() {
+        $(document).on('cbox_closed', function() {
             gl.location.input.destroy('location');
         });
 
-        $(document).bind('gl_select', function(e, data, response) {
+        $(document).on('gl_select', function(e, data, response) {
             $.colorbox.close();
 
-            if(response.object.current.data && response.object.current.data.resource_url)
+            if(response.object.current && response.object.current.data && response.object.current.data.resource_url)
             {
                 document.location.href = response.object.current.data.resource_url;
             }

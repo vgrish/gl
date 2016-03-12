@@ -186,7 +186,7 @@ Ext.extend(gl.grid.Data, MODx.grid.Grid, {
                 sortable: false,
                 renderer: function (value, metaData, record) {
                     switch (true) {
-                        case record['json']['name_alt'] != null:
+                        case record['json']['name_alt'] != null && record['json']['name_alt'] != '':
                             value = record['json']['name_alt'];
                             break;
                         case record['json']['name'] != null:
