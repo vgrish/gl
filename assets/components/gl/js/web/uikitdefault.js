@@ -1,5 +1,5 @@
 /**
- *  v 1.1.7
+ *  v 1.1.9
  *
  * with uikit
  *
@@ -103,18 +103,6 @@ gl.location = {
             return false;
         });
 
-        $(document).on('gl_select', function(e, data, response) {
-            gl.location.modal.hide();
-
-            if(response.object.current && response.object.current.data && response.object.current.data.resource_url)
-            {
-                document.location.href = response.object.current.data.resource_url;
-            }
-            else {
-                location.reload();
-            }
-        });
-
         $(document).ready(function() {
             gl.location.modal = UIkit.modal(gl.location.selectors.modal, { center:true });
             $(gl.location.selectors.modal).parent().show();
@@ -140,7 +128,16 @@ gl.location = {
                 action: action
             }, data),
             success: function(response) {
-                $(document).trigger('gl_select', [data, response]);
+
+                gl.location.modal.hide();
+                if(response.object.current && response.object.current.data && response.object.current.data.resource_url)
+                {
+                    document.location.href = response.object.current.data.resource_url;
+                }
+                else {
+                    location.reload();
+                }
+
             }
         });
 

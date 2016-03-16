@@ -1,5 +1,10 @@
 Changelog for GeoLocation.
 
+1.1.9-beta (16.03.2016)
+==============
+- Fix default.js (IE9, remove event "gl_select" )
+- Fix initialize
+
 1.1.7 - 1.1.8-beta (12.03.2016)
 ==============
 - Fix create default locations

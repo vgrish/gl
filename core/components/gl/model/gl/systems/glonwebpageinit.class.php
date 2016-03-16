@@ -4,9 +4,6 @@ class glOnWebPageInit extends glPlugin
 {
     public function run()
     {
-        if (!$this->gl->initialized[$this->modx->context->key]) {
-            $this->gl->initialize($this->modx->context->key);
-        }
         if (empty($this->gl->opts['set'])) {
             $q = $this->modx->newQuery('glData', array('resource' => $this->modx->resourceIdentifier));
             $q->select('identifier, class');
@@ -22,7 +19,7 @@ class glOnWebPageInit extends glPlugin
             }
         }
 
-        $this->gl->setPlaceholders($this->gl->opts);
+        $this->gl->setPlaceholders((array)$this->gl->opts);
     }
 
 }

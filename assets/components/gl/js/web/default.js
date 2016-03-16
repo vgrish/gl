@@ -1,5 +1,5 @@
 /**
- *  v 1.1.7
+ *  v 1.1.9
  *
  * with colorbox
  *
@@ -117,18 +117,6 @@ gl.location = {
             gl.location.input.destroy('location');
         });
 
-        $(document).on('gl_select', function(e, data, response) {
-            $.colorbox.close();
-
-            if(response.object.current && response.object.current.data && response.object.current.data.resource_url)
-            {
-                document.location.href = response.object.current.data.resource_url;
-            }
-            else {
-                location.reload();
-            }
-        });
-
         $(document).ready(function() {
             if (glConfig.modalShow) {
                 gl.location.modal();
@@ -157,7 +145,15 @@ gl.location = {
                 action: action
             }, data),
             success: function(response) {
-                $(document).trigger('gl_select', [data, response]);
+                $.colorbox.close();
+
+                if(response.object.current && response.object.current.data && response.object.current.data.resource_url)
+                {
+                    document.location.href = response.object.current.data.resource_url;
+                }
+                else {
+                    location.reload();
+                }
             }
         });
 

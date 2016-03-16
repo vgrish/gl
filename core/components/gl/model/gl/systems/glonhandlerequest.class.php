@@ -13,8 +13,9 @@ class glOnHandleRequest extends glPlugin
             return;
         }
 
+        $this->gl->initialize($this->modx->context->key);
+
         if (empty($this->gl->opts['check'])) {
-            $this->gl->initialize($this->modx->context->key);
             $this->gl->opts['real'] = $this->gl->getRealData();
 
             if (!isset($this->gl->opts['current'])) {
