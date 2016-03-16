@@ -1,5 +1,9 @@
 Changelog for GeoLocation.
 
+1.2.0-beta (16.03.2016)
+==============
+- Fix default location in chunk "tpl.gl.modal"
+
 1.1.9-beta (16.03.2016)
 ==============
 - Fix default.js (IE9, remove event "gl_select" )
