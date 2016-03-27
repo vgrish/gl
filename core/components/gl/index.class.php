@@ -23,10 +23,9 @@ abstract class glMainController extends modExtraManagerController
 
         $this->addCss($this->gl->config['cssUrl'] . 'mgr/main.css');
         $this->addCss($this->gl->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
-        $this->addCss($this->gl->config['assetsUrl'] . 'vendor/fontawesome/css/font-awesome.min.css');
         $this->addJavascript($this->gl->config['jsUrl'] . 'mgr/gl.js');
 
-        $config = $this->gl->config;
+        $config = $this->gl->config; 
         $config['connector_url'] = $this->gl->config['connectorUrl'];
         $config['fields_grid_countries'] = $this->gl->getFieldsGridCountries();
         $config['fields_grid_regions'] = $this->gl->getFieldsGridRegions();

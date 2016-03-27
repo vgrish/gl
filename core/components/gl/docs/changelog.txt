@@ -1,5 +1,10 @@
 Changelog for GeoLocation.
 
+1.2.1-beta (27.03.2016)
+==============
+- Remove vendor "fontawesome"
+- Fix "getUserIp"
+
 1.2.0-beta (16.03.2016)
 ==============
 - Fix default location in chunk "tpl.gl.modal"

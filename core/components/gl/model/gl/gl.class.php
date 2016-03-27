@@ -393,7 +393,8 @@ class gl
                 $ip = $_SERVER['HTTP_CLIENT_IP'];
                 break;
             case (isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND $_SERVER['HTTP_X_FORWARDED_FOR'] != ''):
-                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                $ip = explode(',' , $_SERVER['HTTP_X_FORWARDED_FOR']);
+                $ip = $ip[0];
                 break;
             case (isset($_SERVER['REMOTE_ADDR']) AND $_SERVER['REMOTE_ADDR'] != ''):
                 $ip = $_SERVER['REMOTE_ADDR'];
