@@ -19,7 +19,21 @@ class glOnWebPageInit extends glPlugin
             }
         }
 
+        switch(true) {
+            case empty($this->gl->opts['set']) AND empty($this->gl->opts['current']):
+                $this->gl->opts['selected'] = $this->gl->opts['real'];
+                break;
+            case empty($this->gl->opts['set']) AND !empty($this->gl->opts['current']):
+                $this->gl->opts['selected'] = $this->gl->opts['current'];
+                break;
+            case !empty($this->gl->opts['set']):
+                $this->gl->opts['selected'] = $this->gl->opts['current'];
+                break;
+        }
+
+
         $this->gl->setPlaceholders((array)$this->gl->opts);
     }
+
 
 }

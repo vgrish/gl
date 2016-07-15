@@ -9,7 +9,11 @@ class glOnHandleRequest extends glPlugin
             return;
         }
         /* check site status */
-        if ($this->modx->getOption('gl_ischeck_site_status', null, true, true) AND !$this->modx->checkSiteStatus()) {
+        if (
+            $this->modx->getOption('gl_ischeck_site_status', null, true, true)
+            AND
+            !$this->modx->checkSiteStatus()
+        ) {
             return;
         }
 
@@ -24,6 +28,7 @@ class glOnHandleRequest extends glPlugin
 
             $this->gl->opts['check'] = true;
         }
+
     }
 
 }

@@ -1,16 +1,8 @@
 <div style="display: none;">
     <div class="gl-modal uk-modal">
         <div class="gl-default uk-modal-dialog">
-            <h5>Ваш город —
-                <b>
-                    [[!gl.location?
-                    &limit=`1`
-                    &tpl=`@INLINE [[+name_ru]]`
-                    &class=`[[+class]]`
-                    &where=`["name_ru = \"[[+gl.current.city.name_ru]]\" OR (name_ru = \"[[+gl.real.city.name_ru]]\" AND active = 1)"]`
-                    &sortby=`FIELD([[+class]].name_ru, "[[+gl.real.city.name_ru]]","[[+gl.current.city.name_ru]]")`
-                    ]]
-                </b>?
+
+            <h5>Ваш город —<b>[[!+selected.city.name_ru]]</b>?
             </h5>
 
             <span class="btn-yes">Да </span>
@@ -20,8 +12,8 @@
                 [[!gl.location?
                 &limit=`1`
                 &class=`[[+class]]`
-                &where=`["name_ru = \"[[+gl.current.city.name_ru]]\" OR (name_ru = \"[[+gl.real.city.name_ru]]\" AND active = 1)"]`
-                &sortby=`FIELD([[+class]].name_ru, "[[+gl.real.city.name_ru]]","[[+gl.current.city.name_ru]]")`
+                &where=`["name_ru = \"[[!+selected.city.name_ru]]\" AND active = 1)"]`
+                &sortby=`FIELD([[+class]].name_ru, "[[!+selected.city.name_ru]]")`
                 ]]
             </ul>
 

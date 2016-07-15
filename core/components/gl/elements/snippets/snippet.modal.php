@@ -21,8 +21,7 @@ if (!$modalShow OR !empty($gl->opts['set'])) {
 $gl->initialize($context, $scriptProperties);
 $gl->loadCustomJsCss($objectName);
 
-
-$row = $scriptProperties;
+$row = array_merge($gl->opts, $scriptProperties);
 $output = $gl->getChunk($tpl, $row);
 
 if (!empty($toPlaceholder)) {

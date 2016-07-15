@@ -1,5 +1,10 @@
 Changelog for GeoLocation.
 
+1.2.2-beta (15.07.2016)
+==============
+- Add "selected"
+ex.:  <h5>Ваш город — [[!+gl.selected.city.name_ru]]</h5>
+
 1.2.1-beta (27.03.2016)
 ==============
 - Remove vendor "fontawesome"
