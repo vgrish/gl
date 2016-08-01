@@ -39,6 +39,15 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         $modx->setLogLevel($level);
 
 
+        if ($event = $modx->getObject('modPlugin', array('name' => 'gl'))) {
+            $modx->removeCollection('modPluginEvent', array(
+                'pluginid' => $event->get('id'),
+                'event:IN' => array(
+                    'OnWebPageInit',
+                )
+            ));
+        }
+
         break;
 
     case xPDOTransport::ACTION_UNINSTALL:

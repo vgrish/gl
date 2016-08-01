@@ -1,5 +1,9 @@
 Changelog for GeoLocation.
 
+1.2.4-beta (02.08.2016)
+==============
+- Remove "OnWebPageInit"
+
 1.2.3-beta (31.07.2016)
 ==============
 - Add setting for "selected"
