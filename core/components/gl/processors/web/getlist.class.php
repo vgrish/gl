@@ -55,6 +55,22 @@ class modglLocationGetListProcessor extends modObjectGetListProcessor
         $c->select($this->modx->getSelectColumns("glData", "glData"));
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
 
+        switch ($this->classKey) {
+            case 'glCountry':
+                break;
+            case 'glRegion':
+                $c->leftJoin("glCountry", "glCountry", "glCountry.iso = {$this->classKey}.country");
+                $c->select($this->modx->getSelectColumns("glCountry", "glCountry", 'country_', array('id'), true));
+                break;
+            case 'glCity':
+                $c->leftJoin("glRegion", "glRegion", "glRegion.id = {$this->classKey}.region_id");
+                $c->select($this->modx->getSelectColumns("glRegion", "glRegion", 'region_', array('id'), true));
+
+                $c->leftJoin("glCountry", "glCountry", "glCountry.iso = glRegion.country");
+                $c->select($this->modx->getSelectColumns("glCountry", "glCountry", 'country_', array('id'), true));
+                break;
+        }
+
         $active = $this->getProperty('active');
         if ($active != '') {
             $c->where(array("{$this->objectType}.active" => $active));
