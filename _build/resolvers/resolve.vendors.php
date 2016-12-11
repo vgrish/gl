@@ -68,7 +68,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             }
 
             $modx->log(modX::LOG_LEVEL_INFO, "Trying to download <b>{$name}</b>. Please wait...");
-            download($url, $path . $tmp);
+            glDownload($url, $path . $tmp);
 
             $file = new PclZip($path . $tmp);
             if ($files = $file->extract(PCLZIP_OPT_PATH, $path)) {
@@ -113,7 +113,7 @@ return true;
  *
  * @return bool
  */
-function download($src, $dst)
+function glDownload($src, $dst)
 {
     if (ini_get('allow_url_fopen')) {
         $file = @file_get_contents($src);
