@@ -15,16 +15,6 @@ abstract class glPlugin
         $this->modx = $modx;
         $this->gl = $this->modx->gl;
 
-        if (
-            !is_object($this->gl)
-            OR
-            !($this->gl instanceof gl)
-        ) {
-            $corePath = $this->modx->getOption('gl_core_path', null,
-                $this->modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/gl/');
-            $this->gl = $this->modx->getService('gl', 'gl', $corePath . 'model/gl/', $this->scriptProperties);
-        }
-
         if (!$this->gl) {
             return false;
         }
