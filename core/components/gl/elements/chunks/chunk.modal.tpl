@@ -2,7 +2,7 @@
     <div class="gl-modal uk-modal">
         <div class="gl-default uk-modal-dialog">
 
-            <h5>Ваш город —<b>[[!+gl.selected.city.name_ru]]</b>?
+            <h5>Ваш город —<b class="gl-city-name_ru">[[!+gl.selected.city.name_ru]]</b>?
             </h5>
 
             <span class="btn-yes">Да </span>

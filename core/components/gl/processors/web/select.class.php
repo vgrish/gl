@@ -31,8 +31,14 @@ class modglLocationSelectProcessor extends modObjectProcessor
         }
         $this->gl->opts['set'] = true;
 
-        return $this->success('', $this->gl->opts);
+        $pls = array_merge(
+            $this->gl->opts,
+            array('pls' => $this->gl->flattenArray($current))
+        );
+
+        return $this->success('', $pls);
     }
+
 }
 
 return 'modglLocationSelectProcessor';

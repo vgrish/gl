@@ -4,7 +4,8 @@ $context = $scriptProperties['context'] = $modx->getOption('context', $scriptPro
 $class = $scriptProperties['class'] = $modx->getOption('class', $scriptProperties, 'glCity', true);
 $objectName = $scriptProperties['objectName'] = $modx->getOption('objectName', $scriptProperties, 'gl', true);
 $modalShow = $scriptProperties['modalShow'] = $modx->getOption('modalShow', $scriptProperties, true, true);
-
+$pageReload = $scriptProperties['pageReload'] = (bool)$modx->getOption('pageReload', $scriptProperties, true);
+    
 /** @var gl $gl */
 if (!$gl = $modx->getService('gl', 'gl',
     $modx->getOption('gl_core_path', null, $modx->getOption('core_path') . 'components/gl/') . 'model/gl/',

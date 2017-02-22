@@ -1,5 +1,5 @@
 /**
- *  v 1.1.9
+ *  v 1.2.7
  *
  * with uikit
  *
@@ -130,14 +130,28 @@ gl.location = {
             success: function(response) {
 
                 gl.location.modal.hide();
+
                 if(response.object.current && response.object.current.data && response.object.current.data.resource_url)
                 {
                     document.location.href = response.object.current.data.resource_url;
                 }
-                else {
+
+                if (glConfig.pageReload) {
                     location.reload();
                 }
 
+                if (response.object.pls) {
+                    var row = response.object.pls;
+                    for (var key in row) {
+                        var field = $('.gl-'+key);
+                        if (field.length) {
+                            field.html(row[key]);
+                        }
+                    }
+                }
+
+                $(document).trigger('gl_action', [action, data, response]);
+                
             }
         });
 
@@ -248,3 +262,8 @@ gl.location = {
 
 
 gl.location.initialize();
+
+/* event example */
+$(document).on('gl_action', function (e, action, data, response) {
+    //console.log(action, data, response);
+});

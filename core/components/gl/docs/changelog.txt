@@ -1,5 +1,10 @@
 Changelog for GeoLocation.
 
+1.2.7-beta (22.02.2017)
+==============
+- Improved "select.class.php"
+- Improved "request" [js]
+
 1.2.6-beta (13.09.2016)
 ==============
 - Fix "vendors" resolver

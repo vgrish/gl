@@ -184,12 +184,13 @@ class gl
      */
     public function loadCustomJsCss($objectName = 'gl')
     {
-        $config = $this->modx->toJSON(array(
+        $config = json_encode(array(
             'assetsUrl'     => $this->config['assetsUrl'],
             'actionUrl'     => $this->config['actionUrl'],
             'modalShow'     => $this->config['modalShow'],
+            'pageReload'    => $this->config['pageReload'],
             'locationClass' => $this->config['class'],
-        ));
+        ), true);
 
         $this->modx->regClientStartupScript(preg_replace('#(\n|\t)#', '', '
 				<script type="text/javascript">
@@ -275,6 +276,26 @@ class gl
         }
 
         return $result;
+    }
+
+    /**
+     * @param array  $array
+     * @param string $prefix
+     *
+     * @return array
+     */
+    public function flattenArray(array $array = array(), $prefix = '', $separator = '-')
+    {
+        $outArray = array();
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $outArray = $outArray + $this->flattenArray($value, $prefix . $key . $separator);
+            } else {
+                $outArray[$prefix . $key] = $value;
+            }
+        }
+
+        return $outArray;
     }
 
     /**
@@ -393,7 +414,7 @@ class gl
                 $ip = $_SERVER['HTTP_CLIENT_IP'];
                 break;
             case (isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND $_SERVER['HTTP_X_FORWARDED_FOR'] != ''):
-                $ip = explode(',' , $_SERVER['HTTP_X_FORWARDED_FOR']);
+                $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
                 $ip = $ip[0];
                 break;
             case (isset($_SERVER['REMOTE_ADDR']) AND $_SERVER['REMOTE_ADDR'] != ''):

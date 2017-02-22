@@ -21,12 +21,6 @@ $tmp = array(
         'type'  => 'combo-boolean',
         'value' => true,
     ),
-/*
-    'jqueryJs' => array(
-        'type'  => 'textfield',
-        'value' => '[[+assetsUrl]]vendor/jquery/jquery.min.js',
-    ),*/
-
     'frontendCss' => array(
         'type'  => 'textfield',
         'value' => '[[+assetsUrl]]css/web/default.css',
