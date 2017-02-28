@@ -1,5 +1,9 @@
 Changelog for GeoLocation.
 
+1.2.8-beta (28.02.2017)
+==============
+- Improved "gl.class.php"
+
 1.2.7-beta (22.02.2017)
 ==============
 - Improved "select.class.php"

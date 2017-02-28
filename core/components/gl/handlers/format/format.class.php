@@ -81,7 +81,7 @@ class Format implements FormatInterface
      */
     public function formatData(array $data = array())
     {
-        $data['resource_url'] = $data['resource'];
+        $data['resource_url'] = $this->modx->getOption('resource', $data);
 
         return $data;
     }
