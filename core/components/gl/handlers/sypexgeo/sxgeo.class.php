@@ -487,6 +487,7 @@ class SxGeo
         $empty = empty($item);
         $pack = explode('/', $pack);
         $pos = 0;
+
         foreach ($pack AS $p) {
             list($type, $name) = explode(':', $p);
             $type0 = $type{0};

@@ -625,7 +625,7 @@ class gl
             $currentData['data'] = $defaultData['data'];
         }
 
-        return array_merge($currentData, $cityFull);
+        return array_merge($cityFull, $currentData);
     }
 
     /**
