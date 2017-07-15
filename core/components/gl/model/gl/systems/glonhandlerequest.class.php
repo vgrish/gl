@@ -39,7 +39,7 @@ class glOnHandleRequest extends glPlugin
                 $this->gl->opts['selected'] = $this->gl->opts['current'];
                 break;
         }
-        
+
         $this->gl->setPlaceholders((array)$this->gl->opts);
 
     }
