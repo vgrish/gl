@@ -770,7 +770,9 @@ class gl
         if (empty($action)) {
             return false;
         }
-        $this->modx->error->reset();
+        if ($error = $this->modx->getService('error', 'error.modError')) {
+            $error->reset();
+        }
         /* @var modProcessorResponse $response */
         $response = $this->modx->runProcessor($action, $data,
             array('processors_path' => $this->config['processorsPath']));
