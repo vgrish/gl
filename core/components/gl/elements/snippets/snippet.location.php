@@ -27,7 +27,11 @@ $where = array(
 );
 
 if (!empty($scriptProperties['where'])) {
-    $tmp = $modx->fromJSON($scriptProperties['where']);
+    if (is_array($scriptProperties['where'])) {
+        $tmp = $scriptProperties['where'];
+    } else {
+        $tmp = $modx->fromJSON($scriptProperties['where']);
+    }
     if (is_array($tmp) AND !empty($tmp)) {
         $where = array_merge($where, $tmp);
     }
