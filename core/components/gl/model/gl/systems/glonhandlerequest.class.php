@@ -21,7 +21,11 @@ class glOnHandleRequest extends glPlugin
 
         if (empty($this->gl->opts['check'])) {
             $this->gl->opts['real'] = $this->gl->getRealData();
-            $this->gl->opts['current'] = $this->gl->getDefaultData();
+            if ($this->gl->opts['real']['country']['id']) {
+                $this->gl->opts['current'] = $this->gl->opts['real'];
+            } else {
+                $this->gl->opts['current'] = $this->gl->getDefaultData();
+            }
             $this->gl->opts['check'] = true;
         }
 
