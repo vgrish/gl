@@ -12,7 +12,7 @@
                 [[!gl.location?
                 &limit=`1`
                 &class=`[[+class]]`
-                &where=`{"name_ru":"[[!+gl.selected.city.name_ru]]"}`
+                &where=`{ "name_ru" : "[[!+gl.selected.city.name_ru]]" }`
                 ]]
             </ul>
 
@@ -34,7 +34,7 @@
             <ul class="gl-change-list">
                 [[!gl.location?
                 &class=`[[+class]]`
-                &where=`{"default":0}`
+                &where=`{ "default" : 0 }`
                 ]]
             </ul>
 
