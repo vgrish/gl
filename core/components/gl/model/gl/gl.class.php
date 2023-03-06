@@ -533,6 +533,9 @@ class gl
             $data = array(
                 'data' => $this->getObjectData('glData', array('identifier' => $id, 'class' => $class))
             );
+            if (empty($data['data']) || empty($data['data']['id']) || (isset($data['data'][0]) && empty($data['data'][0]))) {
+                $data['data'] = $this->getObjectData('glData');
+            }
 
             switch ($class) {
                 case 'glCountry':
